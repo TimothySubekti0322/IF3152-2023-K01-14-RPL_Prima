@@ -14,7 +14,7 @@
     "react-dom": "^18.2.0",
     "ts-loader": "^9.5.0",
     "webpack": "^5.89.0",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
     "axios": "^1.6.1",
     "flowbite": "^2.1.1",
     "flowbite-react": "^0.6.4",

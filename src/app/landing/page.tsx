@@ -9,7 +9,10 @@ export default function Landing() {
       </head>
 
       <body>
-        <NavBar/>
+        <div className="h-screen w-screen bg-[#EEEEEE] text-white">
+          <NavBar/>
+        </div>
+       
       </body>
       
       
