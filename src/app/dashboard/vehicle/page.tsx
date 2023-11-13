@@ -2,11 +2,11 @@
 
 import Title from "../components/Title";
 
-export default function User() {
+export default function Vehicle() {
   return (
     <>
       <Title />
-      <h1>This is user page</h1>
+      <h1>This is Vehicle page</h1>
     </>
   );
 }
