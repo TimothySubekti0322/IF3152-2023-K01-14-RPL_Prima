@@ -1,8 +1,18 @@
+import { NavBar } from "./components";
+
 export default function Landing() {
   return (
     <>
-      <h1>Welcome to this landing page</h1>
-      <p>This is Landing page</p>
+      <head>
+        <link rel="icon" href="%PUBLIC_URL%/favicon.png" />
+        <title>RPL Prima</title>
+      </head>
+
+      <body>
+        <NavBar/>
+      </body>
+      
+      
     </>
   );
 }
