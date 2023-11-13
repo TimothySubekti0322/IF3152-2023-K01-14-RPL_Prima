@@ -29,6 +29,9 @@ export default function Sidebar() {
   // Acquired Path name
   const path = usePathname();
 
+  // get menu
+  const menu = path.split("/")[2];
+
   return (
     <>
       <button
@@ -48,8 +51,8 @@ export default function Sidebar() {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            clip-rule="evenodd"
-            fill-rule="evenodd"
+            clipRule="evenodd"
+            fillRule="evenodd"
             d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
           ></path>
         </svg>
@@ -76,7 +79,7 @@ export default function Sidebar() {
               <a
                 href="/dashboard/class"
                 className={`flex items-center p-2  hover:bg-gray-700 group ${
-                  path == "/dashboard/class" ? "bg-gray-700" : ""
+                  menu == "class" ? "bg-gray-700" : ""
                 }`}
               >
                 <img src="/images/class.png" alt="class" className="w-7 h-7" />
@@ -87,7 +90,7 @@ export default function Sidebar() {
               <a
                 href="/dashboard/instructor"
                 className={`flex items-center p-2  hover:bg-gray-700 group ${
-                  path == "/dashboard/instructor" ? "bg-gray-700" : ""
+                  menu == "instructor" ? "bg-gray-700" : ""
                 }`}
               >
                 <img
@@ -104,7 +107,7 @@ export default function Sidebar() {
               <a
                 href="/dashboard/student"
                 className={`flex items-center p-2  hover:bg-gray-700 group ${
-                  path == "/dashboard/student" ? "bg-gray-700" : ""
+                  menu == "student" ? "bg-gray-700" : ""
                 }`}
               >
                 <img
@@ -119,7 +122,7 @@ export default function Sidebar() {
               <a
                 href="/dashboard/schedule"
                 className={`flex items-center p-2  hover:bg-gray-700 group ${
-                  path == "/dashboard/schedule" ? "bg-gray-700" : ""
+                  menu == "schedule" ? "bg-gray-700" : ""
                 }`}
               >
                 <img
@@ -134,7 +137,7 @@ export default function Sidebar() {
               <a
                 href="/dashboard/user"
                 className={`flex items-center p-2  hover:bg-gray-700 group ${
-                  path == "/dashboard/user" ? "bg-gray-700" : ""
+                  menu == "user" ? "bg-gray-700" : ""
                 }`}
               >
                 <img src="/images/user.png" alt="user" className="w-7 h-7" />
@@ -145,7 +148,7 @@ export default function Sidebar() {
               <a
                 href="/dashboard/vehicle"
                 className={`flex items-center p-2  hover:bg-gray-700 group ${
-                  path == "/dashboard/vehicle" ? "bg-gray-700" : ""
+                  menu == "vehicle" ? "bg-gray-700" : ""
                 }`}
               >
                 <img

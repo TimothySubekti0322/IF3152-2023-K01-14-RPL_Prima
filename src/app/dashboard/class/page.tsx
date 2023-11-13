@@ -6,12 +6,23 @@ import Search from "../components/Search";
 import AddButton from "../components/AddButton";
 import Table from "./components/Table";
 import Pagination from "../components/Pagination";
+import Footer from "../components/Footer";
+import Loader from "../components/Loader";
 import axios from "axios";
 
-// Data
-import { column, data } from "./classData";
-
 export default function Class() {
+  // List Column
+  const column: string[] = [
+    "Id",
+    "Price",
+    "Duration",
+    "Session",
+    "Transmision",
+    "Vehicle Type",
+    "Action",
+  ];
+
+  // Number data in one page
   const dataPerPage = 10;
 
   const [rawData, setRawData] = useState([]);
@@ -49,26 +60,33 @@ export default function Class() {
   return (
     <>
       {loading ? (
-        ""
+        <Loader />
       ) : (
         <>
-          <Title />
-          <div className="flex flex-row items-center justify-between mt-4 md:mt-8">
-            <Search />
-            <AddButton />
+          <div className="md:p-12 p-6">
+            <Title />
+            <div className="flex flex-row items-center justify-between mt-4 md:mt-8">
+              <Search />
+              <AddButton />
+            </div>
+
+            {/* Table */}
+            <section className="bg-white mt-4 md:mt-8 rounded-md p-4 md:p-10">
+              <Table column={column} data={data} />
+              <div className="w-full flex justify-center">
+                <Pagination
+                  totalPages={totalPages}
+                  page={page}
+                  setPage={setPage}
+                />
+              </div>
+            </section>
           </div>
 
-          {/* Table */}
-          <section className="bg-white mt-4 md:mt-8 rounded-md overflow-x-auto p-4 md:p-10">
-            <Table column={column} data={data} />
-            <div className="mt-8 w-full flex justify-center">
-              <Pagination
-                totalPages={totalPages}
-                page={page}
-                setPage={setPage}
-              />
-            </div>
-          </section>
+          {/* Footer */}
+          <div className="mt-8">
+            <Footer />
+          </div>
         </>
       )}
     </>

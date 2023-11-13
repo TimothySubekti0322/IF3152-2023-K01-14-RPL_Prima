@@ -10,7 +10,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </div>
         <div className="md:flex-grow md:overflow-y-auto">
           <Header />
-          <div className="p-6 md:p-12">{children}</div>
+          <div>{children}</div>
         </div>
       </div>
     </div>
