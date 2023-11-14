@@ -1,4 +1,4 @@
-import { NavBar } from "./components";
+import { NavBar, Home, WhyUs } from "./components";
 
 export default function Landing() {
   return (
@@ -11,6 +11,8 @@ export default function Landing() {
       <body>
         <div className="h-screen w-screen bg-[#EEEEEE] text-white">
           <NavBar/>
+          <Home />
+          <WhyUs />
         </div>
        
       </body>

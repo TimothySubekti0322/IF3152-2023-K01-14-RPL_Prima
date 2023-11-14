@@ -33,40 +33,7 @@ export default function NavBar() {
                     </ul>
                 </div>
             </div>
-            </nav>
-
-
-
-            {/* <div className="NavBar">
-                    <img className = "p-[10px]  h-[48px] w-[48px] " src="/images/logo_img.png" alt="Logo RPL Prima" ></img> 
-                    <img className = "p-20 h-[48px] max-w-[90px] md:max-w-screen" src="/images/logo_title.png" alt="Logo RPL Prima" ></img> 
-                    {/* href="#home" 
-
-                    <div className='Square' style={{width: 150}}>
-                        <a title = 'HOME' href='#home'>
-                                Home
-                        </a>
-                    </div>
-                    <div className='Square' style={{width: 180}}>
-                        <a className='nav-links' title = 'ACTIVITIES' href='#activities'>
-                                Why Us
-                        </a>
-                    </div>
-                    <div className='Square' style={{width: 180}}>
-                        <a className='nav-links' title = 'ABOUT US' href='#about-us' >
-                                Our Packages
-                        </a>
-                    </div>
-                    <div className='Square' style={{width: 200}}>
-                        <a className='nav-links' title = 'MEET THE TEAM' href='#meet-the-team'>
-                                Register
-                        </a>
-                    </div>
-                            
-                </div> 
-                */}
-        {/* </div>  */}
-        
+            </nav>       
       
     </>
   );
