@@ -1,4 +1,4 @@
-import { NavBar, Home, WhyUs } from "./components";
+import { NavBar, Home, WhyUs, OurPackages, Footer } from "./components";
 
 export default function Landing() {
   return (
@@ -13,6 +13,8 @@ export default function Landing() {
           <NavBar/>
           <Home />
           <WhyUs />
+          <OurPackages />
+          <Footer />
         </div>
        
       </body>

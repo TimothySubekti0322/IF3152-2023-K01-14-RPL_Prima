@@ -4,8 +4,8 @@ export default function NavBar() {
     <>
         {/* <div className="flex flex-row h-screen w-40 md:h-20 md:w-screen md:flex-col md:overflow-hidden bg-[#1C2434]"> */}
 
-        <nav className="bg-[#1C2434] border-gray-200 px-10">
-            <div className="max-w-screen flex flex-wrap items-center justify-between mx-auto p-4 md: p-0">
+        <nav className="w-screen fixed t-0 m-0 border-t-0 top-0 bg-[#1C2434] border-gray-200 px-10">
+            <div className=" flex flex-wrap items-center justify-between mx-auto p-4 md:p-0">
                 <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src="images/logo_img.png" className="h-8" alt="Flowbite Logo" />
                     <img src="images/logo_title.png" className="h-8" alt="Flowbite Logo" />
