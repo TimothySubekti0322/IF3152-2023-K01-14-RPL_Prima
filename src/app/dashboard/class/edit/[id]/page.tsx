@@ -9,11 +9,11 @@ import transmission from "../../../data/transmission";
 import carType from "../../../data/carType";
 import BackButton from "@/app/dashboard/components/BackButton";
 
-interface pageProps {
+interface PageProps {
   id: number;
 }
 
-const EditClass: FC<pageProps> = ({ id }) => {
+const EditClass: FC<PageProps> = ({ id }) => {
   const [loading, setLoading] = useState(false);
 
   const [form, setForm] = useState({
