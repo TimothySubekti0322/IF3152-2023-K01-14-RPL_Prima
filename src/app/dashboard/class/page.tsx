@@ -63,15 +63,15 @@ export default function Class() {
         <Loader />
       ) : (
         <>
-          <div className="md:p-12 p-6">
+          <div className="md:px-12 md:py-8 p-6">
             <Title />
-            <div className="flex flex-row items-center justify-between mt-4 md:mt-8">
+            <div className="flex flex-row items-center justify-between mt-4 md:mt-6 md:gap-x-96">
               <Search />
               <AddButton />
             </div>
 
             {/* Table */}
-            <section className="bg-white mt-4 md:mt-8 rounded-md p-4 md:p-10">
+            <section className="bg-white mt-6 md:mt-8 rounded-md p-4 md:p-10">
               <Table column={column} data={data} />
               <div className="w-full flex justify-center">
                 <Pagination
@@ -84,7 +84,7 @@ export default function Class() {
           </div>
 
           {/* Footer */}
-          <div className="mt-8">
+          <div className=" mt-4 md:mt-6">
             <Footer />
           </div>
         </>
