@@ -1,28 +1,62 @@
 "use client";
 
-import React, { FC, useState, ChangeEvent, useLayoutEffect } from "react";
+import React, { useState, ChangeEvent, useLayoutEffect } from "react";
 import Loader from "../../../components/Loader";
 import Footer from "../../../components/Footer";
 import Title from "../../../components/Title";
 import NumberInput from "../../../components/inputComponent/NumberInput";
-import transmission from "../../../data/transmission";
-import carType from "../../../data/carType";
+import Dropdown from "../../../components/inputComponent/Dropdown";
 import BackButton from "@/app/dashboard/components/BackButton";
+import toast, { Toaster } from "react-hot-toast";
+import { usePathname } from "next/navigation";
+import axios from "axios";
+import carType from "../../../data/carType";
+import transmission from "../../../data/transmission";
 
-interface PageProps {
-  id: number;
+interface FormDataTypes {
+  price: number | undefined;
+  duration: number | string | undefined;
+  session: number | undefined;
+  transmission: any;
+  vehicleType: any;
 }
 
-const EditClass: FC<PageProps> = ({ id }) => {
-  const [loading, setLoading] = useState(false);
+const EditClass = () => {
+  // Loading state
+  const [loading, setLoading] = useState(true);
 
-  const [form, setForm] = useState({
-    price: "",
-    duration: "",
-    session: "",
+  const [form, setForm] = useState<FormDataTypes>({
+    price: undefined,
+    duration: undefined,
+    session: undefined,
     transmission: "",
-    type: "",
+    vehicleType: "",
   });
+
+  // Fetching Data
+  const path = usePathname();
+  const id = path.split("/")[4];
+
+  useLayoutEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`/api/class/${id}`);
+        setForm({
+          price: res.data.data.price,
+          duration: res.data.data.duration,
+          session: res.data.data.session,
+          transmission: res.data.data.transmission,
+          vehicleType: res.data.data.vehicleType,
+        });
+      } catch (err) {
+        toast.error("Error fetching data");
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -31,6 +65,7 @@ const EditClass: FC<PageProps> = ({ id }) => {
     setForm({ ...form, [name]: value });
   };
 
+  // Handle Duration Input
   const [durationError, setDurationError] = useState(false);
   const handleFloatInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -39,7 +74,7 @@ const EditClass: FC<PageProps> = ({ id }) => {
     if (/^(\d+\.?\d*|\.\d+)$/.test(value) || value === "") {
       setDurationError(false);
       // Update your state or variable here
-      setForm({ ...form, [name]: value });
+      setForm({ ...form, [name]: parseFloat(value) });
     } else {
       setDurationError(true);
     }
@@ -50,11 +85,11 @@ const EditClass: FC<PageProps> = ({ id }) => {
 
   useLayoutEffect(() => {
     if (
-      form.price !== "" &&
-      form.duration !== "" &&
-      form.session !== "" &&
+      form.price !== undefined &&
+      form.duration !== undefined &&
+      form.session !== undefined &&
       form.transmission !== "" &&
-      form.type !== "" &&
+      form.vehicleType !== "" &&
       !durationError
     ) {
       setSubmitAvailable(true);
@@ -63,9 +98,30 @@ const EditClass: FC<PageProps> = ({ id }) => {
     }
   }, [form, durationError]);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log(form);
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true);
+    try {
+      event.preventDefault();
+      const res = await axios.patch(`/api/class/${id}`, form);
+      if (res.status === 200) {
+        toast.success("Data updated successfully");
+      }
+    } catch (err) {
+      console.log(err);
+      setTimeout(toast.error("Something went wrong"), 100);
+    } finally {
+      setLoading(false);
+      setForm({
+        price: undefined,
+        duration: undefined,
+        session: undefined,
+        transmission: "",
+        vehicleType: "",
+      });
+      setTimeout(() => {
+        window.location.href = "/dashboard/class";
+      }, 1000); // Delayed by 2000 milliseconds (2 seconds)
+    }
   };
 
   const backHandler = () => {
@@ -73,6 +129,7 @@ const EditClass: FC<PageProps> = ({ id }) => {
   };
   return (
     <>
+      <Toaster />
       {loading ? (
         <Loader />
       ) : (
@@ -91,7 +148,7 @@ const EditClass: FC<PageProps> = ({ id }) => {
                     inputID="price"
                     placeholder="Enter Class Price"
                     onChange={handleInputChange}
-                    value={undefined}
+                    value={form.price}
                     description="Price in Rupiah"
                   />
 
@@ -112,6 +169,7 @@ const EditClass: FC<PageProps> = ({ id }) => {
                       placeholder="e.g 2.5"
                       pattern="^\d+\.?\d*|\.\d+$"
                       onChange={handleFloatInputChange}
+                      defaultValue={form.duration}
                     />
                     <i
                       className={`text-xs mt-2 ${
@@ -130,65 +188,29 @@ const EditClass: FC<PageProps> = ({ id }) => {
                     inputID="session"
                     placeholder="Enter Class Session"
                     onChange={handleInputChange}
-                    value={undefined}
+                    value={form.session}
                     description=""
                   />
 
                   {/* Transmisi kendaraan */}
-                  <div className="flex flex-col">
-                    <label htmlFor="transmission" className="font-bold text-xl">
-                      Vehicle Transmission
-                    </label>
-                    <select
-                      name="transmission"
-                      id="transmission"
-                      className="w-4/5 rounded-lg border-2 border-[#B7B7B7] mt-4"
-                      placeholder="Select Vehicle Transmission"
-                      onChange={handleInputChange}
-                    >
-                      <option
-                        value=""
-                        disabled
-                        selected
-                        className="text-[#B7B7B7]"
-                      >
-                        Select Vehicle Transmission
-                      </option>
-                      {transmission.map((item: string, index: number) => (
-                        <option key={index} value={item}>
-                          {item}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <Dropdown
+                    title="Vehicle Transmission"
+                    inputID="transmission"
+                    placeholder="Select Vehicle Transmission"
+                    onChange={handleInputChange}
+                    value={form.transmission}
+                    data={transmission}
+                  />
 
                   {/* Jenis Kendaraan */}
-                  <div className="flex flex-col">
-                    <label htmlFor="type" className="font-bold text-xl">
-                      Vehicle Type
-                    </label>
-                    <select
-                      name="type"
-                      id="type"
-                      className="w-4/5 rounded-lg border-2 border-[#B7B7B7] mt-4"
-                      placeholder="Select Vehicle type"
-                      onChange={handleInputChange}
-                    >
-                      <option
-                        value=""
-                        disabled
-                        selected
-                        className="text-[#B7B7B7]"
-                      >
-                        Select Vehicle Type
-                      </option>
-                      {carType.map((item: string, index: number) => (
-                        <option key={index} value={item}>
-                          {item}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <Dropdown
+                    title="Vehicle Type"
+                    inputID="vehicleType"
+                    placeholder="Select Vehicle type"
+                    onChange={handleInputChange}
+                    value={form.vehicleType}
+                    data={carType}
+                  />
 
                   {/* Submit */}
                   <div className="w-full flex justify-center items-center">

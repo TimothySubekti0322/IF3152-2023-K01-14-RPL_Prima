@@ -11,7 +11,7 @@ interface dataProps {
   price: number;
   duration: string;
   session: number;
-  transmision: string;
+  transmission: string;
   vehicleType: string;
 }
 
@@ -35,7 +35,7 @@ const Table: React.FC<{ column: string[]; data: dataProps[] }> = ({
 
   return (
     <>
-      <div className="w-full md:h-[34rem] mb-10 overflow-x-auto">
+      <div className="w-full md:h-[34rem] h-[37.5rem] mb-10 overflow-x-auto">
         <table className="md:w-full table-auto">
           {/* Table header */}
           <thead>
@@ -56,7 +56,7 @@ const Table: React.FC<{ column: string[]; data: dataProps[] }> = ({
                 <td className="px-4 py-2 text-center ">{item.price}</td>
                 <td className="px-4 py-2 text-center ">{item.duration}</td>
                 <td className="px-4 py-2 text-center ">{item.session}</td>
-                <td className="px-4 py-2 text-center ">{item.transmision}</td>
+                <td className="px-4 py-2 text-center ">{item.transmission}</td>
                 <td className="px-4 py-2 text-center ">{item.vehicleType}</td>
                 <td className="px-4 py-2  flex flex-row items-center justify-center">
                   {/* Edit */}
@@ -86,7 +86,11 @@ const Table: React.FC<{ column: string[]; data: dataProps[] }> = ({
       </div>
 
       {/* Modals */}
-      <DeleteModal dialogID="my_modal_1" dataID={deleteID} />
+      <DeleteModal
+        dialogID="my_modal_1"
+        dataID={deleteID}
+        apiURL="/api/class/"
+      />
     </>
   );
 };

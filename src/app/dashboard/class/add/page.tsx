@@ -8,16 +8,31 @@ import Dropdown from "../../components/inputComponent/Dropdown";
 import BackButton from "../../components/BackButton";
 import transmission from "../../data/transmission";
 import carType from "../../data/carType";
+import axios from "axios";
+import Cookies from "universal-cookie";
+import toast, { Toaster } from "react-hot-toast";
 
 interface transmission {
   transmission: string;
 }
 
+interface FormDataTypes {
+  price: number | undefined;
+  duration: number | undefined;
+  session: number | undefined;
+  transmission: string;
+  vehicleType: string;
+}
+
 export default function AddClass() {
-  const [form, setForm] = useState({
-    price: "",
-    duration: "",
-    session: "",
+  // Loading state
+  const [loading, setLoading] = useState<boolean>(false);
+
+  // Form Data
+  const [form, setForm] = useState<FormDataTypes>({
+    price: undefined,
+    duration: undefined,
+    session: undefined,
     transmission: "",
     vehicleType: "",
   });
@@ -29,6 +44,7 @@ export default function AddClass() {
     setForm({ ...form, [name]: value });
   };
 
+  // Handle Duration Input
   const [durationError, setDurationError] = useState(false);
   const handleFloatInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -37,7 +53,7 @@ export default function AddClass() {
     if (/^(\d+\.?\d*|\.\d+)$/.test(value) || value === "") {
       setDurationError(false);
       // Update your state or variable here
-      setForm({ ...form, [name]: value });
+      setForm({ ...form, [name]: parseFloat(value) });
     } else {
       setDurationError(true);
     }
@@ -48,9 +64,9 @@ export default function AddClass() {
 
   useLayoutEffect(() => {
     if (
-      form.price !== "" &&
-      form.duration !== "" &&
-      form.session !== "" &&
+      form.price !== undefined &&
+      form.duration !== undefined &&
+      form.session !== undefined &&
       form.transmission !== "" &&
       form.vehicleType !== "" &&
       !durationError
@@ -61,9 +77,38 @@ export default function AddClass() {
     }
   }, [form, durationError]);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log(form);
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true);
+    try {
+      event.preventDefault();
+      const Cookie = new Cookies();
+      const token = Cookie.get("token");
+      const res = await axios.post("/api/class", form, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.status === 201) {
+        toast.success("Data added successfully");
+      } else if (res.status === 401) {
+        window.location.href = "/unauthorized";
+      }
+    } catch (err) {
+      console.log(err);
+      setTimeout(toast.error("Something went wrong"), 100);
+    } finally {
+      setLoading(false);
+      setForm({
+        price: undefined,
+        duration: undefined,
+        session: undefined,
+        transmission: "",
+        vehicleType: "",
+      });
+      setTimeout(() => {
+        window.location.href = "/dashboard/class";
+      }, 1000); // Delayed by 2000 milliseconds (2 seconds)
+    }
   };
 
   // Back Handler
@@ -73,6 +118,7 @@ export default function AddClass() {
 
   return (
     <>
+      <Toaster />
       <div className="md:p-12 p-6">
         <BackButton backHandler={backHandler} src="/images/left.png" />
         <Title />
@@ -159,7 +205,14 @@ export default function AddClass() {
                   } text-white font-semibold text-base rounded-lg py-2 px-4 md:text-xl md:py-3 md:px-10`}
                   disabled={!submitAvailable}
                 >
-                  Submit
+                  {loading ? (
+                    <div className="flex items-center gap-x-3">
+                      <span className="loading loading-spinner loading-sm md:loading-md"></span>
+                      <p className="text-md">Loading</p>
+                    </div>
+                  ) : (
+                    "Submit"
+                  )}
                 </button>
               </div>
             </div>
