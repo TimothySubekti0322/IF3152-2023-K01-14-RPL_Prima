@@ -42,7 +42,13 @@ export const DELETE = async (
   try {
     const authHeader = request.headers.get("Authorization");
     if (!authHeader) {
-      return { message: "Authorization header missing", status: 401 };
+      return new Response(
+        JSON.stringify({
+          message: "Authorization header missing",
+          status: 401,
+        }),
+        { status: 401 }
+      );
     }
     const deletedClass = await prisma.class.delete({
       where: {
@@ -50,16 +56,16 @@ export const DELETE = async (
       },
     });
 
-    return NextResponse.json(
-      {
+    return new Response(
+      JSON.stringify({
         message: "Class deleted successfully",
         data: deletedClass,
-      },
+      }),
       { status: 200 }
     );
   } catch (error) {
-    return NextResponse.json(
-      { message: "Data not found", data: error },
+    return new Response(
+      JSON.stringify({ message: "Data not found", data: error }),
       { status: 404 }
     );
   }
@@ -72,7 +78,13 @@ export const PATCH = async (
   try {
     const authHeader = request.headers.get("Authorization");
     if (!authHeader) {
-      return { message: "Authorization header missing", status: 401 };
+      return new Response(
+        JSON.stringify({
+          message: "Authorization header missing",
+          status: 401,
+        }),
+        { status: 401 }
+      );
     }
     const body: Class = await request.json();
     const updatedClass = await prisma.class.update({
@@ -88,13 +100,16 @@ export const PATCH = async (
       },
     });
 
-    return NextResponse.json(
-      { message: "Data Updated Successfuly", data: updatedClass },
+    return new Response(
+      JSON.stringify({
+        message: "Data Updated Successfully",
+        data: updatedClass,
+      }),
       { status: 200 }
     );
   } catch (error) {
-    return NextResponse.json(
-      { message: "Data Updated Failed", data: error },
+    return new Response(
+      JSON.stringify({ message: "Data Update Failed", data: error }),
       { status: 400 }
     );
   }
