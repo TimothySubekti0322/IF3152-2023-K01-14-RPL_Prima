@@ -10,6 +10,7 @@ import BackButton from "@/app/dashboard/components/BackButton";
 import toast, { Toaster } from "react-hot-toast";
 import { usePathname } from "next/navigation";
 import axios from "axios";
+import Cookie from "universal-cookie";
 import carType from "../../../data/carType";
 import transmission from "../../../data/transmission";
 
@@ -40,7 +41,13 @@ const EditClass = () => {
   useLayoutEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`/api/class/${id}`);
+        const Cookies = new Cookie();
+        const token = Cookies.get("token");
+        const res = await axios.get(`/api/class/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setForm({
           price: res.data.data.price,
           duration: res.data.data.duration,
@@ -102,7 +109,13 @@ const EditClass = () => {
     setLoading(true);
     try {
       event.preventDefault();
-      const res = await axios.patch(`/api/class/${id}`, form);
+      const Cookies = new Cookie();
+      const token = Cookies.get("token");
+      const res = await axios.patch(`/api/class/${id}`, form, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (res.status === 200) {
         toast.success("Data updated successfully");
       }
