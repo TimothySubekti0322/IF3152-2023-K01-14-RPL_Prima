@@ -11,22 +11,27 @@ export const GET = async (
   try {
     const authHeader = request.headers.get("Authorization");
     if (!authHeader) {
-      return { message: "Authorization header missing", status: 401 };
+      return new Response(
+        JSON.stringify({
+          message: "Authorization header missing",
+          status: 401,
+        }),
+        { status: 401 }
+      );
     }
     const classes = await prisma.class.findFirstOrThrow({
       where: {
         id: Number(params.id),
       },
     });
-    return NextResponse.json(
-      { message: "Class found", data: classes },
+    return new Response(
+      JSON.stringify({ message: "Class found", data: classes }),
       { status: 200 }
     );
   } catch (error) {
-    return NextResponse.json(
-      { message: "Data not found", data: error },
-      { status: 404 }
-    );
+    return new Response(JSON.stringify({ message: "Data not found" }), {
+      status: 404,
+    });
   }
 };
 
