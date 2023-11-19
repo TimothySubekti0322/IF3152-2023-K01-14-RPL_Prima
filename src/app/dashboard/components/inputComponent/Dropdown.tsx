@@ -28,16 +28,17 @@ const Dropdown: FC<DropdownProps> = ({
         className="w-4/5 rounded-lg border-2 border-[#B7B7B7] mt-4"
         placeholder={placeholder}
         onChange={onChange}
+        defaultValue={value == undefined ? placeholder : value}
       >
         <option
           disabled
-          selected={value == undefined}
+          // selected={value == undefined}
           className="text-[#B7B7B7]"
         >
           {placeholder}
         </option>
         {data.map((item, index) => (
-          <option key={index} value={item} selected={value == item}>
+          <option key={index} value={item}>
             {item}
           </option>
         ))}

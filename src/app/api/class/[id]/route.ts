@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import type { Class } from "@prisma/client";
+import authorized from "../../authorized";
 const prisma = new PrismaClient();
 
 export const GET = async (
@@ -8,12 +9,19 @@ export const GET = async (
   { params }: { params: { id: string } }
 ) => {
   try {
+    const authHeader = request.headers.get("Authorization");
+    if (!authHeader) {
+      return { message: "Authorization header missing", status: 401 };
+    }
     const classes = await prisma.class.findFirstOrThrow({
       where: {
         id: Number(params.id),
       },
     });
-    return NextResponse.json(classes);
+    return NextResponse.json(
+      { message: "Class found", data: classes },
+      { status: 200 }
+    );
   } catch (error) {
     return NextResponse.json(
       { message: "Data not found", data: error },
@@ -27,6 +35,10 @@ export const DELETE = async (
   { params }: { params: { id: string } }
 ) => {
   try {
+    const authHeader = request.headers.get("Authorization");
+    if (!authHeader) {
+      return { message: "Authorization header missing", status: 401 };
+    }
     const deletedClass = await prisma.class.delete({
       where: {
         id: Number(params.id),
@@ -53,15 +65,19 @@ export const PATCH = async (
   { params }: { params: { id: string } }
 ) => {
   try {
+    const authHeader = request.headers.get("Authorization");
+    if (!authHeader) {
+      return { message: "Authorization header missing", status: 401 };
+    }
     const body: Class = await request.json();
     const updatedClass = await prisma.class.update({
       where: {
         id: Number(params.id),
       },
       data: {
-        price: body.price,
+        price: Number(body.price),
         duration: body.duration,
-        session: body.session,
+        session: Number(body.session),
         transmission: body.transmission,
         vehicleType: body.vehicleType,
       },

@@ -9,6 +9,7 @@ import Pagination from "../components/Pagination";
 import Footer from "../components/Footer";
 import Loader from "../components/Loader";
 import axios from "axios";
+import Cookies from "universal-cookie";
 
 export default function Class() {
   // List Column
@@ -33,21 +34,35 @@ export default function Class() {
 
   // Fetch Raw Data
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (token: string) => {
       try {
         setLoading(true);
-        const res = await axios.get(
-          "https://64c12de9fa35860baea02b67.mockapi.io/api/test/users"
-        );
-        setRawData(res.data);
-        setData(res.data.slice(0, dataPerPage));
-        setTotalPages(Math.ceil(res.data.length / dataPerPage));
-        setLoading(false);
+        const res = await axios.get("/api/class", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (res.status === 401) {
+          window.location.href = "/unauthorized";
+        } else {
+          setRawData(res.data);
+          setData(res.data.slice(0, dataPerPage));
+          setTotalPages(Math.ceil(res.data.length / dataPerPage));
+          setLoading(false);
+        }
       } catch (err) {
         console.log(err);
       }
     };
-    fetchData();
+
+    const Cookie = new Cookies();
+    const role = Cookie.get("payload").role;
+    if (role === "Admin") {
+      window.location.href = "/unauthorized";
+    } else {
+      const token: string = Cookie.get("token");
+      fetchData(token);
+    }
   }, []);
 
   // Handle Data Change
