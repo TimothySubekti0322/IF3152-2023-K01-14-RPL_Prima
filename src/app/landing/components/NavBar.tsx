@@ -4,8 +4,8 @@ export default function NavBar() {
     <>
         {/* <div className="flex flex-row h-screen w-40 md:h-20 md:w-screen md:flex-col md:overflow-hidden bg-[#1C2434]"> */}
 
-        <nav className="bg-[#1C2434] border-gray-200 px-10">
-            <div className="max-w-screen flex flex-wrap items-center justify-between mx-auto p-4 md: p-0">
+        <nav className="font-4xl z-10 w-screen fixed t-0 m-0 border-t-0 top-0 bg-[#1C2434] border-gray-200 px-10">
+            <div className=" flex flex-wrap items-center justify-between mx-auto p-4 md:p-0">
                 <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src="images/logo_img.png" className="h-8" alt="Flowbite Logo" />
                     <img src="images/logo_title.png" className="h-8" alt="Flowbite Logo" />
@@ -17,56 +17,23 @@ export default function NavBar() {
                     </svg>
                 </button>
                 <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-                    <ul className="font-lg flex flex-col md:flex-row p-4 md:p-0 md:m-0 text-white">
+                    <ul className="text-xl flex flex-col md:flex-row p-4 md:p-0 md:m-0 text-white">
                         <li>
-                        <a href="#" className="text-2xl block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]  p-6">Home</a>
+                        <a href="#home" className="text-xl block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]  p-6">Home</a>
                         </li>
                         <li >
-                        <a href="#" className="text-2xl block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]  p-6">Why Us</a>
+                        <a href="#why-us" className="text-xl block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]  p-6">Why Us</a>
                         </li>
                         <li>
-                        <a href="#" className="text-2xl block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]  p-6">Our Packages</a>
+                        <a href="#our-packages" className="text-xl block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]  p-6">Our Packages</a>
                         </li>
                         <li>
-                        <a href="#" className="text-2xl block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]  p-6 hover:text-white">Register</a>
+                        <a href="/landing/register" className="font-semibold text-xl block text-[#C2E799] hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]  p-6 hover:text-white">Register</a>
                         </li>
                     </ul>
                 </div>
             </div>
-            </nav>
-
-
-
-            {/* <div className="NavBar">
-                    <img className = "p-[10px]  h-[48px] w-[48px] " src="/images/logo_img.png" alt="Logo RPL Prima" ></img> 
-                    <img className = "p-20 h-[48px] max-w-[90px] md:max-w-screen" src="/images/logo_title.png" alt="Logo RPL Prima" ></img> 
-                    {/* href="#home" 
-
-                    <div className='Square' style={{width: 150}}>
-                        <a title = 'HOME' href='#home'>
-                                Home
-                        </a>
-                    </div>
-                    <div className='Square' style={{width: 180}}>
-                        <a className='nav-links' title = 'ACTIVITIES' href='#activities'>
-                                Why Us
-                        </a>
-                    </div>
-                    <div className='Square' style={{width: 180}}>
-                        <a className='nav-links' title = 'ABOUT US' href='#about-us' >
-                                Our Packages
-                        </a>
-                    </div>
-                    <div className='Square' style={{width: 200}}>
-                        <a className='nav-links' title = 'MEET THE TEAM' href='#meet-the-team'>
-                                Register
-                        </a>
-                    </div>
-                            
-                </div> 
-                */}
-        {/* </div>  */}
-        
+            </nav>       
       
     </>
   );
