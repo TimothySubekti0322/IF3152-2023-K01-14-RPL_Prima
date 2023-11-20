@@ -1,6 +1,6 @@
-import { NavBar, Home, WhyUs, OurPackages, Register, Footer } from "./components";
+import { NavBar, Footer, Register } from "../components";
 
-export default function Landing() {
+export default function Registration() {
   return (
     <>
       <head>
@@ -10,11 +10,6 @@ export default function Landing() {
 
       <body>
         <div className="h-full w-full bg-[#EEEEEE] text-white">
-          {/* <NavBar/>
-          <Home />
-          <WhyUs />
-          <OurPackages />
-          <Footer /> */}
           <NavBar />
           <Register />
           <Footer />
