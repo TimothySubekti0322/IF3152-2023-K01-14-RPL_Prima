@@ -8,7 +8,7 @@ async function authorized(req: Request) {
     if (!authHeader) {
       return { message: "Authorization header missing", status: 401 };
     }
-
+    
     const token = authHeader.split(" ")[1]; // Assumes "Bearer TOKEN"
     if (!token) {
       return { message: "Token missing", status: 401 };
