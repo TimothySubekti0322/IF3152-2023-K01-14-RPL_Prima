@@ -18,16 +18,24 @@ export default function Class() {
     "Price",
     "Duration",
     "Session",
-    "Transmision",
+    "Transmission",
     "Vehicle Type",
     "Action",
   ];
 
+  const pageData: string[] = [
+    "id",
+    "price",
+    "duration",
+    "session",
+    "transmission",
+    "vehicleType",
+  ];
   // Number data in one page
   const dataPerPage = 10;
 
   const [rawData, setRawData] = useState([]);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any[]>([]);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState(false);
@@ -79,10 +87,23 @@ export default function Class() {
       ) : (
         <>
           <div className="md:px-12 md:py-8 p-6">
-            <Title />
+            <div className="flex flex-row justify-between items-center">
+              <Title />
+              <div className="md:hidden">
+                <AddButton />
+              </div>
+            </div>
+
             <div className="flex flex-row items-center justify-between mt-4 md:mt-6 md:gap-x-96">
-              <Search />
-              <AddButton />
+              <Search
+                options={pageData}
+                rawData={rawData}
+                setData={setData}
+                setTotalPages={setTotalPages}
+              />
+              <div className="hidden md:w-auto md:block">
+                <AddButton />
+              </div>
             </div>
 
             {/* Table */}

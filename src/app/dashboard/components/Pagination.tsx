@@ -44,6 +44,11 @@ const Pagination: React.FC<PaginationProps> = ({
     }
     setPaginationList(array);
   }, [start, end]);
+
+  useEffect(() => {
+    setEnd(totalPages > 3 ? 3 : totalPages);
+  }, [totalPages]);
+
   return (
     <div className="flex gap-x-4">
       <button
