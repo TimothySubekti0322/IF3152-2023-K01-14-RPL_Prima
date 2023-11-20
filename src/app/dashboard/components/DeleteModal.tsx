@@ -1,5 +1,6 @@
 import React, { FC, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import Cookies from "universal-cookie";
 import axios from "axios";
 
 interface DeleteModalProps {
@@ -15,8 +16,14 @@ const DeleteModal: FC<DeleteModalProps> = ({ dialogID, dataID, apiURL }) => {
   // Delete API
   const deleteHandler = async () => {
     setLoading(true);
+    const cookies = new Cookies();
+    const token = cookies.get("token");
     try {
-      const deletedData = await axios.delete(apiURL + dataID);
+      const deletedData = await axios.delete(apiURL + dataID, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (deletedData.status === 200) {
         toast.success("Data deleted successfully");
         setTimeout(() => {
