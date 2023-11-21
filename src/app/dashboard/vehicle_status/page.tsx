@@ -39,7 +39,7 @@ export default function Class() {
     const fetchData = async (token: string) => {
       try {
         setLoading(true);
-        const res = await axios.get("/api/vehicle", {
+        const res = await axios.get("/api/vehicle/status", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
