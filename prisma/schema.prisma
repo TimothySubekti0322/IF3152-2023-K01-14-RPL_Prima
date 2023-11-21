@@ -27,3 +27,11 @@ model User {
   lokasi          String
   role            String       @default("Admin")
 }
+
+model Instruktur {
+  id              Int          @id @default(autoincrement())
+  name            String
+  nik             String       @unique
+  address         String
+  phone           String
+}
