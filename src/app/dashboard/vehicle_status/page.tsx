@@ -16,10 +16,6 @@ export default function Class() {
   const column: string[] = [
     "Id",
     "Plate",
-    "Vehicle Type",
-    "Transmission",
-    "Distance",
-    "Last Service",
     "Status",
     "Action"  
   ];
@@ -27,10 +23,6 @@ export default function Class() {
   const pageData: string[] = [
     "id",
     "plate",
-    "vehicleType",
-    "transmission",
-    "distance",
-    "lastService",
     "status",
   ];
   // Number data in one page
