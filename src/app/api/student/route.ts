@@ -28,8 +28,8 @@ export const POST = async (request: Request) => {
       data: {
         name: body.name,
         classId: Number(body.classId),
-        phone: body.phone, 
-        address: body.address, 
+        phone: body.phone,
+        address: body.address,
         status: body.status,
       },
     });

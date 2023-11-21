@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import type { Instruktur } from "@prisma/client";
+import type { Instructor } from "@prisma/client";
 import authorized from "../../authorized";
 const prisma = new PrismaClient();
 
@@ -9,23 +9,17 @@ export const GET = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const authHeader = request.headers.get("Authorization");
-    if (!authHeader) {
-      return new Response(
-        JSON.stringify({
-          message: "Authorization header missing",
-          status: 401,
-        }),
-        { status: 401 }
-      );
+    const auth = await authorized(request);
+    if (auth.status !== 200) {
+      return NextResponse.json(auth, { status: auth.status });
     }
-    const instruktures = await prisma.instruktur.findFirstOrThrow({
+    const instructores = await prisma.instructor.findFirstOrThrow({
       where: {
         id: Number(params.id),
       },
     });
     return new Response(
-      JSON.stringify({ message: "Instruktur found", data: instruktures }),
+      JSON.stringify({ message: "Instructor found", data: instructores }),
       { status: 200 }
     );
   } catch (error) {
@@ -40,17 +34,11 @@ export const DELETE = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const authHeader = request.headers.get("Authorization");
-    if (!authHeader) {
-      return new Response(
-        JSON.stringify({
-          message: "Authorization header missing",
-          status: 401,
-        }),
-        { status: 401 }
-      );
+    const auth = await authorized(request);
+    if (auth.status !== 200) {
+      return NextResponse.json(auth, { status: auth.status });
     }
-    const deletedInstruktur = await prisma.instruktur.delete({
+    const deletedInstructor = await prisma.instructor.delete({
       where: {
         id: Number(params.id),
       },
@@ -58,8 +46,8 @@ export const DELETE = async (
 
     return new Response(
       JSON.stringify({
-        message: "Instruktur deleted successfully",
-        data: deletedInstruktur,
+        message: "Instructor deleted successfully",
+        data: deletedInstructor,
       }),
       { status: 200 }
     );
@@ -76,18 +64,12 @@ export const PATCH = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const authHeader = request.headers.get("Authorization");
-    if (!authHeader) {
-      return new Response(
-        JSON.stringify({
-          message: "Authorization header missing",
-          status: 401,
-        }),
-        { status: 401 }
-      );
+    const auth = await authorized(request);
+    if (auth.status !== 200) {
+      return NextResponse.json(auth, { status: auth.status });
     }
-    const body: Instruktur = await request.json();
-    const updatedInstruktur = await prisma.instruktur.update({
+    const body: Instructor = await request.json();
+    const updatedInstructor = await prisma.instructor.update({
       where: {
         id: Number(params.id),
       },
@@ -102,7 +84,7 @@ export const PATCH = async (
     return new Response(
       JSON.stringify({
         message: "Data Updated Successfully",
-        data: updatedInstruktur,
+        data: updatedInstructor,
       }),
       { status: 200 }
     );

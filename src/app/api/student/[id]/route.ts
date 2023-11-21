@@ -9,15 +9,9 @@ export const GET = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const authHeader = request.headers.get("Authorization");
-    if (!authHeader) {
-      return new Response(
-        JSON.stringify({
-          message: "Authorization header missing",
-          status: 401,
-        }),
-        { status: 401 }
-      );
+    const auth = await authorized(request);
+    if (auth.status !== 200) {
+      return NextResponse.json(auth, { status: auth.status });
     }
     const studentes = await prisma.student.findFirstOrThrow({
       where: {
@@ -40,15 +34,9 @@ export const DELETE = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const authHeader = request.headers.get("Authorization");
-    if (!authHeader) {
-      return new Response(
-        JSON.stringify({
-          message: "Authorization header missing",
-          status: 401,
-        }),
-        { status: 401 }
-      );
+    const auth = await authorized(request);
+    if (auth.status !== 200) {
+      return NextResponse.json(auth, { status: auth.status });
     }
     const deletedStudent = await prisma.student.delete({
       where: {
@@ -76,15 +64,9 @@ export const PATCH = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const authHeader = request.headers.get("Authorization");
-    if (!authHeader) {
-      return new Response(
-        JSON.stringify({
-          message: "Authorization header missing",
-          status: 401,
-        }),
-        { status: 401 }
-      );
+    const auth = await authorized(request);
+    if (auth.status !== 200) {
+      return NextResponse.json(auth, { status: auth.status });
     }
     const body: Student = await request.json();
     const updatedStudent = await prisma.student.update({
@@ -94,8 +76,8 @@ export const PATCH = async (
       data: {
         name: body.name,
         classId: Number(body.classId),
-        phone: body.phone, 
-        address: body.address, 
+        phone: body.phone,
+        address: body.address,
         status: body.status,
       },
     });

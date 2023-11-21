@@ -24,12 +24,12 @@ model User {
   id           Int    @id @default(autoincrement())
   email        String @unique
   password     String @default("benjiOP")
-  nomorTelepon String @unique
-  lokasi       String
+  phone        String 
+  location     String
   role         String @default("Admin")
 }
 
-model Instruktur {
+model Instructor {
   id      Int    @id @default(autoincrement())
   name    String
   nik     String @unique
