@@ -20,7 +20,8 @@ export default function Class() {
     "Transmission",
     "Distance",
     "Last Service",
-    "Status",  
+    "Status",
+    "Action"  
   ];
 
   const pageData: string[] = [

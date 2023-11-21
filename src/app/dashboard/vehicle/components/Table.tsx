@@ -57,6 +57,7 @@ const Table: React.FC<{ column: string[]; data: dataProps[] }> = ({
                 <td className="px-4 py-2 text-center ">{item.id}</td>
                 <td className="px-4 py-2 text-center ">{item.plate}</td>
                 <td className="px-4 py-2 text-center ">{item.vehicleType}</td>
+                <td className="px-4 py-2 text-center ">{item.distance}</td>
                 <td className="px-4 py-2 text-center ">{item.transmission}</td>
                 <td className="px-4 py-2 text-center ">{item.lastService}</td>
                 <td className="px-4 py-2 text-center ">{item.status}</td>
