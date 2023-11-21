@@ -121,7 +121,7 @@ export default function AddClass() {
                 placeholder="Enter plate"
                 onChange={handleInputChange}
                 value={undefined}
-                data={carType}
+                description=""
               />
 
               {/*Vehicle Type*/}
@@ -162,7 +162,7 @@ export default function AddClass() {
                 placeholder="Enter Last Service"
                 onChange={handleInputChange}
                 value={undefined}
-                data={carType}
+                description=""
               />
 
 
