@@ -1,5 +1,6 @@
 "use client";
 import { useState } from 'react';
+import carType  from '../../dashboard/data/carType'
 
 export default function WhyUs() {
 
@@ -11,44 +12,56 @@ export default function WhyUs() {
       <div id="why-us">
         <div className=" bg-gradient-to-b from-[#EEEEEE] to-[#BEE597] ">
 
-        <div className="pt-16">
-            <div className="WhyUs mb-4 w-fit m-auto bg-[#EEEEEE] border-[#EEEEEE]" >
-                <h1 className="text-4xl font-extrabold px-14 py-2 bg-[#1C2434] text-[#C2E799]">WHY US</h1>
-            </div>   
-        </div>
+            <div>
+                <div className="WhyUs mb-4 w-fit m-auto bg-[#EEEEEE] border-[#EEEEEE]" >
+                    <h1 className="text-4xl font-extrabold px-14 py-2 bg-[#1C2434] text-[#C2E799]">WHY US</h1>
+                </div>   
+            </div>
             
-        <div className="px-4 md:px-40">
+        <div className="px-4 md:px-40 pt-6">
 
 
             <div className="md:flex bg-[#BEE597] ">
                 <div>
-                    <ul className="md:h-72 bg-[#1C2434] text-xl md:w-[220px] rounded-t-lg md:rounded-tr-none md:rounded-l-lg flex-column py-2 md:py-8 font-medium ">
+                    <ul className="bg-[#1C2434] text-xl md:w-[220px] md:h-80 rounded-t-lg md:rounded-tr-none md:rounded-l-lg flex-column py-2 md:py-8 font-medium ">
                         <li>
-                            <button id="vehicles-tab" onClick={() => setTab(0)} className="inline-flex items-center px-4 py-3 text-white  hover:text-[#1C2434] active active:text-[#C2E799] hover:bg-[#C2E799] w-full" aria-current="page">
+                            <button id="vehicles-tab" onClick={() => setTab(0)} className={`inline-flex items-center px-4 py-3 ${tab==0 ? 'bg-gradient-to-b from-[#4D5D52] via-[#C2E799] to-[#4D5D52] text-black hover:from-[#C2E799] hover:to-[#C2E799]' : ' text-white hover:bg-[#C2E799] hover:text-black' }  w-full`} >
                                 Our Vehicles
                             </button>
                         </li>
                         <li>
-                            <button id="values-tab"  onClick={() => setTab(1)} className="inline-flex items-center px-4 py-3 hover:text-[#1C2434] hover:bg-[#C2E799] w-full">
+                            <button id="values-tab"  onClick={() => setTab(1)} className={`inline-flex items-center px-4 py-3 ${tab==1 ? 'bg-gradient-to-b from-[#4D5D52] via-[#C2E799] to-[#4D5D52] text-black hover:from-[#C2E799] hover:to-[#C2E799]' : ' text-white hover:bg-[#C2E799] hover:text-black' }  w-full`} >
                                 Our Values
                             </button>
                         </li>
                         <li>
-                            <button id="missions-tab"  onClick={() => setTab(2)} className="inline-flex items-center px-4 py-3 hover:text-[#1C2434] hover:bg-[#C2E799] w-full">
+                            <button id="missions-tab"  onClick={() => setTab(2)} className={`inline-flex items-center px-4 py-3 ${tab==2 ? 'bg-gradient-to-b from-[#4D5D52] via-[#C2E799] to-[#4D5D52] text-black hover:from-[#C2E799] hover:to-[#C2E799]' : ' text-white hover:bg-[#C2E799] hover:text-black' }  w-full`}>
                                 Our Missions
                             </button>
                         </li>
                         <li>
-                            <button id="locations-tab" onClick={() => setTab(3)} className="inline-flex items-center px-4 py-3 hover:text-[#1C2434] hover:bg-[#C2E799] w-full">
+                            <button id="locations-tab" onClick={() => setTab(3)} className={`inline-flex items-center px-4 py-3 ${tab==3 ? 'bg-gradient-to-b from-[#4D5D52] via-[#C2E799] to-[#4D5D52] text-black hover:from-[#C2E799] hover:to-[#C2E799]' : ' text-white hover:bg-[#C2E799] hover:text-black' }  w-full`}>
                                 Our Locations
                             </button>
                         </li>
                     </ul>
                 </div>
 
-                <div className="p-8 bg-[#586665] rounded-b-lg md:rounded-bl-none md:rounded-r-lg  h-72 w-full overflow-y-auto">
+                <div className="p-8 bg-[#3A4847] rounded-b-lg md:rounded-bl-none md:rounded-r-lg h-72 md:h-80 w-full overflow-y-auto">
                     <div id="vehicles" className={`${(tab != 0) && 'hidden'}`}>
-                        <p className="text-2xl font-bold text-white mb-2">Our Vehicles</p>
+                        <p className="text-2xl font-bold text-white mb-8">Our Vehicles</p>
+                        <div className="grid grid-cols-2 md:grid-cols-3 auto-auto-rows">
+                            {carType.map((item, idx) => (
+                                <div key={idx} className="flexbox text-center w-36 md:w-48 h-36 md:h-44 content-center m-auto ">
+                                    <img key={idx} src={`images/cars/${item}.png`} alt={item} className="m-auto" />
+                                    <div key={idx} className="p-2 block">
+                                        <p key={idx}>{item}</p>
+                                    </div>
+                                </div>
+
+                                )
+                            )}
+                        </div>
                     </div>
                     <div id="values" className={`${(tab != 1) && 'hidden'}`}>
                         <p className="text-2xl font-bold text-white mb-2">Our Values</p>
