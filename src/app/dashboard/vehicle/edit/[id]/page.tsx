@@ -5,6 +5,7 @@ import Loader from "../../../components/Loader";
 import Footer from "../../../components/Footer";
 import Title from "../../../components/Title";
 import NumberInput from "../../../components/inputComponent/NumberInput";
+import TextInput from "../../../components/inputComponent/TextInput"
 import Dropdown from "../../../components/inputComponent/Dropdown";
 import BackButton from "@/app/dashboard/components/BackButton";
 import toast, { Toaster } from "react-hot-toast";
@@ -15,11 +16,11 @@ import carType from "../../../data/carType";
 import transmission from "../../../data/transmission";
 
 interface FormDataTypes {
-  price: number | undefined;
-  duration: number | string | undefined;
-  session: number | undefined;
-  transmission: any;
-  vehicleType: any;
+    plate: string;
+    vehicleType: string;
+    transmission: string;
+    distance: number | undefined;
+    lastService:string;
 }
 
 const EditClass = () => {
@@ -27,11 +28,11 @@ const EditClass = () => {
   const [loading, setLoading] = useState(true);
 
   const [form, setForm] = useState<FormDataTypes>({
-    price: undefined,
-    duration: undefined,
-    session: undefined,
-    transmission: "",
+    plate: "",
     vehicleType: "",
+    transmission: "",
+    distance: undefined,
+    lastService:"",
   });
 
   // Fetching Data
@@ -43,17 +44,17 @@ const EditClass = () => {
       try {
         const Cookies = new Cookie();
         const token = Cookies.get("token");
-        const res = await axios.get(`/api/class/${id}`, {
+        const res = await axios.get(`/api/vehicle/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         setForm({
-          price: res.data.data.price,
-          duration: res.data.data.duration,
-          session: res.data.data.session,
-          transmission: res.data.data.transmission,
+          plate: res.data.data.plate,
           vehicleType: res.data.data.vehicleType,
+          transmission: res.data.data.transmission,
+          distance: res.data.data.distance,
+          lastService: res.data.data.lastService,
         });
       } catch (err) {
         toast.error("Error fetching data");
@@ -72,38 +73,22 @@ const EditClass = () => {
     setForm({ ...form, [name]: value });
   };
 
-  // Handle Duration Input
-  const [durationError, setDurationError] = useState(false);
-  const handleFloatInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-
-    // Check if the input is a valid float using a regular expression
-    if (/^(\d+\.?\d*|\.\d+)$/.test(value) || value === "") {
-      setDurationError(false);
-      // Update your state or variable here
-      setForm({ ...form, [name]: parseFloat(value) });
-    } else {
-      setDurationError(true);
-    }
-  };
-
   // Submit Handler
   const [submitAvailable, setSubmitAvailable] = useState(false);
 
   useLayoutEffect(() => {
     if (
-      form.price !== undefined &&
-      form.duration !== undefined &&
-      form.session !== undefined &&
-      form.transmission !== "" &&
-      form.vehicleType !== "" &&
-      !durationError
+        form.plate !== "" &&
+        form.vehicleType !== "" &&
+        form.transmission !== "" &&
+        form.distance !== undefined &&
+        form.lastService !==""
     ) {
       setSubmitAvailable(true);
     } else {
       setSubmitAvailable(false);
     }
-  }, [form, durationError]);
+  }, [form]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
@@ -111,7 +96,7 @@ const EditClass = () => {
       event.preventDefault();
       const Cookies = new Cookie();
       const token = Cookies.get("token");
-      const res = await axios.patch(`/api/class/${id}`, form, {
+      const res = await axios.patch(`/api/vehicle/${id}`, form, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -125,20 +110,20 @@ const EditClass = () => {
     } finally {
       setLoading(false);
       setForm({
-        price: undefined,
-        duration: undefined,
-        session: undefined,
-        transmission: "",
+        plate: "",
         vehicleType: "",
+        transmission: "",
+        distance: undefined,
+        lastService:"",
       });
       setTimeout(() => {
-        window.location.href = "/dashboard/class";
+        window.location.href = "/dashboard/vehicle";
       }, 1000); // Delayed by 2000 milliseconds (2 seconds)
     }
   };
 
   const backHandler = () => {
-    window.location.href = "/dashboard/class";
+    window.location.href = "/dashboard/vehicle";
   };
   return (
     <>
@@ -156,13 +141,14 @@ const EditClass = () => {
               <section className="bg-white mt-4 md:mt-8 rounded-md p-6 md:p-10">
                 <div className="w-full flex flex-col gap-y-8">
                    {/*Plate*/}
+              {/*Plate*/}
               <TextInput
                 title="Plate"
                 inputID="plate"
                 placeholder="Enter plate"
                 onChange={handleInputChange}
-                value={undefined}
-                data={carType}
+                value={form.plate}
+                description=""
               />
 
               {/*Vehicle Type*/}
@@ -171,7 +157,7 @@ const EditClass = () => {
                 inputID="vehicleType"
                 placeholder="Select Vehicle type"
                 onChange={handleInputChange}
-                value={undefined}
+                value={form.vehicleType}
                 data={carType}
               />
 
@@ -182,7 +168,7 @@ const EditClass = () => {
                 inputID="transmission"
                 placeholder="Select Vehicle Transmission"
                 onChange={handleInputChange}
-                value={undefined}
+                value={form.transmission}
                 data={transmission}
               />
 
@@ -192,7 +178,7 @@ const EditClass = () => {
                 inputID="distance"
                 placeholder="Enter Vehicle Distance"
                 onChange={handleInputChange}
-                value={undefined}
+                value={form.distance}
                 description=""
               />
 
@@ -202,10 +188,9 @@ const EditClass = () => {
                 inputID="lastService"
                 placeholder="Enter Last Service"
                 onChange={handleInputChange}
-                value={undefined}
-                data={carType}
+                value={form.lastService}
+                description=""
               />
-
 
                   {/* Submit */}
                   <div className="w-full flex justify-center items-center">
