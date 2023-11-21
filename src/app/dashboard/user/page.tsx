@@ -20,6 +20,7 @@ export default function User() {
     "Phone",
     "Location",
     "Role",
+    "Action",
   ];
 
   const pageData: string[] = [
