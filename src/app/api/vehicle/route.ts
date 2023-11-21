@@ -9,12 +9,12 @@ export const GET = async (request: Request) => {
   if (auth.status !== 200) {
     return NextResponse.json(auth, { status: auth.status });
   }
-  const Vehiclees = await prisma.vehicle.findMany({
+  const Vehicles = await prisma.vehicle.findMany({
     orderBy: {
       id: "asc",
     },
   });
-  return NextResponse.json(Vehiclees);
+  return NextResponse.json(Vehicles);
 };
 
 export const POST = async (request: Request) => {
