@@ -11,27 +11,38 @@ datasource db {
 }
 
 model Class {
-  id              Int          @id @default(autoincrement())
-  price           Int
-  duration        Float
-  session         Int
-  transmission    String
-  vehicleType     String
+  id           Int       @id @default(autoincrement())
+  price        Int
+  duration     Float
+  session      Int
+  transmission String
+  vehicleType  String
+  student      Student[]
 }
 
 model User {
-  id              Int          @id @default(autoincrement())
-  email           String       @unique
-  password        String       @default("benjiOP")
-  nomorTelepon    String       @unique
-  lokasi          String
-  role            String       @default("Admin")
+  id           Int    @id @default(autoincrement())
+  email        String @unique
+  password     String @default("benjiOP")
+  nomorTelepon String @unique
+  lokasi       String
+  role         String @default("Admin")
 }
 
 model Instruktur {
-  id              Int          @id @default(autoincrement())
-  name            String
-  nik             String       @unique
-  address         String
-  phone           String
+  id      Int    @id @default(autoincrement())
+  name    String
+  nik     String @unique
+  address String
+  phone   String
+}
+
+model Student {
+  id      Int    @id @default(autoincrement())
+  name    String
+  class   Class  @relation(fields: [classId], references: [id])
+  classId Int
+  phone   String
+  address String
+  status  String @default("invalid")
 }
