@@ -1,9 +1,13 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import React, { FC, useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
-export default function Sidebar() {
+interface SidebarProps {
+  role: string;
+}
+
+const Sidebar: FC<SidebarProps> = ({ role }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Ref for the sidebar
@@ -75,7 +79,7 @@ export default function Sidebar() {
                 className="w-36 h-36 mx-auto"
               />
             </li>
-            <li>
+            <li className={role === "Admin" ? "hidden" : ""}>
               <a
                 href="/dashboard/class"
                 className={`flex items-center p-2  hover:bg-gray-700 group ${
@@ -86,7 +90,7 @@ export default function Sidebar() {
                 <span className="ml-6">Class</span>
               </a>
             </li>
-            <li>
+            <li className={role === "Admin" ? "hidden" : ""}>
               <a
                 href="/dashboard/instructor"
                 className={`flex items-center p-2  hover:bg-gray-700 group ${
@@ -133,7 +137,7 @@ export default function Sidebar() {
                 <span className="flex-1 ml-6 whitespace-nowrap">Schedule</span>
               </a>
             </li>
-            <li>
+            <li className={role === "Admin" ? "hidden" : ""}>
               <a
                 href="/dashboard/user"
                 className={`flex items-center p-2  hover:bg-gray-700 group ${
@@ -164,4 +168,6 @@ export default function Sidebar() {
       </aside>
     </>
   );
-}
+};
+
+export default Sidebar;

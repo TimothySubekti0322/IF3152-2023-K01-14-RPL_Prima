@@ -1,4 +1,3 @@
-
 export default function Footer() {
     return (
       <>  
@@ -58,8 +57,8 @@ export default function Footer() {
                     COPYRIGHT © 2023 RPL PRIMA. ALL RIGHTS RESERVED.
                 </p>
             </div> 
-
         </div>
-      </>
-    );
-  }
+      </div>
+    </>
+  );
+}
