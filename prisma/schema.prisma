@@ -46,3 +46,13 @@ model Student {
   address String
   status  String @default("invalid")
 }
+
+model Vehicle {
+  id           Int    @id @default(autoincrement())
+  plate        String
+  vehicleType  String
+  transmission String
+  distance     Int
+  lastService  String
+  status       String @default("available")
+}
