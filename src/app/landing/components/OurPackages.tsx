@@ -4,7 +4,7 @@ export default function OurPackages() {
     return (
     <div id="our-packages">
       <div className="bg-[#EEEEEE]">  
-        <div className="OurPackages border-t-[180px] w-fit m-auto bg-[#EEEEEE] border-[#EEEEEE]">
+        <div className="OurPackages border-t-[80px] w-fit m-auto bg-[#EEEEEE] border-[#EEEEEE]">
             <h1 className="text-4xl font-extrabold px-8 py-0 text-[#1C2434]">OUR PACKAGES</h1>
             <div className="bg-[#C2E799] h-4 w-full mb-4">
             </div>
