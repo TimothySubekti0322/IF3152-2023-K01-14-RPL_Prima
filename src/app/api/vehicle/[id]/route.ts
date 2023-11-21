@@ -9,15 +9,9 @@ export const GET = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const authHeader = request.headers.get("Authorization");
-    if (!authHeader) {
-      return new Response(
-        JSON.stringify({
-          message: "Authorization header missing",
-          status: 401,
-        }),
-        { status: 401 }
-      );
+    const auth = await authorized(request);
+    if (auth.status !== 200) {
+      return NextResponse.json(auth, { status: auth.status });
     }
     const vehicles = await prisma.vehicle.findFirstOrThrow({
       where: {
@@ -40,15 +34,9 @@ export const DELETE = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const authHeader = request.headers.get("Authorization");
-    if (!authHeader) {
-      return new Response(
-        JSON.stringify({
-          message: "Authorization header missing",
-          status: 401,
-        }),
-        { status: 401 }
-      );
+    const auth = await authorized(request);
+    if (auth.status !== 200) {
+      return NextResponse.json(auth, { status: auth.status });
     }
     const deletedVehicle = await prisma.vehicle.delete({
       where: {
@@ -76,15 +64,9 @@ export const PATCH = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const authHeader = request.headers.get("Authorization");
-    if (!authHeader) {
-      return new Response(
-        JSON.stringify({
-          message: "Authorization header missing",
-          status: 401,
-        }),
-        { status: 401 }
-      );
+    const auth = await authorized(request);
+    if (auth.status !== 200) {
+      return NextResponse.json(auth, { status: auth.status });
     }
     const body: Vehicle = await request.json();
     const updatedVehicle = await prisma.vehicle.update({
@@ -92,7 +74,7 @@ export const PATCH = async (
         id: Number(params.id),
       },
       data: {
-        plate : body.plate,
+        plate: body.plate,
         vehicleType: body.vehicleType,
         transmission: body.transmission,
         distance: Number(body.distance),

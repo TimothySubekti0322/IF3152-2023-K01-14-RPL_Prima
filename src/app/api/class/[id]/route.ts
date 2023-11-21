@@ -40,15 +40,9 @@ export const DELETE = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const authHeader = request.headers.get("Authorization");
-    if (!authHeader) {
-      return new Response(
-        JSON.stringify({
-          message: "Authorization header missing",
-          status: 401,
-        }),
-        { status: 401 }
-      );
+    const auth = await authorized(request);
+    if (auth.status !== 200) {
+      return NextResponse.json(auth, { status: auth.status });
     }
     const deletedClass = await prisma.class.delete({
       where: {
@@ -76,15 +70,9 @@ export const PATCH = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const authHeader = request.headers.get("Authorization");
-    if (!authHeader) {
-      return new Response(
-        JSON.stringify({
-          message: "Authorization header missing",
-          status: 401,
-        }),
-        { status: 401 }
-      );
+    const auth = await authorized(request);
+    if (auth.status !== 200) {
+      return NextResponse.json(auth, { status: auth.status });
     }
     const body: Class = await request.json();
     const updatedClass = await prisma.class.update({
