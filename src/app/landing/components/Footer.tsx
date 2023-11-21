@@ -2,7 +2,7 @@
 export default function Footer() {
     return (
       <>  
-        <div className="m-auto block border-t-[180px] w-full  bg-[#1C2434] border-[#EEEEEE]">
+        <div className="m-auto block w-full  bg-[#1C2434] border-[#EEEEEE]">
 
             <div className=" flex m-auto w-fit mt-auto">
                 <div>

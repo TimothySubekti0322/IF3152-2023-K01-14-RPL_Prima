@@ -3,7 +3,7 @@ export default function WhyUs() {
     return (
       <>  
       <div id="why-us">
-        <div className="bg-[#EEEEEE]">
+        {/* <div className="bg-gradient-to-b from-[#EEEEEE] to-[#BEE597]"> */}
 
         <div className="WhyUs border-t-[140px] md:border-t-[120px] mb-4 w-fit m-auto bg-[#EEEEEE] border-[#EEEEEE]" >
             <h1 className="text-4xl font-extrabold px-14 py-2 bg-[#1C2434] text-[#C2E799]">WHY US</h1>
@@ -43,7 +43,7 @@ export default function WhyUs() {
             </div>
         </div>
 
-        </div>
+        {/* </div> */}
     </div>
 
       </>

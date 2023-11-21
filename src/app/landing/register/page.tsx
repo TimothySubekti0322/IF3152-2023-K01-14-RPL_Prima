@@ -1,3 +1,4 @@
+import { ReactElement, useState } from "react";
 import { NavBar, Footer, Register } from "../components";
 
 export default function Registration() {
@@ -12,7 +13,9 @@ export default function Registration() {
         <div className="h-full w-full bg-[#EEEEEE] text-white">
           <NavBar />
           <Register />
-          <Footer />
+          <div className="border-t-[30px] border-[#EEEEEE]">
+            <Footer />
+          </div>
         </div>
        
       </body>

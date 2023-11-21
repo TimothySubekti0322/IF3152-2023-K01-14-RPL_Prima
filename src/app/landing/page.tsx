@@ -10,14 +10,13 @@ export default function Landing() {
 
       <body>
         <div className="h-full w-full bg-[#EEEEEE] text-white">
-          {/* <NavBar/>
+          <NavBar/>
           <Home />
           <WhyUs />
           <OurPackages />
-          <Footer /> */}
-          <NavBar />
-          <Register />
-          <Footer />
+          <div className="border-t-[100px] border-[#EEEEEE]">
+            <Footer />
+          </div>
         </div>
        
       </body>
