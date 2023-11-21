@@ -58,6 +58,7 @@ const Table: React.FC<{ column: string[]; data: dataProps[] }> = ({
                 <td className="px-4 py-2 text-center ">{item.phone}</td>
                 <td className="px-4 py-2 text-center ">{item.location}</td>
                 <td className="px-4 py-2 text-center ">{item.role}</td>
+                <td className="px-4 py-2 text-center ">action</td>
                 <td className="px-4 py-2  flex flex-row items-center justify-center">
                   {/* Edit */}
                   <button
