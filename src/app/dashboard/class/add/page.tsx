@@ -4,6 +4,7 @@ import React, { useState, ChangeEvent, useLayoutEffect } from "react";
 import Footer from "../../components/Footer";
 import Title from "../../components/Title";
 import NumberInput from "../../components/inputComponent/NumberInput";
+import TextInput from "../../components/inputComponent/TextInput";
 import Dropdown from "../../components/inputComponent/Dropdown";
 import BackButton from "../../components/BackButton";
 import transmission from "../../data/transmission";
@@ -127,6 +128,7 @@ export default function AddClass() {
         <form onSubmit={handleSubmit}>
           <section className="bg-white mt-4 md:mt-8 rounded-md p-6 md:p-10">
             <div className="w-full flex flex-col gap-y-8">
+
               {/* Harga */}
               <NumberInput
                 title="Price"
