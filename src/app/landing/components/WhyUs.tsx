@@ -46,11 +46,11 @@ export default function WhyUs() {
                     </ul>
                 </div>
 
-                <div className="p-8 bg-[#586665] rounded-b-lg md:rounded-bl-none md:rounded-r-lg  h-72 overflow-y-auto">
-                    <div id="vehicles" className="${(tab != 0) && 'hidden'}">
+                <div className="p-8 bg-[#586665] rounded-b-lg md:rounded-bl-none md:rounded-r-lg  h-72 w-full overflow-y-auto">
+                    <div id="vehicles" className={`${(tab != 0) && 'hidden'}`}>
                         <p className="text-2xl font-bold text-white mb-2">Our Vehicles</p>
                     </div>
-                    <div id="values" className="${(tab != 1) && 'hidden'}">
+                    <div id="values" className={`${(tab != 1) && 'hidden'}`}>
                         <p className="text-2xl font-bold text-white mb-2">Our Values</p>
                         <ol className="list-decimal px-8">
                             <li>
@@ -67,7 +67,7 @@ export default function WhyUs() {
                             </li>
                         </ol>
                     </div>
-                    <div id="mission" className="${(tab != 2) && 'hidden'}">
+                    <div id="mission" className={`${(tab != 2) && 'hidden'}`}>
                     <p className="text-2xl font-bold text-white mb-2">Our Missions</p>
                         <ol className="list-decimal px-8">
                             <li>
@@ -84,7 +84,7 @@ export default function WhyUs() {
                             </li>
                         </ol>
                     </div>
-                    <div id="locations" className="${(tab != 3) && 'hidden'}">
+                    <div id="locations" className={`${(tab != 3) && 'hidden'}`}>
                     <p className="text-2xl font-bold text-white mb-2">Our Locations</p>
                         <img src="images/location.png" className="w-6 md:w-10 inline-flex"></img>
                         <a href="#" className="text-base md:p-6 inline-flex text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52] hover:text-white">Dago</a>
