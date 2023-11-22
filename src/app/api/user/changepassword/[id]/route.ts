@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import type { User } from "@prisma/client";
-import {authorized} from "../../../authorized";
+import { authorized } from "../../../authorized";
 const prisma = new PrismaClient();
 
 export const PATCH = async (

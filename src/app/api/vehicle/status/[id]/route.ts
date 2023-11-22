@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import type { Vehicle } from "@prisma/client";
-import { authorized, authorizedOwner } from "../../../authorized";
+import { authorized } from "../../../authorized";
 const prisma = new PrismaClient();
 
 export const GET = async (
@@ -8,7 +8,7 @@ export const GET = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const auth = await authorizedOwner(request);
+    const auth = await authorized(request);
     if (auth.status !== 200) {
       return new Response(JSON.stringify(auth), { status: auth.status });
     }
@@ -38,7 +38,7 @@ export const PATCH = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const auth = await authorizedOwner(request);
+    const auth = await authorized(request);
     if (auth.status !== 200) {
       return new Response(JSON.stringify(auth), { status: auth.status });
     }

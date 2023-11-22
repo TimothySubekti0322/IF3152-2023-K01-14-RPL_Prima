@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import type { Vehicle } from "@prisma/client";
-import { authorized } from "../authorized";
+import { authorized, authorizedOwner } from "../authorized";
 const prisma = new PrismaClient();
 
 export const GET = async (request: Request) => {
@@ -18,7 +18,7 @@ export const GET = async (request: Request) => {
 
 export const POST = async (request: Request) => {
   try {
-    const auth = await authorized(request);
+    const auth = await authorizedOwner(request);
     if (auth.status !== 200) {
       return new Response(JSON.stringify(auth), { status: auth.status });
     }
