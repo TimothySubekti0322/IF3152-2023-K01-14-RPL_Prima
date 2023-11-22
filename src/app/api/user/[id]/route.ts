@@ -1,7 +1,6 @@
-import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import type { User } from "@prisma/client";
-import authorized from "../../authorized";
+import { authorized } from "../../authorized";
 const prisma = new PrismaClient();
 
 export const GET = async (
@@ -9,15 +8,9 @@ export const GET = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const authHeader = request.headers.get("Authorization");
-    if (!authHeader) {
-      return new Response(
-        JSON.stringify({
-          message: "Authorization header missing",
-          status: 401,
-        }),
-        { status: 401 }
-      );
+    const auth = await authorized(request);
+    if (auth.status !== 200) {
+      return new Response(JSON.stringify(auth), { status: auth.status });
     }
     const users = await prisma.user.findFirstOrThrow({
       where: {
@@ -40,15 +33,9 @@ export const DELETE = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const authHeader = request.headers.get("Authorization");
-    if (!authHeader) {
-      return new Response(
-        JSON.stringify({
-          message: "Authorization header missing",
-          status: 401,
-        }),
-        { status: 401 }
-      );
+    const auth = await authorized(request);
+    if (auth.status !== 200) {
+      return new Response(JSON.stringify(auth), { status: auth.status });
     }
     const deletedUser = await prisma.user.delete({
       where: {
@@ -76,15 +63,9 @@ export const PATCH = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const authHeader = request.headers.get("Authorization");
-    if (!authHeader) {
-      return new Response(
-        JSON.stringify({
-          message: "Authorization header missing",
-          status: 401,
-        }),
-        { status: 401 }
-      );
+    const auth = await authorized(request);
+    if (auth.status !== 200) {
+      return new Response(JSON.stringify(auth), { status: auth.status });
     }
     const body: User = await request.json();
     const updatedUser = await prisma.user.update({
@@ -92,11 +73,11 @@ export const PATCH = async (
         id: Number(params.id),
       },
       data: {
-        email : body.email,
-        password : body.password,
-        phone : body.phone,
-        lokasi : body.lokasi,
-        role : body.role,
+        email: body.email,
+        password: body.password,
+        phone: body.phone,
+        location: body.location,
+        role: body.role,
       },
     });
 

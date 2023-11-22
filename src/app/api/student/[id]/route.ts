@@ -1,7 +1,6 @@
-import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import type { Student } from "@prisma/client";
-import authorized from "../../authorized";
+import { authorized } from "../../authorized";
 const prisma = new PrismaClient();
 
 export const GET = async (
@@ -11,7 +10,7 @@ export const GET = async (
   try {
     const auth = await authorized(request);
     if (auth.status !== 200) {
-      return NextResponse.json(auth, { status: auth.status });
+      return new Response(JSON.stringify(auth), { status: auth.status });
     }
     const studentes = await prisma.student.findFirstOrThrow({
       where: {
@@ -36,7 +35,7 @@ export const DELETE = async (
   try {
     const auth = await authorized(request);
     if (auth.status !== 200) {
-      return NextResponse.json(auth, { status: auth.status });
+      return new Response(JSON.stringify(auth), { status: auth.status });
     }
     const deletedStudent = await prisma.student.delete({
       where: {
@@ -66,7 +65,7 @@ export const PATCH = async (
   try {
     const auth = await authorized(request);
     if (auth.status !== 200) {
-      return NextResponse.json(auth, { status: auth.status });
+      return new Response(JSON.stringify(auth), { status: auth.status });
     }
     const body: Student = await request.json();
     const updatedStudent = await prisma.student.update({

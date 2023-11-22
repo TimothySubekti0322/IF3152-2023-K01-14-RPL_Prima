@@ -27,10 +27,12 @@ async function authorized(req: Request) {
   }
 }
 
-async function authorizedOwner(
-  req: Request
-): Promise<boolean | undefined | object> {
+async function authorizedOwner(req: Request) {
   try {
+    const auth = await authorized(req);
+    if (auth.status !== 200) {
+      return auth;
+    }
     const authHeader = req.headers.get("Authorization");
     if (authHeader) {
       const token = authHeader.split(" ")[1];
@@ -38,15 +40,16 @@ async function authorizedOwner(
       if (decoded && typeof decoded === "object") {
         const role = decoded.role;
         if (role === "Owner") {
-          return true;
-        } else {
-          return false;
+          return { message: "You are authorized", status: 200 };
         }
-      } else {
-        return { message: "Invalid token", status: 401 };
       }
+      return { message: "Access denied", status: 403 };
+    } else {
+      return { message: "Decode Failed", status: 500 };
     }
-  } catch (error) {}
+  } catch (error) {
+    return { message: "Server Error", status: 500 };
+  }
 }
 
-export default authorized;
+export { authorized, authorizedOwner };

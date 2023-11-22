@@ -1,7 +1,6 @@
-import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import type { Class } from "@prisma/client";
-import authorized from "../../authorized";
+import { authorized, authorizedOwner } from "../../authorized";
 const prisma = new PrismaClient();
 
 export const GET = async (
@@ -9,15 +8,9 @@ export const GET = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const authHeader = request.headers.get("Authorization");
-    if (!authHeader) {
-      return new Response(
-        JSON.stringify({
-          message: "Authorization header missing",
-          status: 401,
-        }),
-        { status: 401 }
-      );
+    const auth = await authorized(request);
+    if (auth.status !== 200) {
+      return new Response(JSON.stringify(auth), { status: auth.status });
     }
     const classes = await prisma.class.findFirstOrThrow({
       where: {
@@ -40,9 +33,9 @@ export const DELETE = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const auth = await authorized(request);
+    const auth = await authorizedOwner(request);
     if (auth.status !== 200) {
-      return NextResponse.json(auth, { status: auth.status });
+      return new Response(JSON.stringify(auth), { status: auth.status });
     }
     const deletedClass = await prisma.class.delete({
       where: {
@@ -70,9 +63,9 @@ export const PATCH = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const auth = await authorized(request);
+    const auth = await authorizedOwner(request);
     if (auth.status !== 200) {
-      return NextResponse.json(auth, { status: auth.status });
+      return new Response(JSON.stringify(auth), { status: auth.status });
     }
     const body: Class = await request.json();
     const updatedClass = await prisma.class.update({

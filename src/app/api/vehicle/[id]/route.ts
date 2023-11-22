@@ -1,7 +1,6 @@
-import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import type { Vehicle } from "@prisma/client";
-import authorized from "../../authorized";
+import { authorized, authorizedOwner } from "../../authorized";
 const prisma = new PrismaClient();
 
 export const GET = async (
@@ -11,7 +10,7 @@ export const GET = async (
   try {
     const auth = await authorized(request);
     if (auth.status !== 200) {
-      return NextResponse.json(auth, { status: auth.status });
+      return new Response(JSON.stringify(auth), { status: auth.status });
     }
     const vehicles = await prisma.vehicle.findFirstOrThrow({
       where: {
@@ -34,9 +33,9 @@ export const DELETE = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const auth = await authorized(request);
+    const auth = await authorizedOwner(request);
     if (auth.status !== 200) {
-      return NextResponse.json(auth, { status: auth.status });
+      return new Response(JSON.stringify(auth), { status: auth.status });
     }
     const deletedVehicle = await prisma.vehicle.delete({
       where: {
@@ -64,9 +63,9 @@ export const PATCH = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const auth = await authorized(request);
+    const auth = await authorizedOwner(request);
     if (auth.status !== 200) {
-      return NextResponse.json(auth, { status: auth.status });
+      return new Response(JSON.stringify(auth), { status: auth.status });
     }
     const body: Vehicle = await request.json();
     const updatedVehicle = await prisma.vehicle.update({

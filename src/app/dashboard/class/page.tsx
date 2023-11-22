@@ -94,7 +94,7 @@ export default function Class() {
               </div>
             </div>
 
-            <div className="flex flex-row items-center justify-between mt-4 md:mt-6 md:gap-x-96">
+            <div className="flex flex-row items-center justify-between mt-4 md:mt-6 md:gap-x-80">
               <Search
                 options={pageData}
                 rawData={rawData}
