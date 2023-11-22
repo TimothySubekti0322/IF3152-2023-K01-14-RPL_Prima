@@ -4,7 +4,10 @@ import { authorizedOwner } from "../../authorized";
 const prisma = new PrismaClient();
 
 // User retrieve Data
-export const GET = async ({ params }: { params: { id: string } }) => {
+export const GET = async (
+  request: Request,
+  { params }: { params: { id: string } }
+) => {
   try {
     const classes = await prisma.class.findFirstOrThrow({
       where: {
