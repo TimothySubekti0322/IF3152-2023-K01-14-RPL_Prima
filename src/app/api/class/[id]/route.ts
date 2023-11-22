@@ -1,17 +1,11 @@
 import { PrismaClient } from "@prisma/client";
 import type { Class } from "@prisma/client";
-import { authorized, authorizedOwner } from "../../authorized";
+import { authorizedOwner } from "../../authorized";
 const prisma = new PrismaClient();
 
-export const GET = async (
-  request: Request,
-  { params }: { params: { id: string } }
-) => {
+// User retrieve Data
+export const GET = async ({ params }: { params: { id: string } }) => {
   try {
-    const auth = await authorized(request);
-    if (auth.status !== 200) {
-      return new Response(JSON.stringify(auth), { status: auth.status });
-    }
     const classes = await prisma.class.findFirstOrThrow({
       where: {
         id: Number(params.id),

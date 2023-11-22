@@ -16,12 +16,9 @@ export const GET = async (request: Request) => {
   return new Response(JSON.stringify(classes), { status: 200 });
 };
 
+// User Register
 export const POST = async (request: Request) => {
   try {
-    const auth = await authorized(request);
-    if (auth.status !== 200) {
-      return new Response(JSON.stringify(auth), { status: auth.status });
-    }
     const body: Student = await request.json();
     const newStudent = await prisma.student.create({
       data: {
@@ -29,7 +26,6 @@ export const POST = async (request: Request) => {
         classId: Number(body.classId),
         phone: body.phone,
         address: body.address,
-        status: body.status,
       },
     });
     return new Response(

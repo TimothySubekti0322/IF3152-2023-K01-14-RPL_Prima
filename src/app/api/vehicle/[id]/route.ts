@@ -78,6 +78,7 @@ export const PATCH = async (
         transmission: body.transmission,
         distance: Number(body.distance),
         lastService: body.lastService,
+        status: body.status,
       },
     });
 

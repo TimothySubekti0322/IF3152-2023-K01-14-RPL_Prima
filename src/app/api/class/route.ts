@@ -1,13 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import type { Class } from "@prisma/client";
-import { authorized, authorizedOwner } from "../authorized";
+import { authorizedOwner } from "../authorized";
 const prisma = new PrismaClient();
 
-export const GET = async (request: Request) => {
-  const auth = await authorized(request);
-  if (auth.status !== 200) {
-    return new Response(JSON.stringify(auth), { status: auth.status });
-  }
+// Landing Page Retrieve Data
+export const GET = async () => {
   const classes = await prisma.class.findMany({
     orderBy: {
       id: "asc",
