@@ -21,7 +21,7 @@ export default function NavBar() {
                     </svg>
                 </button>
                 <div className={`${!viewNav && "hidden"} w-full md:block md:w-auto`} >
-                    <ul className="text-xl flex flex-col md:flex-row p-4 md:p-0 md:m-0 text-white">
+                    <ul className="text-xl flex flex-col md:flex-row p-4 pb-0 md:p-0 md:m-0 text-white">
                         <li>
                         <a href="/#home" className="text-base md:text-xl p-2 md:p-6 block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]">Home</a>
                         </li>

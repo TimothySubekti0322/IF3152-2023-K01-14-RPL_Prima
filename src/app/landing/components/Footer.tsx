@@ -53,7 +53,7 @@ export default function Footer() {
                 
             </div>
             <div className="block">
-                <p className="text-center md:justify-center text-xs font-semibold pt-2">
+                <p className="text-white text-center md:justify-center text-xs font-semibold pt-2">
                     COPYRIGHT © 2023 RPL PRIMA. ALL RIGHTS RESERVED.
                 </p>
             </div> 
