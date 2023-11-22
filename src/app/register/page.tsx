@@ -1,12 +1,12 @@
 import { ReactElement, useState } from "react";
-import { NavBar, Footer, Register } from "../components";
+import { NavBar, Footer, Register } from "../landing/components";
 
 export default function Registration() {
   return (
     <>
       <head>
-        <link rel="icon" href="%PUBLIC_URL%/favicon.png" />
-        <title>RPL Prima</title>
+        <link rel="icon" href="images/favicon.png" />
+        <title>Register for RPL Prima</title>
       </head>
 
       <body>

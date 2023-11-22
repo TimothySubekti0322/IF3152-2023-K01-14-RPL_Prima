@@ -10,7 +10,7 @@ export default function WhyUs() {
     return (
       <>  
       <div id="why-us">
-        <div className=" bg-gradient-to-b from-[#EEEEEE] to-[#BEE597] ">
+        <div className=" bg-gradient-to-b from-[#EEEEEE] to-[#BEE597] border-t-[80px] border-[#EEEEEE]">
 
             <div>
                 <div className="WhyUs mb-4 w-fit m-auto bg-[#EEEEEE] border-[#EEEEEE]" >
@@ -23,7 +23,7 @@ export default function WhyUs() {
 
             <div className="md:flex bg-[#BEE597] ">
                 <div>
-                    <ul className="bg-[#1C2434] text-xl md:w-[220px] md:h-80 rounded-t-lg md:rounded-tr-none md:rounded-l-lg flex-column py-2 md:py-8 font-medium ">
+                    <ul className="bg-[#1C2434] text-xl md:w-[220px] md:h-96 rounded-t-lg md:rounded-tr-none md:rounded-l-lg flex-column py-2 md:py-8 font-medium ">
                         <li>
                             <button id="vehicles-tab" onClick={() => setTab(0)} className={`inline-flex items-center px-4 py-3 ${tab==0 ? 'bg-gradient-to-b from-[#4D5D52] via-[#C2E799] to-[#4D5D52] text-black hover:from-[#C2E799] hover:to-[#C2E799]' : ' text-white hover:bg-[#C2E799] hover:text-black' }  w-full`} >
                                 Our Vehicles
@@ -47,7 +47,7 @@ export default function WhyUs() {
                     </ul>
                 </div>
 
-                <div className="p-8 bg-[#3A4847] rounded-b-lg md:rounded-bl-none md:rounded-r-lg h-72 md:h-80 w-full overflow-y-auto">
+                <div className="p-8 bg-[#3A4847] rounded-b-lg md:rounded-bl-none md:rounded-r-lg h-72 md:h-96 w-full overflow-y-auto">
                     <div id="vehicles" className={`${(tab != 0) && 'hidden'}`}>
                         <p className="text-2xl font-bold text-white mb-8">Our Vehicles</p>
                         <div className="grid grid-cols-2 md:grid-cols-3 auto-auto-rows">

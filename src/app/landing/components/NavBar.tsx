@@ -23,16 +23,16 @@ export default function NavBar() {
                 <div className={`${!viewNav && "hidden"} w-full md:block md:w-auto`} >
                     <ul className="text-xl flex flex-col md:flex-row p-4 md:p-0 md:m-0 text-white">
                         <li>
-                        <a href="/landing#home" className="text-base md:text-xl p-2 md:p-6 block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]">Home</a>
+                        <a href="/#home" className="text-base md:text-xl p-2 md:p-6 block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]">Home</a>
                         </li>
                         <li >
-                        <a href="/landing#why-us" className="text-base md:text-xl p-2 md:p-6 block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]">Why Us</a>
+                        <a href="/#why-us" className="text-base md:text-xl p-2 md:p-6 block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]">Why Us</a>
                         </li>
                         <li>
-                        <a href="/landing#our-packages" className="text-base md:text-xl p-2 md:p-6 block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]">Our Packages</a>
+                        <a href="/#our-packages" className="text-base md:text-xl p-2 md:p-6 block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]">Our Packages</a>
                         </li>
                         <li>
-                        <a href="/landing/register" className="font-semibold text-base md:text-xl p-2 md:p-6 block text-[#C2E799] hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52] hover:text-white">Register</a>
+                        <a href="/register" className="font-semibold text-base md:text-xl p-2 md:p-6 block text-[#C2E799] hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52] hover:text-white">Register</a>
                         </li>
                     </ul>
                 </div>

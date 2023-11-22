@@ -18,7 +18,7 @@ export default function Home() {
                 <Button/>
             </div>    
 
-            <div className="Home  mt-96 md:mt-40 justify-between items-center">
+            <div className="Home  mt-96 md:mt-28 justify-between items-center">
                 <img className="  w-full  z-0 " src="images/landing_2.png"></img> 
             </div>     
 
