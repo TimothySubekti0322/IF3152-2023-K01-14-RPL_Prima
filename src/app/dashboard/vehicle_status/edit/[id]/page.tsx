@@ -12,7 +12,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { usePathname } from "next/navigation";
 import axios from "axios";
 import Cookie from "universal-cookie";
-import statusCar from "../../../data/statusCar";
+import statusCar from "../../../data/carStatus";
 import transmission from "../../../data/transmission";
 
 interface FormDataTypes {
