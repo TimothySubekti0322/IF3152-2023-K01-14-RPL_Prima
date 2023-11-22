@@ -1,7 +1,6 @@
-import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import type { Vehicle } from "@prisma/client";
-import authorized from "../../../authorized";
+import { authorized } from "../../../authorized";
 const prisma = new PrismaClient();
 
 export const GET = async (
@@ -9,25 +8,19 @@ export const GET = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const authHeader = request.headers.get("Authorization");
-    if (!authHeader) {
-      return new Response(
-        JSON.stringify({
-          message: "Authorization header missing",
-          status: 401,
-        }),
-        { status: 401 }
-      );
+    const auth = await authorized(request);
+    if (auth.status !== 200) {
+      return new Response(JSON.stringify(auth), { status: auth.status });
     }
     const vehicles = await prisma.vehicle.findFirstOrThrow({
       where: {
         id: Number(params.id),
       },
-      select:{
+      select: {
         id: true,
-        plate : true,
-        status : true
-      }
+        plate: true,
+        status: true,
+      },
     });
     return new Response(
       JSON.stringify({ message: "Vehicle's status found", data: vehicles }),
@@ -45,15 +38,9 @@ export const PATCH = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const authHeader = request.headers.get("Authorization");
-    if (!authHeader) {
-      return new Response(
-        JSON.stringify({
-          message: "Authorization header missing",
-          status: 401,
-        }),
-        { status: 401 }
-      );
+    const auth = await authorized(request);
+    if (auth.status !== 200) {
+      return new Response(JSON.stringify(auth), { status: auth.status });
     }
     const body: Vehicle = await request.json();
     const updatedVehicle = await prisma.vehicle.update({
@@ -61,7 +48,7 @@ export const PATCH = async (
         id: Number(params.id),
       },
       data: {
-        status : body.status
+        status: body.status,
       },
     });
 
