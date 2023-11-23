@@ -25,7 +25,7 @@ export default function Unauthorized() {
             </div>
             <div>
               <p className="pt-2 text-sm">Not what you&apos;re looking for?</p>
-              <a href="/" className="underline text-sm">Back to Home Page</a>
+              <a href="/dashboard/class" className="underline text-sm">Back to Dashboard</a>
             </div>
           </div>
           
