@@ -14,7 +14,7 @@ export default function Home() {
                     <img src="images/logo_img.png" className="h-8 m-auto" alt="Flowbite Logo" />
                     <img src="images/logo_title.png" className="h-8 m-auto" alt="Flowbite Logo" />
                 </a>
-                <p className="text-center text-base p-4 text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum hendrerit, erat et suscipit interdum, arcu quam porta justo, quis tempus mi urna at elit. Aenean lobortis placerat fringilla.</p>
+                <p className="text-center text-base p-4 text-white">Welcome to RPL Prima, your go-to destination for driving education. We focus on training students to become confident and responsible drivers. Our experienced instructors and modern fleet ensure a safe and practical learning experience. Start your journey with RPL Prima now.</p>
                 <Button/>
             </div>    
 
