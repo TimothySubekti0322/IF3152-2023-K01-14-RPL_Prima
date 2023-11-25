@@ -8,7 +8,7 @@ export default function Unauthorized() {
       </head>
 
       <body>
-        <div className="h-screen w-full bg-[#1C2434] text-[#83CE71] content-center pt-36 text-center">
+        <div className="h-screen w-full bg-[#1C2434] text-[#83CE71] content-center pt-36 md:pt-44 text-center">
           <div className="m-auto justify-center w-fit h-fit">
             <img src="images/license.png" alt="403 image"></img>
           </div>
