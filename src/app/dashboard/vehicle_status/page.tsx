@@ -13,18 +13,9 @@ import Cookies from "universal-cookie";
 
 export default function Class() {
   // List Column
-  const column: string[] = [
-    "Id",
-    "Plate",
-    "Status",
-    "Action"  
-  ];
+  const column: string[] = ["Id", "Plate", "Status"];
 
-  const pageData: string[] = [
-    "id",
-    "plate",
-    "status",
-  ];
+  const pageData: string[] = ["id", "plate", "status"];
   // Number data in one page
   const dataPerPage = 10;
 
@@ -33,6 +24,10 @@ export default function Class() {
   const [totalPages, setTotalPages] = useState<number>(0);
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState(false);
+
+  // Get cookie
+  const Cookie = new Cookies();
+  const role = Cookie.get("payload").role;
 
   // Fetch Raw Data
   useEffect(() => {
@@ -57,14 +52,8 @@ export default function Class() {
       }
     };
 
-    const Cookie = new Cookies();
-    const role = Cookie.get("payload").role;
-    if (role === "Admin") {
-      window.location.href = "/unauthorized";
-    } else {
-      const token: string = Cookie.get("token");
-      fetchData(token);
-    }
+    const token: string = Cookie.get("token");
+    fetchData(token);
   }, []);
 
   // Handle Data Change
@@ -88,7 +77,11 @@ export default function Class() {
               </div>
             </div>
 
-            <div className="flex flex-row items-center justify-between mt-4 md:mt-6 md:gap-x-96">
+            <div
+              className={`flex flex-row items-center justify-between mt-4 md:mt-6 ${
+                role == "Owner" ? "md:gap-x-96" : ""
+              }`}
+            >
               <Search
                 options={pageData}
                 rawData={rawData}

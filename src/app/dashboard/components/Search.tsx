@@ -39,9 +39,6 @@ const Search: FC<SearchProps> = ({
   // Search submit handler
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // console.log(searchInput);
-    // console.log(selectedCategories);
-    // console.log(rawData);
     if (selectedCategories !== "Categories" && searchInput !== "") {
       const filteredData = rawData.filter(
         (item) => item[selectedCategories] == searchInput
