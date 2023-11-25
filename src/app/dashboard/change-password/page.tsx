@@ -140,7 +140,7 @@ const ChangePassword = () => {
                       type="text"
                       name="current_password"
                       id="current_password"
-                      className="w-4/5 rounded-lg border-2 border-[#B7B7B7] mt-4 bg-gray-300 text-gray-600"
+                      className="w-full md:w-4/5 rounded-lg border-2 border-[#B7B7B7] mt-4 bg-gray-300 text-gray-600"
                       defaultValue={currentPassword}
                       disabled={true}
                     />
@@ -151,7 +151,7 @@ const ChangePassword = () => {
                     <label htmlFor="password" className="font-bold text-xl">
                       New Password
                     </label>
-                    <div className="w-4/5  relative">
+                    <div className="w-full md:w-4/5 relative">
                       <input
                         type={passwordVisible ? "text" : "password"}
                         name="password"
@@ -181,7 +181,7 @@ const ChangePassword = () => {
                     >
                       Confirm New Password
                     </label>
-                    <div className="w-4/5  relative">
+                    <div className="w-full md:w-4/5 relative">
                       <input
                         type={password2Visible ? "text" : "password"}
                         name="confirm_password"
