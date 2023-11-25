@@ -19,7 +19,6 @@ interface transmission {
 
 interface FormDataTypes {
   price: number | undefined;
-  duration: number | undefined;
   session: number | undefined;
   transmission: string;
   vehicleType: string;
@@ -32,7 +31,6 @@ export default function AddClass() {
   // Form Data
   const [form, setForm] = useState<FormDataTypes>({
     price: undefined,
-    duration: undefined,
     session: undefined,
     transmission: "",
     vehicleType: "",
@@ -45,38 +43,22 @@ export default function AddClass() {
     setForm({ ...form, [name]: value });
   };
 
-  // Handle Duration Input
-  const [durationError, setDurationError] = useState(false);
-  const handleFloatInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-
-    // Check if the input is a valid float using a regular expression
-    if (/^(\d+\.?\d*|\.\d+)$/.test(value) || value === "") {
-      setDurationError(false);
-      // Update your state or variable here
-      setForm({ ...form, [name]: parseFloat(value) });
-    } else {
-      setDurationError(true);
-    }
-  };
-
   // Submit Handler
   const [submitAvailable, setSubmitAvailable] = useState(false);
 
   useLayoutEffect(() => {
     if (
       form.price !== undefined &&
-      form.duration !== undefined &&
+      // form.duration !== undefined &&
       form.session !== undefined &&
       form.transmission !== "" &&
-      form.vehicleType !== "" &&
-      !durationError
+      form.vehicleType !== ""
     ) {
       setSubmitAvailable(true);
     } else {
       setSubmitAvailable(false);
     }
-  }, [form, durationError]);
+  }, [form]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
@@ -101,7 +83,6 @@ export default function AddClass() {
       setLoading(false);
       setForm({
         price: undefined,
-        duration: undefined,
         session: undefined,
         transmission: "",
         vehicleType: "",
@@ -128,7 +109,6 @@ export default function AddClass() {
         <form onSubmit={handleSubmit}>
           <section className="bg-white mt-4 md:mt-8 rounded-md p-6 md:p-10">
             <div className="w-full flex flex-col gap-y-8">
-
               {/* Harga */}
               <NumberInput
                 title="Price"
@@ -140,7 +120,7 @@ export default function AddClass() {
               />
 
               {/* Durasi */}
-              <div className="flex flex-col">
+              {/* <div className="flex flex-col">
                 <label htmlFor="duration" className="font-bold text-xl">
                   Duration
                 </label>
@@ -166,7 +146,7 @@ export default function AddClass() {
                     ? "Duration must be float or number"
                     : "Duration in hours "}
                 </i>
-              </div>
+              </div> */}
 
               {/* Jumlah Sesi */}
               <NumberInput

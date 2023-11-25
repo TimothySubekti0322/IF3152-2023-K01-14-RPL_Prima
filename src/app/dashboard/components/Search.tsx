@@ -57,7 +57,7 @@ const Search: FC<SearchProps> = ({
         <button
           id="dropdown-button"
           data-dropdown-toggle="dropdown"
-          className="w-40 md:w-44 z-10 flex items-center justify-between px-4 text-sm md:text-base font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-2 focus:outline-none focus:ring-blue-200 "
+          className="w-40 md:w-52 z-10 flex items-center justify-between px-4 text-sm md:text-base font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-2 focus:outline-none focus:ring-blue-200 "
           type="button"
           onClick={() => setOpenDropdown(!openDropdown)}
         >
