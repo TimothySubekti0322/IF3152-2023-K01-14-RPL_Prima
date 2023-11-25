@@ -54,7 +54,7 @@ const Table: React.FC<{ column: string[]; data: dataProps[] }> = ({
   return (
     <>
       <Toaster />
-      <div className="w-full md:h-[34rem] h-[37.5rem] mb-10 overflow-x-auto">
+      <div className="w-full md:h-[34rem] h-[38.5rem] mb-10 overflow-x-auto">
         <table className="md:w-full table-auto md:table-fixed">
           {/* Table header */}
           <thead>
@@ -80,8 +80,8 @@ const Table: React.FC<{ column: string[]; data: dataProps[] }> = ({
                     <button
                       className={`${
                         item.status == "available"
-                          ? "bg-lime-200 text-lime-500 hover:bg-lime-500 hover:text-lime-800"
-                          : "bg-red-300 text-red-600 hover:bg-red-500 hover:text-red-700"
+                          ? "bg-lime-200 text-[#84CC16] hover:bg-lime-500 hover:text-lime-800"
+                          : "bg-red-300 text-[#E02424] hover:bg-red-500 hover:text-red-700"
                       } font-bold items-center justify-center text-white  rounded-md w-44 py-2`}
                       style={{ display: "flex" }}
                       onClick={() => openBox(item.id)}
