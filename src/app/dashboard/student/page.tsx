@@ -40,6 +40,10 @@ export default function Student() {
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState(false);
 
+  // Get cookie
+  const Cookie = new Cookies();
+  const role = Cookie.get("payload").role;
+
   // Fetch Raw Data
   useEffect(() => {
     const fetchData = async (token: string) => {
@@ -63,14 +67,8 @@ export default function Student() {
       }
     };
 
-    const Cookie = new Cookies();
-    const role = Cookie.get("payload").role;
-    if (role === "Admin") {
-      window.location.href = "/unauthorized";
-    } else {
-      const token: string = Cookie.get("token");
-      fetchData(token);
-    }
+    const token: string = Cookie.get("token");
+    fetchData(token);
   }, []);
 
   // Handle Data Change
@@ -89,21 +87,18 @@ export default function Student() {
           <div className="md:px-12 md:py-8 p-6">
             <div className="flex flex-row justify-between items-center">
               <Title />
-              <div className="md:hidden">
-                <AddButton />
-              </div>
             </div>
 
-            <div className="flex flex-row items-center justify-between mt-4 md:mt-6 md:gap-x-96">
+            <div
+              className={`flex flex-row items-center justify-between mt-4 md:mt-6 md:gap-x-96 
+              `}
+            >
               <Search
                 options={pageData}
                 rawData={rawData}
                 setData={setData}
                 setTotalPages={setTotalPages}
               />
-              <div className="hidden md:w-auto md:block">
-                <AddButton />
-              </div>
             </div>
 
             {/* Table */}

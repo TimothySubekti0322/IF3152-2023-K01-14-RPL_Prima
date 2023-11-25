@@ -13,22 +13,9 @@ import Cookies from "universal-cookie";
 
 export default function Instructor() {
   // List Column
-  const column: string[] = [
-    "Id",
-    "Name",
-    "NIK",
-    "Address",
-    "Phone",
-    "Action",  
-  ];
+  const column: string[] = ["Id", "Name", "NIK", "Address", "Phone", "Action"];
 
-  const pageData: string[] = [
-    "id",
-    "name",
-    "nik",
-    "address",
-    "phone",  
-  ];
+  const pageData: string[] = ["id", "name", "nik", "address", "phone"];
   // Number data in one page
   const dataPerPage = 10;
 

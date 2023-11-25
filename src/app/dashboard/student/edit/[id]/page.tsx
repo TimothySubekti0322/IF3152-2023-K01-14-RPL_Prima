@@ -4,7 +4,6 @@ import React, { useState, ChangeEvent, useLayoutEffect } from "react";
 import Loader from "../../../components/Loader";
 import Footer from "../../../components/Footer";
 import Title from "../../../components/Title";
-import NumberInput from "../../../components/inputComponent/NumberInput";
 import TextInput from "@/app/dashboard/components/inputComponent/TextInput";
 import Dropdown from "../../../components/inputComponent/Dropdown";
 import BackButton from "@/app/dashboard/components/BackButton";
@@ -12,15 +11,14 @@ import toast, { Toaster } from "react-hot-toast";
 import { usePathname } from "next/navigation";
 import axios from "axios";
 import Cookie from "universal-cookie";
-import carType from "../../../data/carType";
-import transmission from "../../../data/transmission";
+import studentStatus from "../../../data/studentStatus";
 
 interface FormDataTypes {
-    name: string;
-    classId: number | undefined;
-    phone: string;
-    address: string;
-    status: string;
+  name: string;
+  classId: number | undefined;
+  phone: string;
+  address: string;
+  status: string;
 }
 
 const EditClass = () => {
@@ -34,6 +32,8 @@ const EditClass = () => {
     address: "",
     status: "",
   });
+
+  const [classId, setClassId] = useState<number[]>([]);
 
   // Fetching Data
   const path = usePathname();
@@ -56,12 +56,17 @@ const EditClass = () => {
           address: res.data.data.address,
           status: res.data.data.status,
         });
+        const resClass = await axios.get("/api/class/list", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setClassId(resClass.data);
       } catch (err) {
         toast.error("Error fetching data");
         console.log(err);
       } finally {
         setLoading(false);
-        console.log(form);
       }
     };
     fetchData();
@@ -79,11 +84,11 @@ const EditClass = () => {
 
   useLayoutEffect(() => {
     if (
-        form.name !== "" &&
-        form.classId !== undefined &&
-        form.phone !== "" &&
-        form.address !== "" &&
-        form.status !== "" 
+      form.name !== "" &&
+      form.classId !== undefined &&
+      form.phone !== "" &&
+      form.address !== "" &&
+      form.status !== ""
     ) {
       setSubmitAvailable(true);
     } else {
@@ -141,50 +146,55 @@ const EditClass = () => {
             <form onSubmit={handleSubmit}>
               <section className="bg-white mt-4 md:mt-8 rounded-md p-6 md:p-10">
                 <div className="w-full flex flex-col gap-y-8">
-             {/*Name*/}
-             <TextInput 
-                title="Name"
-                inputID="name"
-                placeholder="Enter your name"
-                onChange={handleInputChange}
-                value={form.name}
-                description="" />
+                  {/*Name*/}
+                  <TextInput
+                    title="Name"
+                    inputID="name"
+                    placeholder="Enter your name"
+                    onChange={handleInputChange}
+                    value={form.name}
+                    description=""
+                  />
 
-            {/*classID*/}
-            <TextInput 
-                title="ClassID"
-                inputID="classId"
-                placeholder="Enter your Class ID"
-                onChange={handleInputChange}
-                value={undefined}
-                description="" />
+                  {/*classID*/}
+                  <Dropdown
+                    title="ClassID"
+                    inputID="classId"
+                    placeholder="Enter your Class ID"
+                    onChange={handleInputChange}
+                    value={String(form.classId)}
+                    data={classId}
+                  />
 
-            {/*Phone*/}
-            <TextInput 
-                title="Phone Number"
-                inputID="phone"
-                placeholder="Enter your phone number"
-                onChange={handleInputChange}
-                value={form.phone}
-                description="Ex: 081234567812" />
+                  {/*Phone*/}
+                  <TextInput
+                    title="Phone Number"
+                    inputID="phone"
+                    placeholder="Enter your phone number"
+                    onChange={handleInputChange}
+                    value={form.phone}
+                    description="Ex: 081234567812"
+                  />
 
-            {/*Address*/}
-            <TextInput 
-                title="Address"
-                inputID="address"
-                placeholder="Enter your Address"
-                onChange={handleInputChange}
-                value={form.address}
-                description="" />
+                  {/*Address*/}
+                  <TextInput
+                    title="Address"
+                    inputID="address"
+                    placeholder="Enter your Address"
+                    onChange={handleInputChange}
+                    value={form.address}
+                    description=""
+                  />
 
-            {/*Status*/}
-            <TextInput 
-                title="Status"
-                inputID="status"
-                placeholder="Enter your status"
-                onChange={handleInputChange}
-                value={form.status}
-                description="" />
+                  {/*Status*/}
+                  <Dropdown
+                    title="Status"
+                    inputID="status"
+                    placeholder="Enter your status"
+                    onChange={handleInputChange}
+                    value={form.status}
+                    data={studentStatus}
+                  />
 
                   {/* Submit */}
                   <div className="w-full flex justify-center items-center">

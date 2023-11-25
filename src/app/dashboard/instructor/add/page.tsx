@@ -43,6 +43,35 @@ export default function AddClass() {
     setForm({ ...form, [name]: value });
   };
 
+  // Handle NIK input
+  const [nikError, setNikError] = useState(false);
+  const handleNIKInput = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    // Check if the input is a valid float using a regular expression
+    if (/^\d{16}$/.test(value)) {
+      setNikError(false);
+      // Update your state or variable here
+      setForm({ ...form, [name]: value });
+    } else {
+      setNikError(true);
+    }
+  };
+
+  //Handle Telephone Input
+  const [telephoneError, setTelephoneError] = useState(false);
+  const handleTelephoneInput = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    // Check if the input is a valid 12 digit using a regular expression
+    if (/^08\d{10}$/.test(value)) {
+      setTelephoneError(false);
+      // Update your state or variable here
+      setForm({ ...form, [name]: value });
+    } else {
+      setTelephoneError(true);
+    }
+  };
 
   // Submit Handler
   const [submitAvailable, setSubmitAvailable] = useState(false);
@@ -52,7 +81,9 @@ export default function AddClass() {
       form.name !== "" &&
       form.nik !== "" &&
       form.address !== "" &&
-      form.phone !== "" 
+      form.phone !== "" &&
+      !nikError &&
+      !telephoneError
     ) {
       setSubmitAvailable(true);
     } else {
@@ -62,6 +93,7 @@ export default function AddClass() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
+    console.log(form);
     try {
       event.preventDefault();
       const Cookie = new Cookies();
@@ -75,10 +107,12 @@ export default function AddClass() {
         toast.success("Data added successfully");
       } else if (res.status === 401) {
         window.location.href = "/unauthorized";
+      } else if (res.data.response.data.error.code == "P2002") {
+        toast.error("NIK already exists");
       }
     } catch (err) {
       console.log(err);
-      setTimeout(toast.error("Something went wrong"), 100);
+      setTimeout(toast.error("Something when wrong"), 100);
     } finally {
       setLoading(false);
       setForm({
@@ -88,14 +122,14 @@ export default function AddClass() {
         phone: "",
       });
       setTimeout(() => {
-        window.location.href = "/dashboard/class";
-      }, 1000); // Delayed by 2000 milliseconds (2 seconds)
+        window.location.href = "/dashboard/instructor";
+      }, 1000); // Delayed by 1000 milliseconds (1 seconds)
     }
   };
 
   // Back Handler
   const backHandler = () => {
-    window.location.href = "/dashboard/class";
+    window.location.href = "/dashboard/instructor";
   };
 
   return (
@@ -109,42 +143,80 @@ export default function AddClass() {
         <form onSubmit={handleSubmit}>
           <section className="bg-white mt-4 md:mt-8 rounded-md p-6 md:p-10">
             <div className="w-full flex flex-col gap-y-8">
-                {/* {Instructor name} */}
-                <TextInput 
+              {/* {Instructor name} */}
+              <TextInput
                 title="Instructor Name"
                 inputID="name"
                 placeholder="Enter instructor name"
                 onChange={handleInputChange}
                 value={undefined}
-                description="" />
+                description=""
+              />
 
-                {/* {NIK} */}
-                <TextInput 
-                title="Instructor NIK"
-                inputID="nik"
-                placeholder="Enter instructor NIK"
-                onChange={handleInputChange}
-                value={undefined}
-                description="" />
+              {/* NIK */}
+              <div className="flex flex-col">
+                <label htmlFor="nik" className="font-bold text-xl">
+                  Instructor NIK
+                </label>
+                <input
+                  type="text"
+                  name="nik"
+                  id="nik"
+                  className={`w-4/5 rounded-lg border-2 border-[#B7B7B7] mt-4 ${
+                    nikError
+                      ? "focus:border-[#D91010] border-[#D91010]"
+                      : "border-[#B7B7B7]"
+                  }`}
+                  placeholder="NIK must be 12 digits"
+                  onChange={handleNIKInput}
+                  value={undefined}
+                />
+                <i
+                  className={`text-xs mt-2 ${nikError ? "text-[#D91010]" : ""}`}
+                >
+                  {nikError && "NIK must be 16 digits"}
+                </i>
+              </div>
 
-                {/* {Instructor address} */}
-                <TextInput 
+              {/* Instructor Address */}
+              <TextInput
                 title="Instructor Address"
                 inputID="address"
                 placeholder="Enter instructor address"
                 onChange={handleInputChange}
                 value={undefined}
-                description="" />
+                description=""
+              />
 
-                {/* {Instructor phone} */}
-                <TextInput 
-                title="Instructor Phone Number"
-                inputID="phone"
-                placeholder="Enter instructor phone number"
-                onChange={handleInputChange}
-                value={undefined}
-                description="Ex: 081322334455" />
-             
+              {/* {Instructor phone} */}
+              <div className="flex flex-col">
+                <label htmlFor="phone" className="font-bold text-xl">
+                  Instructor Phone Number
+                </label>
+                <input
+                  type="text"
+                  name="phone"
+                  id="phone"
+                  className={`w-4/5 rounded-lg border-2 border-[#B7B7B7] mt-4 ${
+                    telephoneError
+                      ? "focus:border-[#D91010] border-[#D91010]"
+                      : "border-[#B7B7B7]"
+                  }`}
+                  placeholder="Enter instructor phone number"
+                  onChange={handleTelephoneInput}
+                  value={undefined}
+                />
+                <i
+                  className={`text-xs mt-2 ${
+                    telephoneError ? "text-[#D91010]" : ""
+                  }`}
+                >
+                  {telephoneError
+                    ? "Phone Number must be 12 digits and begin with '08' "
+                    : "ex: 081293665211"}
+                </i>
+              </div>
+
               {/* Submit */}
               <div className="w-full flex justify-center items-center">
                 <button

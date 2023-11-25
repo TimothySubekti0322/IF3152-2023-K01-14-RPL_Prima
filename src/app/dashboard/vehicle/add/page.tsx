@@ -4,14 +4,17 @@ import React, { useState, ChangeEvent, useLayoutEffect } from "react";
 import Footer from "../../components/Footer";
 import Title from "../../components/Title";
 import NumberInput from "../../components/inputComponent/NumberInput";
-import TextInput from "../../components/inputComponent/TextInput"
+import TextInput from "../../components/inputComponent/TextInput";
 import Dropdown from "../../components/inputComponent/Dropdown";
 import BackButton from "../../components/BackButton";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import transmission from "../../data/transmission";
 import carType from "../../data/carType";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import toast, { Toaster } from "react-hot-toast";
+import { format } from "path";
 
 interface transmission {
   transmission: string;
@@ -22,8 +25,7 @@ interface FormDataTypes {
   vehicleType: string;
   transmission: string;
   distance: number | undefined;
-  lastService:string;
-
+  lastService: string;
 }
 
 export default function AddClass() {
@@ -36,8 +38,9 @@ export default function AddClass() {
     vehicleType: "",
     transmission: "",
     distance: undefined,
-    lastService:"",
+    lastService: "",
   });
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -46,16 +49,20 @@ export default function AddClass() {
     setForm({ ...form, [name]: value });
   };
 
+  useLayoutEffect(() => {
+    setForm({ ...form, lastService: formatDate(selectedDate) });
+  }, [selectedDate]);
+
   // Submit Handler
   const [submitAvailable, setSubmitAvailable] = useState(false);
 
   useLayoutEffect(() => {
     if (
-        form.plate !== "" &&
-        form.vehicleType !== "" &&
-        form.transmission !== "" &&
-        form.distance !== undefined &&
-        form.lastService !==""
+      form.plate !== "" &&
+      form.vehicleType !== "" &&
+      form.transmission !== "" &&
+      form.distance !== undefined &&
+      form.lastService !== ""
     ) {
       setSubmitAvailable(true);
     } else {
@@ -89,7 +96,7 @@ export default function AddClass() {
         vehicleType: "",
         transmission: "",
         distance: undefined,
-        lastService:"",
+        lastService: "",
       });
       setTimeout(() => {
         window.location.href = "/dashboard/vehicle";
@@ -113,7 +120,6 @@ export default function AddClass() {
         <form onSubmit={handleSubmit}>
           <section className="bg-white mt-4 md:mt-8 rounded-md p-6 md:p-10">
             <div className="w-full flex flex-col gap-y-8">
-              
               {/*Plate*/}
               <TextInput
                 title="Plate"
@@ -134,7 +140,6 @@ export default function AddClass() {
                 data={carType}
               />
 
-
               {/*Transmission*/}
               <Dropdown
                 title="Vehicle Transmission"
@@ -154,17 +159,23 @@ export default function AddClass() {
                 value={undefined}
                 description=""
               />
-
+                
               {/*Last Service*/}
-              <TextInput
-                title="Last Service"
-                inputID="lastService"
-                placeholder="Enter Last Service"
-                onChange={handleInputChange}
-                value={undefined}
-                description=""
-              />
+              <div className="flex flex-col">
+                <label htmlFor="lastService" className="font-bold text-xl">
+                  Last Service
+                </label>
 
+                <DatePicker
+                  selected={selectedDate}
+                  onChange={(date) => setSelectedDate(date)}
+                  placeholderText="Enter Last Service"
+                  dateFormat={"dd/MM/yyyy"}
+                  customInput={
+                    <input className="w-4/5 rounded-lg border-2 border-[#B7B7B7] mt-4 bg-white p-2" />
+                  }
+                />
+              </div>
 
               {/* Submit */}
               <div className="w-full flex justify-center items-center">
@@ -193,3 +204,15 @@ export default function AddClass() {
     </>
   );
 }
+
+const formatDate = (date: Date | null): string => {
+  if (!date) return "";
+
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1; // JavaScript months are 0-based.
+  const day = date.getDate();
+
+  return `${year}-${month.toString().padStart(2, "0")}-${day
+    .toString()
+    .padStart(2, "0")}`;
+};

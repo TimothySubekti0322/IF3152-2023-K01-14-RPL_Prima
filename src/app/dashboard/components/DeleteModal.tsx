@@ -27,8 +27,8 @@ const DeleteModal: FC<DeleteModalProps> = ({ dialogID, dataID, apiURL }) => {
       if (deletedData.status === 200) {
         toast.success("Data deleted successfully");
         setTimeout(() => {
-          window.location.href = "/dashboard/class";
-        }, 2000); // Delayed by 2000 milliseconds (2 seconds)
+          window.location.reload();
+        }, 1000); // Delayed by 2000 milliseconds (2 seconds)
       }
     } catch (err) {
       toast.error("Something went wrong");

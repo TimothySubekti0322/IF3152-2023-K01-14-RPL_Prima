@@ -22,7 +22,7 @@ const Table: React.FC<{ column: string[]; data: dataProps[] }> = ({
   const [deleteID, setDeleteID] = useState<number>(0);
 
   const editHandler = (id: number) => {
-    window.location.href = `/dashboard/class/edit/${id}`;
+    window.location.href = `/dashboard/student/edit/${id}`;
   };
 
   const showModalHandler = (id: number) => {

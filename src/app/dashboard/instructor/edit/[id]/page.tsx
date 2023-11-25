@@ -16,10 +16,10 @@ import carType from "../../../data/carType";
 import transmission from "../../../data/transmission";
 
 interface FormDataTypes {
-    name: string;
-    nik: string;
-    address: string;
-    phone: string;
+  name: string;
+  nik: string;
+  address: string;
+  phone: string;
 }
 
 const EditClass = () => {
@@ -70,17 +70,47 @@ const EditClass = () => {
     setForm({ ...form, [name]: value });
   };
 
+  // Handle NIK input
+  const [nikError, setNikError] = useState(false);
+  const handleNIKInput = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
 
+    // Check if the input is a valid float using a regular expression
+    if (/^\d{16}$/.test(value)) {
+      setNikError(false);
+      // Update your state or variable here
+      setForm({ ...form, [name]: value });
+    } else {
+      setNikError(true);
+    }
+  };
+
+  //Handle Telephone Input
+  const [telephoneError, setTelephoneError] = useState(false);
+  const handleTelephoneInput = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    // Check if the input is a valid 12 digit using a regular expression
+    if (/^08\d{10}$/.test(value)) {
+      setTelephoneError(false);
+      // Update your state or variable here
+      setForm({ ...form, [name]: value });
+    } else {
+      setTelephoneError(true);
+    }
+  };
 
   // Submit Handler
   const [submitAvailable, setSubmitAvailable] = useState(false);
 
   useLayoutEffect(() => {
     if (
-        form.name !== "" &&
-        form.nik !== "" &&
-        form.address !== "" &&
-        form.phone !== "" 
+      form.name !== "" &&
+      form.nik !== "" &&
+      form.address !== "" &&
+      form.phone !== "" &&
+      !nikError &&
+      !telephoneError
     ) {
       setSubmitAvailable(true);
     } else {
@@ -138,40 +168,80 @@ const EditClass = () => {
               <section className="bg-white mt-4 md:mt-8 rounded-md p-6 md:p-10">
                 <div className="w-full flex flex-col gap-y-8">
                   {/* {Instructor name} */}
-                <TextInput 
-                title="Instructor Name"
-                inputID="name"
-                placeholder="Enter instructor name"
-                onChange={handleInputChange}
-                value={form.name}
-                description="" />
+                  <TextInput
+                    title="Instructor Name"
+                    inputID="name"
+                    placeholder="Enter instructor name"
+                    onChange={handleInputChange}
+                    value={form.name}
+                    description=""
+                  />
 
-                {/* {NIK} */}
-                <TextInput 
-                title="Instructor NIK"
-                inputID="nik"
-                placeholder="Enter instructor NIK"
-                onChange={handleInputChange}
-                value={form.nik}
-                description="" />
+                  {/* {NIK} */}
+                  <div className="flex flex-col">
+                    <label htmlFor="nik" className="font-bold text-xl">
+                      Instructor NIK
+                    </label>
+                    <input
+                      type="text"
+                      name="nik"
+                      id="nik"
+                      className={`w-4/5 rounded-lg border-2 border-[#B7B7B7] mt-4 ${
+                        nikError
+                          ? "focus:border-[#D91010] border-[#D91010]"
+                          : "border-[#B7B7B7]"
+                      }`}
+                      placeholder="NIK must be 12 digits"
+                      onChange={handleNIKInput}
+                      defaultValue={form.nik}
+                    />
+                    <i
+                      className={`text-xs mt-2 ${
+                        nikError ? "text-[#D91010]" : ""
+                      }`}
+                    >
+                      {nikError && "NIK must be 16 digits"}
+                    </i>
+                  </div>
 
-                {/* {Instructor address} */}
-                <TextInput 
-                title="Instructor Address"
-                inputID="address"
-                placeholder="Enter instructor address"
-                onChange={handleInputChange}
-                value={form.address}
-                description="" />
+                  {/* {Instructor address} */}
+                  <TextInput
+                    title="Instructor Address"
+                    inputID="address"
+                    placeholder="Enter instructor address"
+                    onChange={handleInputChange}
+                    value={form.address}
+                    description=""
+                  />
 
-                {/* {Instructor phone} */}
-                <TextInput 
-                title="Instructor Phone Number"
-                inputID="phone"
-                placeholder="Enter instructor phone number"
-                onChange={handleInputChange}
-                value={form.phone}
-                description="Ex: 081322334455" />
+                  {/* {Instructor phone} */}
+                  <div className="flex flex-col">
+                    <label htmlFor="phone" className="font-bold text-xl">
+                      Instructor Phone Number
+                    </label>
+                    <input
+                      type="text"
+                      name="phone"
+                      id="phone"
+                      className={`w-4/5 rounded-lg border-2 border-[#B7B7B7] mt-4 ${
+                        telephoneError
+                          ? "focus:border-[#D91010] border-[#D91010]"
+                          : "border-[#B7B7B7]"
+                      }`}
+                      placeholder="Enter instructor phone number"
+                      onChange={handleTelephoneInput}
+                      defaultValue={form.phone}
+                    />
+                    <i
+                      className={`text-xs mt-2 ${
+                        telephoneError ? "text-[#D91010]" : ""
+                      }`}
+                    >
+                      {telephoneError
+                        ? "Phone Number must be 12 digits and begin with '08' "
+                        : "ex: 081293665211"}
+                    </i>
+                  </div>
 
                   {/* Submit */}
                   <div className="w-full flex justify-center items-center">

@@ -40,7 +40,7 @@ export const POST = async (request: Request) => {
     );
   } catch (error) {
     return new Response(
-      JSON.stringify({ message: "Data Created Failed", data: error }),
+      JSON.stringify({ message: "Data Created Failed", error: error }),
       { status: 400 }
     );
   }

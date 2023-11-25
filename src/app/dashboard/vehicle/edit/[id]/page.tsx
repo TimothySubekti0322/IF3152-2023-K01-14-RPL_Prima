@@ -5,9 +5,11 @@ import Loader from "../../../components/Loader";
 import Footer from "../../../components/Footer";
 import Title from "../../../components/Title";
 import NumberInput from "../../../components/inputComponent/NumberInput";
-import TextInput from "../../../components/inputComponent/TextInput"
+import TextInput from "../../../components/inputComponent/TextInput";
 import Dropdown from "../../../components/inputComponent/Dropdown";
 import BackButton from "@/app/dashboard/components/BackButton";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import toast, { Toaster } from "react-hot-toast";
 import { usePathname } from "next/navigation";
 import axios from "axios";
@@ -16,11 +18,11 @@ import carType from "../../../data/carType";
 import transmission from "../../../data/transmission";
 
 interface FormDataTypes {
-    plate: string;
-    vehicleType: string;
-    transmission: string;
-    distance: number | undefined;
-    lastService:string;
+  plate: string;
+  vehicleType: string;
+  transmission: string;
+  distance: number | undefined;
+  lastService: string | Date;
 }
 
 const EditClass = () => {
@@ -32,8 +34,9 @@ const EditClass = () => {
     vehicleType: "",
     transmission: "",
     distance: undefined,
-    lastService:"",
+    lastService: "",
   });
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   // Fetching Data
   const path = usePathname();
@@ -49,6 +52,7 @@ const EditClass = () => {
             Authorization: `Bearer ${token}`,
           },
         });
+        setSelectedDate(new Date(res.data.data.lastService));
         setForm({
           plate: res.data.data.plate,
           vehicleType: res.data.data.vehicleType,
@@ -73,16 +77,20 @@ const EditClass = () => {
     setForm({ ...form, [name]: value });
   };
 
+  useLayoutEffect(() => {
+    setForm({ ...form, lastService: formatDate(selectedDate) });
+  }, [selectedDate]);
+
   // Submit Handler
   const [submitAvailable, setSubmitAvailable] = useState(false);
 
   useLayoutEffect(() => {
     if (
-        form.plate !== "" &&
-        form.vehicleType !== "" &&
-        form.transmission !== "" &&
-        form.distance !== undefined &&
-        form.lastService !==""
+      form.plate !== "" &&
+      form.vehicleType !== "" &&
+      form.transmission !== "" &&
+      form.distance !== undefined &&
+      form.lastService !== ""
     ) {
       setSubmitAvailable(true);
     } else {
@@ -114,7 +122,7 @@ const EditClass = () => {
         vehicleType: "",
         transmission: "",
         distance: undefined,
-        lastService:"",
+        lastService: "",
       });
       setTimeout(() => {
         window.location.href = "/dashboard/vehicle";
@@ -140,57 +148,63 @@ const EditClass = () => {
             <form onSubmit={handleSubmit}>
               <section className="bg-white mt-4 md:mt-8 rounded-md p-6 md:p-10">
                 <div className="w-full flex flex-col gap-y-8">
-                   {/*Plate*/}
-              {/*Plate*/}
-              <TextInput
-                title="Plate"
-                inputID="plate"
-                placeholder="Enter plate"
-                onChange={handleInputChange}
-                value={form.plate}
-                description=""
-              />
+                  {/*Plate*/}
+                  {/*Plate*/}
+                  <TextInput
+                    title="Plate"
+                    inputID="plate"
+                    placeholder="Enter plate"
+                    onChange={handleInputChange}
+                    value={form.plate}
+                    description=""
+                  />
 
-              {/*Vehicle Type*/}
-              <Dropdown
-                title="Vehicle Type"
-                inputID="vehicleType"
-                placeholder="Select Vehicle type"
-                onChange={handleInputChange}
-                value={form.vehicleType}
-                data={carType}
-              />
+                  {/*Vehicle Type*/}
+                  <Dropdown
+                    title="Vehicle Type"
+                    inputID="vehicleType"
+                    placeholder="Select Vehicle type"
+                    onChange={handleInputChange}
+                    value={form.vehicleType}
+                    data={carType}
+                  />
 
+                  {/*Transmission*/}
+                  <Dropdown
+                    title="Vehicle Transmission"
+                    inputID="transmission"
+                    placeholder="Select Vehicle Transmission"
+                    onChange={handleInputChange}
+                    value={form.transmission}
+                    data={transmission}
+                  />
 
-              {/*Transmission*/}
-              <Dropdown
-                title="Vehicle Transmission"
-                inputID="transmission"
-                placeholder="Select Vehicle Transmission"
-                onChange={handleInputChange}
-                value={form.transmission}
-                data={transmission}
-              />
+                  {/*Distance*/}
+                  <NumberInput
+                    title="Distance"
+                    inputID="distance"
+                    placeholder="Enter Vehicle Distance"
+                    onChange={handleInputChange}
+                    value={form.distance}
+                    description=""
+                  />
 
-              {/*Distance*/}
-              <NumberInput
-                title="Distance"
-                inputID="distance"
-                placeholder="Enter Vehicle Distance"
-                onChange={handleInputChange}
-                value={form.distance}
-                description=""
-              />
+                  {/*Last Service*/}
+                  <div className="flex flex-col">
+                    <label htmlFor="lastService" className="font-bold text-xl">
+                      Last Service
+                    </label>
 
-              {/*Last Service*/}
-              <TextInput
-                title="Last Service"
-                inputID="lastService"
-                placeholder="Enter Last Service"
-                onChange={handleInputChange}
-                value={form.lastService}
-                description=""
-              />
+                    <DatePicker
+                      selected={selectedDate}
+                      onChange={(date) => setSelectedDate(date)}
+                      placeholderText="Enter Last Service"
+                      dateFormat={"dd/MM/yyyy"}
+                      customInput={
+                        <input className="w-4/5 rounded-lg border-2 border-[#B7B7B7] mt-4 bg-white p-2" />
+                      }
+                    />
+                  </div>
 
                   {/* Submit */}
                   <div className="w-full flex justify-center items-center">
@@ -216,3 +230,15 @@ const EditClass = () => {
 };
 
 export default EditClass;
+
+const formatDate = (date: Date | null): string => {
+  if (!date) return "";
+
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1; // JavaScript months are 0-based.
+  const day = date.getDate();
+
+  return `${year}-${month.toString().padStart(2, "0")}-${day
+    .toString()
+    .padStart(2, "0")}`;
+};

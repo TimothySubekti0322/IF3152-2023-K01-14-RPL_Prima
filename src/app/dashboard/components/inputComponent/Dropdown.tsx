@@ -5,8 +5,8 @@ interface DropdownProps {
   inputID: string;
   placeholder: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  value: string | undefined;
-  data: string[];
+  value: string  | undefined;
+  data: string[] | number[];
 }
 
 const Dropdown: FC<DropdownProps> = ({

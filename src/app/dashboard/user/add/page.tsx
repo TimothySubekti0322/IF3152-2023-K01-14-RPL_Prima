@@ -18,11 +18,9 @@ interface transmission {
 }
 
 interface FormDataTypes {
-    email: string;
-    password: string;
-    phone: string;
-    location: string;
-    role: string;
+  email: string;
+  phone: string;
+  location: string;
 }
 
 export default function AddClass() {
@@ -32,10 +30,8 @@ export default function AddClass() {
   // Form Data
   const [form, setForm] = useState<FormDataTypes>({
     email: "",
-    password: "",
     phone: "",
     location: "",
-    role: "",
   });
 
   const handleInputChange = (
@@ -45,7 +41,37 @@ export default function AddClass() {
     setForm({ ...form, [name]: value });
   };
 
+  // Handle Email Input
+  const [emailError, setEmailError] = useState<boolean>(false);
+  const handleEmailInput = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
 
+    // Regular expression for basic email validation
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+    if (emailRegex.test(value)) {
+      setEmailError(false);
+      // Update your state for email
+      setForm({ ...form, [name]: value });
+    } else {
+      setEmailError(true);
+    }
+  };
+
+  //Handle Telephone Input
+  const [telephoneError, setTelephoneError] = useState(false);
+  const handleTelephoneInput = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    // Check if the input is a valid 12 digit using a regular expression
+    if (/^08\d{10}$/.test(value)) {
+      setTelephoneError(false);
+      // Update your state or variable here
+      setForm({ ...form, [name]: value });
+    } else {
+      setTelephoneError(true);
+    }
+  };
 
   // Submit Handler
   const [submitAvailable, setSubmitAvailable] = useState(false);
@@ -53,10 +79,10 @@ export default function AddClass() {
   useLayoutEffect(() => {
     if (
       form.email !== "" &&
-      form.password !== "" &&
       form.phone !== "" &&
       form.location !== "" &&
-      form.role !== "" 
+      !emailError &&
+      !telephoneError
     ) {
       setSubmitAvailable(true);
     } else {
@@ -87,20 +113,18 @@ export default function AddClass() {
       setLoading(false);
       setForm({
         email: "",
-        password: "",
         phone: "",
         location: "",
-        role: "",
       });
       setTimeout(() => {
-        window.location.href = "/dashboard/class";
+        window.location.href = "/dashboard/user";
       }, 1000); // Delayed by 2000 milliseconds (2 seconds)
     }
   };
 
   // Back Handler
   const backHandler = () => {
-    window.location.href = "/dashboard/class";
+    window.location.href = "/dashboard/user";
   };
 
   return (
@@ -114,51 +138,101 @@ export default function AddClass() {
         <form onSubmit={handleSubmit}>
           <section className="bg-white mt-4 md:mt-8 rounded-md p-6 md:p-10">
             <div className="w-full flex flex-col gap-y-8">
-            {/*Email*/}
-            <TextInput 
-                title="Email"
-                inputID="email"
-                placeholder="Enter your email"
-                onChange={handleInputChange}
-                value={undefined}
-                description="" />
+              {/*Email*/}
+              <div className="flex flex-col">
+                <label htmlFor="email" className="font-bold text-xl">
+                  Email
+                </label>
+                <input
+                  type="text"
+                  name="email"
+                  id="email"
+                  className={`w-4/5 rounded-lg border-2 border-[#B7B7B7] mt-4 ${
+                    emailError
+                      ? "focus:border-[#D91010] border-[#D91010]"
+                      : "border-[#B7B7B7]"
+                  }`}
+                  placeholder="Enter your email"
+                  onChange={handleEmailInput}
+                  defaultValue={undefined}
+                />
+                <i
+                  className={`text-xs mt-2 ${
+                    emailError ? "text-[#D91010]" : ""
+                  }`}
+                >
+                  {emailError ? "Please input a valid email address" : ""}
+                </i>
+              </div>
 
-            {/*Password*/}
-            <TextInput 
-                title="Password"
-                inputID="password"
-                placeholder="Enter your password"
-                onChange={handleInputChange}
-                value={undefined}
-                description="" />
+              {/* Password */}
+              <div className="flex flex-col">
+                <label htmlFor="password" className="font-bold text-xl">
+                  Password
+                </label>
+                <input
+                  type="text"
+                  name="password"
+                  id="password"
+                  className="w-4/5 rounded-lg border-2 border-[#B7B7B7] mt-4 bg-gray-300 text-gray-600"
+                  defaultValue="benjiOP"
+                  disabled={true}
+                />
+              </div>
 
-            {/*Phone*/}
-            <TextInput 
-                title="Phone Number"
-                inputID="phone"
-                placeholder="Enter your phone number"
-                onChange={handleInputChange}
-                value={undefined}
-                description="Ex: 081234567812" />
+              {/*Phone*/}
+              <div className="flex flex-col">
+                <label htmlFor="phone" className="font-bold text-xl">
+                  Phone Number
+                </label>
+                <input
+                  type="text"
+                  name="phone"
+                  id="phone"
+                  className={`w-4/5 rounded-lg border-2 border-[#B7B7B7] mt-4 ${
+                    telephoneError
+                      ? "focus:border-[#D91010] border-[#D91010]"
+                      : "border-[#B7B7B7]"
+                  }`}
+                  placeholder="Enter your phone number"
+                  onChange={handleTelephoneInput}
+                  defaultValue={undefined}
+                />
+                <i
+                  className={`text-xs mt-2 ${
+                    telephoneError ? "text-[#D91010]" : ""
+                  }`}
+                >
+                  {telephoneError
+                    ? "Phone Number must be 12 digits and begin with '08' "
+                    : "ex: 081293665211"}
+                </i>
+              </div>
 
-            {/*Location*/}
-            <TextInput 
+              {/*Location*/}
+              <TextInput
                 title="Location"
                 inputID="location"
                 placeholder="Enter your location"
                 onChange={handleInputChange}
                 value={undefined}
-                description="" />
+                description=""
+              />
 
-            {/*Role*/}
-            <TextInput 
-                title="Role"
-                inputID="role"
-                placeholder="Enter your role"
-                onChange={handleInputChange}
-                value={undefined}
-                description="" />
-                
+              {/* Role */}
+              <div className="flex flex-col">
+                <label htmlFor="admin" className="font-bold text-xl">
+                  Admin
+                </label>
+                <input
+                  type="text"
+                  name="admin"
+                  id="admin"
+                  className="w-4/5 rounded-lg border-2 border-[#B7B7B7] mt-4 bg-gray-300 text-gray-600"
+                  defaultValue="Admin"
+                  disabled={true}
+                />
+              </div>
 
               {/* Submit */}
               <div className="w-full flex justify-center items-center">

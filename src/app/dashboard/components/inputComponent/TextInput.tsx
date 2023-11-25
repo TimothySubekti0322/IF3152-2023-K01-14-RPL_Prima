@@ -31,6 +31,7 @@ const TextInput: FC<TextInputProps> = ({
         className="w-4/5 rounded-lg border-2 border-[#B7B7B7] mt-4"
         placeholder={placeholder}
         onChange={onChange}
+        defaultValue={value}
       />
       <i className="text-xs mt-2">{description}</i>
     </div>

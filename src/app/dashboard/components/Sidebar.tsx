@@ -150,9 +150,15 @@ const Sidebar: FC<SidebarProps> = ({ role }) => {
             </li>
             <li>
               <a
-                href="/dashboard/vehicle"
+                href={`${
+                  role == "Owner"
+                    ? "/dashboard/vehicle"
+                    : "/dashboard/vehicle_status"
+                }`}
                 className={`flex items-center p-2  hover:bg-gray-700 group ${
-                  menu == "vehicle" ? "bg-gray-700" : ""
+                  menu == "vehicle" || menu == "vehicle_status"
+                    ? "bg-gray-700"
+                    : ""
                 }`}
               >
                 <img
@@ -160,7 +166,9 @@ const Sidebar: FC<SidebarProps> = ({ role }) => {
                   alt="vehicle"
                   className="w-7 h-7"
                 />
-                <span className="flex-1 ml-6 whitespace-nowrap">Vehicle</span>
+                <span className="flex-1 ml-6 whitespace-nowrap">
+                  {role == "Admin" ? "Vehicle Status" : "Vehicle"}
+                </span>
               </a>
             </li>
           </ul>
