@@ -52,10 +52,10 @@ export default function WhyUs() {
                         <p className="text-2xl font-bold text-white mb-8">Our Vehicles</p>
                         <div className="grid grid-cols-2 md:grid-cols-3 auto-auto-rows">
                             {carType.map((item, idx) => (
-                                <div key={idx} className="flexbox text-center w-36 md:w-48 h-36 md:h-44 content-center m-auto ">
-                                    <img key={idx} src={`images/cars/${item}.png`} alt={item} className="m-auto" />
-                                    <div key={idx} className="p-2 block">
-                                        <p key={idx}>{item}</p>
+                                <div key={`div-${idx}`} className="flexbox text-center w-36 md:w-48 h-36 md:h-44 content-center m-auto ">
+                                    <img key={`img-${idx}`} src={`images/cars/${item}.png`} alt={item} className="m-auto" />
+                                    <div key={`subdiv-${idx}`} className="p-2 block">
+                                        <p key={`p-${idx}`}>{item}</p>
                                     </div>
                                 </div>
 

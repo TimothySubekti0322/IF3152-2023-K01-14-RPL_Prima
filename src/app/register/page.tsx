@@ -13,11 +13,11 @@ interface PackageDataTypes {
   duration: number | undefined;
   session: number | undefined;
   transmission: string;
-  carType: string;
+  vehicleType: string;
 }
 interface StudentDataTypes {
   name: string;
-  package: PackageDataTypes | undefined;
+  package: string;
   phone: string;
   address: string;
 }
@@ -29,7 +29,7 @@ export default function Registration() {
 
   const [student, setStudent] = useState<StudentDataTypes>({
     name: "",
-    package: undefined,
+    package: "",
     phone: "",
     address: ""
   });
@@ -40,16 +40,31 @@ export default function Registration() {
     duration: undefined,
     session: undefined,
     transmission: "",
-    carType: ""
+    vehicleType: ""
   });
 
+  const changePackageData = (
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    ) => {
+      const {name, value} = event.target;
+      setPackageData(packageOptions[(Number([value]))]);
+      setStudent({...student, package: packageOptions[(Number([value]))].id})
+      console.log(PackageData)
+  };
   
+  const handleInputChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = event.target;
+    setStudent({ ...student, [name]: value })
+  };
 
   useLayoutEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get(`/api/class`, {});
         setPackageOptions(res.data);
+        console.log(res.data);
       } catch (err) {
         toast.error("Error fetching data");
         console.log(err);
@@ -60,19 +75,14 @@ export default function Registration() {
     fetchData();
   }, []);
 
-  const handleInputChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = event.target;
-    setStudent({ ...student, [name]: value })
-  };
+  
 
-  const changePackage = (
-    event: PackageDataTypes
-  ) => {
-    setPackageData(event);
-    setStudent({ ...student, package: event })
-  };
+  // const changePackage = (
+  //   event: PackageDataTypes
+  // ) => {
+  //   setPackageData(event);
+  //   setStudent({ ...student, package: event })
+  // };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
@@ -92,7 +102,7 @@ export default function Registration() {
       setLoading(false);
       setStudent({
         name: "",
-        package: undefined,
+        package: "",
         phone: "",
         address: ""
       });
@@ -129,16 +139,15 @@ export default function Registration() {
                             className="bg-gray-50 border border-[#83CE71] text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Input name here..." required />
                         </div>
                         <div>
-                        <label htmlFor="countries" className="block mb-2 text-sm md:text-base font-medium text-gray-900">Package</label>
-                          <select id="countries"  defaultValue={student.package?.id} onChange={handleInputChange}
-                          className="bg-gray-50 border border-[#83CE71] text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        <label htmlFor="package" className="block mb-2 text-sm md:text-base font-medium text-gray-900">Package</label>
+                          <select id="package"  defaultValue={student.package} onChange={changePackageData}
+                          className="bg-gray-50 border border-[#83CE71] text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Choose your package..." required
                           >
-                              <option defaultValue="Choose Your Package">Choose your package...</option>
+                              {/* <option placeholder="Choose Your Package">Choose your package...</option> */}
 
                               {packageOptions.map((item, idx) => (
-                                  <div key={idx}>
-                                    <option key={idx} value={item.id} >Paket {item.id}</option>
-                                  </div>
+                                    <option key={`opt-${idx}`} value={idx} >Paket {item.id}</option>
+                                    
                                   
                               ))}
                               </select>
@@ -147,30 +156,30 @@ export default function Registration() {
                                       
                                       <div className="flex">
                                           <div className=" p-4 pb-2 pt-0 md:pl-0">
-                                              Price: {student.package?.price}
+                                              Price: Rp{PackageData.price}
                                           </div>
                                           
                                       </div>
                                       <div className="flex">
                                           <div className="pb-2 px-4">
-                                              Duration: {student.package?.duration}
+                                              Duration: {PackageData.duration} hours
                                           </div>
                                       </div>
                                       <div className="flex">
                                           <div className="pb-2 px-4">
-                                              Transmission: {student.package?.transmission}
+                                              Transmission: {PackageData.transmission}
                                           </div>
                                       </div>
                                       <div className="flex">
                                           <div className="pb-2 px-4">
-                                              Car Type: {student.package?.carType}
+                                              Car Type: {PackageData.vehicleType}
                                           </div>
                                       </div>
                                   </div>
                             
                         </div>
                             
-                    <div className="grid gap-6 mb-4 md:grid-cols-2">
+                    <div className="grid gap-2 mb-4 md:grid-cols-2">
                         <div>
                             <label htmlFor="phone" className="block mb-2 text-sm md:text-base font-medium text-gray-900">Phone number</label>
                             <input type="tel" id="phone" defaultValue={student.phone} onChange={handleInputChange}
