@@ -35,7 +35,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       ) : (
         <div className="md:h-screen w-screen bg-[#EEEEEE] text-black">
           <div className="flex flex-col md:h-screen md:flex-row md:overflow-hidden">
-            <div className="absolute flex items-center justify-between md:relative md:flex-none md:w-64">
+            <div className="absolute flex items-center justify-between md:relative md:flex-none md:w-[17rem]">
               <Sidebar role={tokenPayload.role} />
             </div>
             <div className="md:flex-grow md:overflow-y-auto">

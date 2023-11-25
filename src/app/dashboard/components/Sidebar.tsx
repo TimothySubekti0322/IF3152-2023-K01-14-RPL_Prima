@@ -65,7 +65,7 @@ const Sidebar: FC<SidebarProps> = ({ role }) => {
       <aside
         ref={sidebarRef}
         id="default-sidebar"
-        className={`fixed top-0 left-0 z-40 w-64 h-screen transition-transform duration-300 ${
+        className={`fixed top-0 left-0 z-40 w-[17rem] h-screen transition-transform duration-300 ${
           sidebarOpen ? "translate-x-0" : " -translate-x-full"
         } md:translate-x-0`}
         aria-label="Sidebar"
@@ -76,7 +76,7 @@ const Sidebar: FC<SidebarProps> = ({ role }) => {
               <img
                 src="/images/logo.png"
                 alt="logo"
-                className="w-36 h-36 mx-auto"
+                className="w-32 h-32 mx-auto"
               />
             </li>
             <li className={role === "Admin" ? "hidden" : ""}>
@@ -168,6 +168,23 @@ const Sidebar: FC<SidebarProps> = ({ role }) => {
                 />
                 <span className="flex-1 ml-6 whitespace-nowrap">
                   {role == "Admin" ? "Vehicle Status" : "Vehicle"}
+                </span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="/dashboard/change-password"
+                className={`flex items-center p-2  hover:bg-gray-700 group ${
+                  menu == "change-password" ? "bg-gray-700" : ""
+                }`}
+              >
+                <img
+                  src="/images/change-password.png"
+                  alt="key"
+                  className="w-7 h-7"
+                />
+                <span className="flex-1 ml-6 whitespace-nowrap">
+                  Change Password
                 </span>
               </a>
             </li>

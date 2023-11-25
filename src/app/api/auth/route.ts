@@ -39,7 +39,7 @@ export async function POST(req: Request, res: Response) {
     msg: "Login successful",
     rememberMe: rememberMe,
     token: token,
-    payload: { email: user.email, role: user.role },
+    payload: { email: user.email, role: user.role, id: user.id },
     status: 200,
   });
 }
