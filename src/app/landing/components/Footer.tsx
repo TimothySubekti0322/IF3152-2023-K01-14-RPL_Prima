@@ -11,41 +11,41 @@ export default function Footer() {
                     <div className=" w-full md:block md:w-auto" id="navbar-default">
                         <ul className="text-sm flex flex-col font-light md:flex-row p-4 md:p-0 md:m-0 text-white">
                             <li>
-                            <a href="/landing#home" className="text-base md:py-6 md:px-16 md:text-2xl block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]">Home</a>
+                            <a href="/#home" className="text-base md:py-6 md:px-16 md:text-2xl block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]">Home</a>
                             </li>
                             <li >
-                            <a href="/landing#why-us" className="text-base md:py-6 md:px-16 md:text-2xl block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]">Why Us</a>
+                            <a href="/#why-us" className="text-base md:py-6 md:px-16 md:text-2xl block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]">Why Us</a>
                             </li>
                             <li>
-                            <a href="/landing#our-packages" className="text-base md:py-6 md:px-16 md:text-2xl block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]">Our Packages</a>
+                            <a href="/#our-packages" className="text-base md:py-6 md:px-16 md:text-2xl block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]">Our Packages</a>
                             </li>
                             <li>
-                            <a href="/landing/register" className="text-base md:py-6 md:px-16 md:text-2xl block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52] hover:text-white">Register</a>
+                            <a href="/register" className="text-base md:py-6 md:px-16 md:text-2xl block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52] hover:text-white">Register</a>
                             </li>
                         </ul>
                     </div>
                     <div className="md:block md:w-auto" id="navbar-default">
                         <ul className="text-sm font-light flex flex-col md:flex-row p-4 md:p-0 md:m-0 text-white">
                             <li>
-                            <   a href="#" className="text-base md:px-6 block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]">Contact Us</a>
+                            <   a href="#" className="text-base md:px-6 block text-white">Contact Us</a>
                             </li>
                             <li >
                                 <img src="images/whatsapp.png" className="w-6 md:w-10 inline-flex"></img>
-                                <a href="#" className="text-base md:px-6 inline-flex text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]">+62-XXXX-XXXX</a>
+                                <a href="#" className="text-base md:px-6 inline-flex text-white">+62-XXXX-XXXX</a>
                             <br></br>
                                 <img src="images/gmail.png" className="w-6 md:w-10 inline-flex"></img>
-                                <a href="#" className="text-base md:px-6 inline-flex text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]">info@rplprima.com</a>
+                                <a href="#" className="text-base md:px-6 inline-flex text-white">info@rplprima.com</a>
                             </li>
                             <br></br>
                             <li>
-                                <a href="#" className="text-base md:px-6 block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]">Our Locations</a>
+                                <a href="#" className="text-base md:px-6 block text-white">Our Locations</a>
                             </li>
                             <li className="block">
                                 <img src="images/location.png" className="w-6 md:w-10 inline-flex"></img>
-                                <a href="#" className="text-base md:px-6 inline-flex text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52] hover:text-white">Dago</a>
+                                <a href="#" className="text-base md:px-6 inline-flex text-white hover:text-white">Dago</a>
                                 <br></br>
                                 <img src="images/location.png" className="w-6 md:w-10 inline-flex"></img>
-                                <a href="#" className="text-base md:px-6 inline-flex text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52] hover:text-white">Buah Batu</a>
+                                <a href="#" className="text-base md:px-6 inline-flex text-white hover:text-white">Buah Batu</a>
                             </li>
                         </ul>
                     </div>
@@ -53,7 +53,7 @@ export default function Footer() {
                 
             </div>
             <div className="block">
-                <p className="text-center md:justify-center text-xs font-semibold pt-2">
+                <p className="text-white text-center md:justify-center text-xs font-semibold pt-2">
                     COPYRIGHT © 2023 RPL PRIMA. ALL RIGHTS RESERVED.
                 </p>
             </div> 

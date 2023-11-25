@@ -38,7 +38,7 @@ export default function Register() {
                         </div>
                             <div className="md:flex text-black text-sm text-left">
                                 <div className="flex">
-                                    <div className=" pb-4 pr-4">
+                                    <div className=" p-4 pt-0 md:pl-0">
                                         Hours:
                                     </div>
                                     <div className="pb-4 px-4">
