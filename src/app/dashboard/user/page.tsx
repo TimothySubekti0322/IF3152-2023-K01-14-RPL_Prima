@@ -13,7 +13,8 @@ import Cookies from "universal-cookie";
 
 export default function User() {
   // List Column
-  const column: string[] = [ //masukin data yang tadi
+  const column: string[] = [
+    //masukin data yang tadi
     "Id",
     "Email",
     "Password",
@@ -24,12 +25,12 @@ export default function User() {
   ];
 
   const pageData: string[] = [
-    "id",        
-    "email",      
-    "password",    
-    "phone ",       
-    "location",   
-    "role",         
+    "id",
+    "email",
+    "password",
+    "phone ",
+    "location",
+    "role",
   ];
   // Number data in one page
   const dataPerPage = 10;
@@ -94,7 +95,7 @@ export default function User() {
               </div>
             </div>
 
-            <div className="flex flex-row items-center justify-between mt-4 md:mt-6 md:gap-x-96">
+            <div className="flex flex-row items-center justify-between mt-4 md:mt-6 md:gap-x-80">
               <Search
                 options={pageData}
                 rawData={rawData}

@@ -5,8 +5,6 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 
 
-
-
 interface PackageDataTypes {
   id: string;
   price: number | undefined;
@@ -139,11 +137,10 @@ export default function Registration() {
   return (
     <>
     <Toaster/>
-      {/* if (PackageData.price==undefined) { setStudent({...student, "classId": (packageOptions[0]?.id)})}
-      if (PackageData.price==undefined) { setPackageData(packageOptions[0])} */}
-      
+        
+      <link rel="icon" href="images/favicon.png" />      
       <title>Register for RPL Prima</title>
-      {/* {console.log(packageOptions)} */}
+
         <div className="h-full w-full bg-[#EEEEEE] text-white">
           <NavBar />
           <div id="register">

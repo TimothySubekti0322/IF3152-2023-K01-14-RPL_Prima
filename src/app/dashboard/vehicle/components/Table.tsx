@@ -6,15 +6,14 @@ import { BiSolidEdit } from "react-icons/bi";
 import DeleteModal from "../../components/DeleteModal";
 import { use } from "react";
 
-interface dataProps 
-{
-    id: number;           
-    plate: string;        
-    vehicleType: string; 
-    transmission: string; 
-    distance: number;     
-    lastService: string;  
-    status : string;
+interface dataProps {
+  id: number;
+  plate: string;
+  vehicleType: string;
+  transmission: string;
+  distance: number;
+  lastService: string;
+  status: string;
 }
 
 const Table: React.FC<{ column: string[]; data: dataProps[] }> = ({
@@ -37,7 +36,7 @@ const Table: React.FC<{ column: string[]; data: dataProps[] }> = ({
 
   return (
     <>
-      <div className="w-full md:h-[34rem] h-[37.5rem] mb-10 overflow-x-auto">
+      <div className="w-full md:h-[34rem] h-[38.5rem] mb-10 overflow-x-auto">
         <table className="md:w-full table-auto">
           {/* Table header */}
           <thead>

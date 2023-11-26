@@ -22,7 +22,7 @@ export default function AddButton() {
       onClick={() => clickHandler()}
     >
       <AiOutlinePlusCircle style={{ fontSize: "1.25rem", color: "white" }} />
-      <p className="text-sm md:text-base">add {text}</p>
+      <p className="text-sm md:text-base whitespace-nowrap">add {text}</p>
     </button>
   );
 }

@@ -79,7 +79,7 @@ export default function Class() {
 
             <div
               className={`flex flex-row items-center justify-between mt-4 md:mt-6 ${
-                role == "Owner" ? "md:gap-x-96" : ""
+                role == "Owner" ? "md:gap-x-80" : ""
               }`}
             >
               <Search

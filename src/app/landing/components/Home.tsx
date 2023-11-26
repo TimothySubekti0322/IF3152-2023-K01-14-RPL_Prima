@@ -5,11 +5,11 @@ export default function Home() {
       <>  
         <div id="home">
             
-            <div className="Home mt-16 md:mt-12 justify-between items-center">
+            <div className="Home mt-16 lg:mt-12 justify-between items-center">
                 <img className="  w-full z-0 " src="images/landing_1.png"></img> 
             </div>  
                 
-            <div className="z-0 absolute mt-[-30px] md:mt-[-200px] w-80 md:w-96 p-4 md:p-8  left-1/2 transform -translate-x-1/2 bg-[#1C2434] rounded-lg  shadow-[#C2E799]">
+            <div className="z-0 absolute mt-[-30px]  lg:mt-[-200px] w-80 md:w-96 p-4 md:p-8  left-1/2 transform -translate-x-1/2 bg-[#1C2434] rounded-lg  shadow-[#C2E799]">
                 <a href="#" className="content-center">
                     <img src="images/logo_img.png" className="h-8 m-auto" alt="Flowbite Logo" />
                     <img src="images/logo_title.png" className="h-8 m-auto" alt="Flowbite Logo" />
