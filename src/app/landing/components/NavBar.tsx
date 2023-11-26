@@ -6,7 +6,7 @@ export default function NavBar() {
 
   return (
     <>
-        {/* <div className="flex flex-row h-screen w-40 md:h-20 md:w-screen md:flex-col md:overflow-hidden bg-[#1C2434]"> */}
+        {/* <div className="flex flex-row h-sc  en w-40 md:h-20 md:w-screen md:flex-col md:overflow-hidden bg-[#1C2434]"> */}
 
         <nav className="font-4xl z-10 w-screen fixed t-0 m-0 border-t-0 top-0 bg-[#1C2434] border-gray-200 px-10">
             <div className=" flex flex-wrap items-center justify-between mx-auto p-4 md:p-0">
@@ -23,16 +23,16 @@ export default function NavBar() {
                 <div className={`${!viewNav && "hidden"} w-full md:block md:w-auto`} >
                     <ul className="text-xl flex flex-col md:flex-row p-4 pb-0 md:p-0 md:m-0 text-white">
                         <li>
-                        <a href="/#home" className="text-base md:text-xl p-2 md:p-6 block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]">Home</a>
+                        <a href="/#home" className="text-base md:text-xl p-2 md:py-6 md:px-4 lg:px-8 block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]">Home</a>
                         </li>
                         <li >
-                        <a href="/#why-us" className="text-base md:text-xl p-2 md:p-6 block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]">Why Us</a>
+                        <a href="/#why-us" className="text-base md:text-xl p-2 md:py-6 md:px-4 lg:px-8 block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]">Why Us</a>
                         </li>
                         <li>
-                        <a href="/#our-packages" className="text-base md:text-xl p-2 md:p-6 block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]">Our Packages</a>
+                        <a href="/#our-packages" className="text-base md:text-xl p-2 md:py-6 md:px-4 lg:px-8 block text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52]">Our Packages</a>
                         </li>
                         <li>
-                        <a href="/register" className="font-semibold text-base md:text-xl p-2 md:p-6 block text-[#C2E799] hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52] hover:text-white">Register</a>
+                        <a href="/register" className="font-semibold text-base md:text-xl p-2 md:py-6 md:px-4 lg:px-8 block text-[#C2E799] hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52] hover:text-white">Register</a>
                         </li>
                     </ul>
                 </div>

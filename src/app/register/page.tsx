@@ -5,8 +5,6 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 
 
-
-
 interface PackageDataTypes {
   id: string;
   price: number | undefined;

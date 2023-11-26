@@ -1,10 +1,40 @@
 "use client";
 import { Button } from "./";
-import { useState } from "react";
-import carType  from '../../dashboard/data/carType'
+import { useLayoutEffect, useState } from "react";
+import carType  from '../../dashboard/data/carType';
+import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
+
+interface PackageDataTypes {
+    id: string;
+    price: number | undefined;
+    duration: number | undefined;
+    session: number | undefined;
+    transmission: string;
+    vehicleType: string;
+  }
 
 export default function OurPackages() {
+    const [loading, setLoading] = useState<boolean>(true);
     const [car, setCar] = useState(0)
+
+    const [PackageData, setPackageData] = useState<PackageDataTypes[]>([]);
+
+      useLayoutEffect(() => {
+        const fetchData = async () => {
+          try {
+            const res = await axios.get(`/api/class`, {});
+            setPackageData(res.data);
+            console.log(res.data);
+          } catch (err) {
+            toast.error("Error fetching data");
+            console.log(err);
+          } finally {
+            setLoading(false);
+          }
+        };
+        fetchData();
+      }, []);
 
     return (
     <div id="our-packages">
@@ -17,9 +47,9 @@ export default function OurPackages() {
         
 
         <div className="block m-auto  rounded-md border-[#EEEEEE] w-80 md:w-fit">
-            <div className="rounded-lg bg-[#1C2434] border-[#1C2434] md:flex px-4 md:px-12 ">
+            <div className="rounded-lg bg-[#1C2434] border-[#1C2434] md:flex px-4 md:px-2 lg:px-12 ">
                 <div className="md:w-fit md:block ">
-                    <p className="block w-fit text-center m-auto text-xl font-bold py-4 text-[#C2E799] md:mt-24">
+                    <p className="block w-fit text-center m-auto text-xl font-bold py-4 text-[#C2E799] md:mt-8">
                         Choose Car Type 
                     </p>
                     <div className="w-48 m-auto flex ">
@@ -27,7 +57,7 @@ export default function OurPackages() {
                             <img src="images/larrow.png" className="w-16"></img>
                         </button>
 
-                        <img src={`images/cars/${carType[car]}.png`} className="w-36"></img>
+                        <img src={`images/car_${carType[car]}.png`} className="w-36"></img>
 
                         <button onClick={() => {car<8 ? setCar(car+1) : setCar(0)}} className="w-16">
                             <img src="images/rarrow.png" className="w-16"></img>
@@ -37,7 +67,7 @@ export default function OurPackages() {
                         {carType[car]}
                     </p> 
                 </div> 
-                <div className="m-auto w-full md:w-[500px] md:block">
+                <div className="m-auto w-full lg:w-[500px] md:block">
                     <p className="text-center text-xl font-bold p-4 text-[#C2E799]">
                     {carType[car]} Packages 
                     </p>     
@@ -45,62 +75,57 @@ export default function OurPackages() {
                         <table className="overflow-x-auto  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead className="text-base text-white">
                                 <tr className="">
-                                    <th scope="col" className="px-6 py-3">
-                                    </th>
-                                    <th scope="col" className="px-6 py-3 w-full">
-                                        6 hours
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        8 hours
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        10 hours
-                                    </th>
+                                    <td scope="col" className="px-6 py-3 w-18">
+                                    </td>
+                                    <td scope="col" className="px-6 py-3 w-18">
+                                        Transmission
+                                    </td>
+                                    <td scope="col" className="px-6 py-3 w-18">
+                                        Duration
+                                    </td>
+                                    <td scope="col" className="px-6 py-3 w-18">
+                                        Price
+                                    </td>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr className="text-[#C2E799]">
-                                    <th scope="row" className="px-6 py-4 font-medium text-white whitespace-nowrap ">
-                                        Apple MacBook Pro 17
-                                    </th>
-                                    <td className="px-6 py-4">
-                                        Silver
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        Laptop
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        $2999
-                                    </td>
-                                </tr>
-                                <tr className="text-[#C2E799]">
-                                    <th scope="row" className="px-6 py-4 font-medium text-white whitespace-nowrap ">
-                                        Microsoft Surface Pro
-                                    </th>
-                                    <td className="px-6 py-4">
-                                        White
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        Laptop PC
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        $1999
-                                    </td>
-                                </tr>
-                                <tr className="text-[#C2E799]">
-                                    <th scope="row" className="px-6 py-4 font-medium text-white whitespace-nowrap">
-                                        Magic Mouse 2
-                                    </th>
-                                    <td className="px-6 py-4">
-                                        Black
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        Accessories
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        $99
-                                    </td>
-                                </tr>
+                                {PackageData.map((item,idx) =>
+                                    {
+                                        return item.vehicleType==carType[car] ?
+                                        <tr key={`row-${idx}`} className="text-[#C2E799]">
+                                            <th  className="px-6 py-4 font-medium text-white">
+                                                Package {item.id}
+                                            </th>
+                                            <th className="px-6 py-4 font-medium">
+                                                {item.transmission}
+                                            </th>
+                                            <th className="px-6 py-4 font-medium">
+                                                {item.duration} hours
+                                            </th>
+                                            <th className="px-6 py-4 font-medium">
+                                                Rp {item.price}
+                                            </th>
+                                        </tr>
+                                        :
+                                        <div key={`row-${idx}`}></div>
+                                    }
+                                    
+                                )}
+                                    <tr className="text-white text-center">
+                                            <th  className="px-6 py-4 font-medium text-white">
+                                                - other -
+                                            </th>
+                                            <th className="px-6 py-4 font-medium">
+                                                - packages -
+                                            </th>
+                                            <th className="px-6 py-4 font-medium">
+                                                - coming -
+                                            </th>
+                                            <th className="px-6 py-4 font-medium">
+                                                - soon -
+                                            </th>
+                                        </tr>
+                                
                             </tbody>
                         </table>
                         </div>   
