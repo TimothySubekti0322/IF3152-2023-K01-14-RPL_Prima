@@ -5,8 +5,6 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 
 
-
-
 interface PackageDataTypes {
   id: string;
   price: number | undefined;
@@ -118,6 +116,7 @@ export default function Registration() {
 
   return (
     <>
+      <title>Register for RPL Prima</title>
       {/* <head>
         <link rel="icon" href="images/favicon.png" />
         <title>Register for RPL Prima</title>
