@@ -17,9 +17,10 @@ interface PackageDataTypes {
 }
 interface StudentDataTypes {
   name: string;
-  package: string;
+  classId: string;
   phone: string;
   address: string;
+  status: string;
 }
 
 
@@ -29,9 +30,10 @@ export default function Registration() {
 
   const [student, setStudent] = useState<StudentDataTypes>({
     name: "",
-    package: "",
+    classId: "",
     phone: "",
-    address: ""
+    address: "",
+    status: "registrant"
   });
 
   const [PackageData, setPackageData] = useState<PackageDataTypes>({
@@ -48,7 +50,7 @@ export default function Registration() {
     ) => {
       const {name, value} = event.target;
       setPackageData(packageOptions[(Number([value]))]);
-      setStudent({...student, package: packageOptions[(Number([value]))].id})
+      setStudent({...student, classId: packageOptions[(Number([value]))].id})
       console.log(PackageData)
   };
   
@@ -102,9 +104,10 @@ export default function Registration() {
       setLoading(false);
       setStudent({
         name: "",
-        package: "",
+        classId: "",
         phone: "",
-        address: ""
+        address: "",
+        status: "registrant"
       });
       setTimeout(() => {
         window.location.href = "/register";
@@ -140,7 +143,7 @@ export default function Registration() {
                         </div>
                         <div>
                         <label htmlFor="package" className="block mb-2 text-sm md:text-base font-medium text-gray-900">Package</label>
-                          <select id="package"  defaultValue={student.package} onChange={changePackageData}
+                          <select id="package"  defaultValue={student.classId} onChange={changePackageData}
                           className="bg-gray-50 border border-[#83CE71] text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Choose your package..." required
                           >
                               {/* <option placeholder="Choose Your Package">Choose your package...</option> */}
