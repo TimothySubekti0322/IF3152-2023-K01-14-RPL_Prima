@@ -116,6 +116,7 @@ export default function Registration() {
 
   return (
     <>
+      <title>Register for RPL Prima</title>
       {/* <head>
         <link rel="icon" href="images/favicon.png" />
         <title>Register for RPL Prima</title>

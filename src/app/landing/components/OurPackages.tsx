@@ -107,7 +107,7 @@ export default function OurPackages() {
                                             </th>
                                         </tr>
                                         :
-                                        <div key={`row-${idx}`}></div>
+                                        <tr key={`row-${idx}`}></tr>
                                     }
                                     
                                 )}
