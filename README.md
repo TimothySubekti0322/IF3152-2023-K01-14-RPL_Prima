@@ -1,6 +1,6 @@
 # RPL PRIMA Web Application
 
-## Overview
+# Overview
 
 Welcome to the GitHub repository for the RPL PRIMA web application. This project is a comprehensive web solution for RPL PRIMA, a company specializing in providing offline driving training services. Our application offers an intuitive interface for customers to explore the company's services and register for driving classes, and a robust backend for admins and owners to manage company data and activities.
 
@@ -18,7 +18,7 @@ Welcome to the GitHub repository for the RPL PRIMA web application. This project
 - **Change Password:** Provide flexibility for both admins and owners to change their password
 - **Remember Me:** Both admin and owner accounts have access to a "Remember Me" option for easier and faster subsequent logins.
 
-## Tech Stack
+### Tech Stack
 
 **Framework:** NEXT.JS, TailwindCSS
 
@@ -28,16 +28,16 @@ Welcome to the GitHub repository for the RPL PRIMA web application. This project
 
 **Testing:** Jest, Postman
 
-## Getting Started
+# Getting Started
 
-### Prerequisites
+## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
 
 - **Node.js**: This project requires Node.js version 20.0.0 or higher. To check your Node.js version, run `node -v` in your terminal. If you need to update or install Node.js, visit [Node.js Download](https://nodejs.org/en/download/).
 - **Cloud Database Access**: Ensure you have access to a cloud database. This project uses Supabase as the cloud database. Set up an account or log in to your existing Supabase account to connect the application to the database.
 
-### Installation
+## Installation
 
 These instructions will get your copy of the project up and running on your local machine for development and testing purposes.
 
@@ -102,3 +102,48 @@ Owner Account
 **email :** owner@gmail.com
 
 **password :** owner
+
+
+
+
+# Use Cases
+
+
+# Database
+Here are the details of the database used in the RPL Prima web application.
+1. Class
+   Class manages the different types of classes offered by RPL Prima. The Class
+   - id: string
+   - price: number
+   - duration: number
+   - session: number
+   - transmission: string
+   - vehicle type: string
+2. Instructor
+   Instructor manages the details of the different instructors registered in RPL Prima.
+   - id: string
+   - name: string
+   - nik: string
+   - address: string
+   - phone: string
+3. Student
+   Student manages all the registrants, current students, and past students that have passed the driving course.
+   - id: number
+   - name: string
+   - classId: number
+   - phone: string
+   - address: string
+   - status: string
+4. User
+    User manages the accounts for the admins and owners of RPL Prima.
+   - username: string
+   - password: string
+   - role: string
+5. Vehicle
+    Vehicle manages the details of each vehicle and its status of availability.
+   - id: number
+   - price: number
+   - duration: number
+   - session: number
+   - transmission: string
+   - vehicleType: string
