@@ -16,7 +16,7 @@ import axios from "axios";
 import Cookie from "universal-cookie";
 import carType from "../../../data/carType";
 import transmission from "../../../data/transmission";
-import formatDate from "../../FormatDate";
+import { formatDate } from "../../FormatDate";
 
 interface FormDataTypes {
   plate: string;
@@ -231,4 +231,3 @@ const EditClass = () => {
 };
 
 export default EditClass;
-
