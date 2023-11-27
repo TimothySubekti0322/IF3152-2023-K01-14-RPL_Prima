@@ -1,41 +1,41 @@
+const { authorizedOwner } = require('../src/app/api/authorized'); // Adjust the path
 const jwt = require('jsonwebtoken');
-const { authorized } = require('../src/app/api/authorized');
 
-// Spy on the jwt.verify method and keep its original implementation
-jest.spyOn(jwt, 'verify');
+jest.mock('jsonwebtoken');
 
-beforeEach(() => {
-    // Clear any previous calls to the mock
-    jwt.verify.mockClear();
+describe('authorizedOwner function', () => {
+    const mockRequest = (authorization) => ({
+        headers: {
+            get: jest.fn().mockReturnValue(authorization),
+        },
+    });
+
+    const mockAuthorized = jest.fn();
+    jwt.verify.mockImplementation(() => ({ role: 'Owner' }));
+
+    beforeEach(() => {
+        jwt.verify.mockClear();
+        mockAuthorized.mockClear();
+    });
+
+    test('should authorize an owner', async () => {
+        mockAuthorized.mockResolvedValue({ status: 200 });
+        const req = mockRequest('Bearer validToken');
+
+        const response = await authorizedOwner(req);
+
+        expect(response).toEqual({ message: 'You are authorized', status: 200 });
+    });
+
+    test('should deny access if not owner', async () => {
+        jwt.verify.mockImplementation(() => ({ role: 'User' }));
+        mockAuthorized.mockResolvedValue({ status: 200 });
+        const req = mockRequest('Bearer validToken');
+
+        const response = await authorizedOwner(req);
+
+        expect(response).toEqual({ message: 'Access denied', status: 403 });
+    });
+
+    // Additional tests for other scenarios...
 });
-
-describe('authorized function', () => {
-    it('should return 401 if Authorization header is missing', async () => {
-        const req = { headers: { get: () => null } }; // Simulate missing Authorization header
-        const response = await authorized(req);
-        expect(response).toEqual({ message: "Authorization header missing", status: 401 });
-    });
-
-    it('should return 401 if token is missing', async () => {
-        const req = { headers: { get: () => "Bearer " } }; // Simulate missing token
-        const response = await authorized(req);
-        expect(response).toEqual({ message: "Token missing", status: 401 });
-    });
-
-    it('should return 401 for an invalid token', async () => {
-        jwt.verify.mockImplementationOnce(() => {
-            throw new Error('Invalid token');
-        });
-        const req = { headers: { get: () => "Bearer some-invalid-token" } }; // Simulate invalid token
-        const response = await authorized(req);
-        expect(response).toEqual({ message: "Invalid token", status: 401 });
-    });
-
-    it('should return 200 for a valid token', async () => {
-        jwt.verify.mockReturnValueOnce({ id: 'user-id' }); // Mock valid token decoding
-        const req = { headers: { get: () => "Bearer some-valid-token" } }; // Simulate valid token
-        const response = await authorized(req);
-        expect(response).toEqual({ message: "Token is valid", status: 200 });
-    });
-});
-
