@@ -118,6 +118,7 @@ Owner Account
 <br></br>
 
 <h1><img width="30" src="doc/icons/use_case.png"/>Use Cases</h1>
+
 The RPL Prima web application implements the following use cases:
 1. **View Class Packages** PIC: Nadira (18221059)
   ![landing page](doc/layout/1.1.jpg)
@@ -178,10 +179,11 @@ Here are the details of the database used in the RPL Prima web application.
 ```
    - id: int
    - price: int
-   - duration: int
+   - duration: float
    - session: int
    - transmission: string
    - vehicle type: string
+   - student: Student[] 
 ```
 2. Instructor - manages the details of the different instructors registered in RPL Prima.
 ```
@@ -195,6 +197,7 @@ Here are the details of the database used in the RPL Prima web application.
 ```
    - id: number
    - name: string
+   - class: Class
    - classId: int
    - phone: string
    - address: string
@@ -213,8 +216,9 @@ Here are the details of the database used in the RPL Prima web application.
 ```
     - id: int
     - plate: string
-    - vehicleType": string
+    - vehicleType: string
     - transmission: string
-    - distance: int
     - lastService: date
+    - distance: int
+    - status: string
 ```
