@@ -20,7 +20,9 @@ export async function POST(req: Request, res: Response) {
     //Fetch user from database
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
-      return NextResponse.json({ message: "User not registered", status: 404 });
+      return new Response(
+        JSON.stringify({ message: "User not registered", status: 404 })
+      );
     }
 
     //Check password
@@ -37,7 +39,6 @@ export async function POST(req: Request, res: Response) {
       process.env.JWT_SECRET as string,
       { expiresIn: "31d" }
     );
-    console.log("Token Generated");
 
     return new Response(
       JSON.stringify({
