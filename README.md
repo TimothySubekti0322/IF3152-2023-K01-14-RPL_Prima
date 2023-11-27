@@ -1,6 +1,6 @@
 # RPL PRIMA Web Application
 
-## Overview
+# Overview
 
 Welcome to the GitHub repository for the RPL PRIMA web application. This project is a comprehensive web solution for RPL PRIMA, a company specializing in providing offline driving training services. Our application offers an intuitive interface for customers to explore the company's services and register for driving classes, and a robust backend for admins and owners to manage company data and activities.
 
@@ -18,7 +18,7 @@ Welcome to the GitHub repository for the RPL PRIMA web application. This project
 - **Change Password:** Provide flexibility for both admins and owners to change their password
 - **Remember Me:** Both admin and owner accounts have access to a "Remember Me" option for easier and faster subsequent logins.
 
-## Tech Stack
+### Tech Stack
 
 **Framework:** NEXT.JS, TailwindCSS
 
@@ -28,16 +28,16 @@ Welcome to the GitHub repository for the RPL PRIMA web application. This project
 
 **Testing:** Jest, Postman
 
-## Getting Started
+# Getting Started
 
-### Prerequisites
+## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
 
 - **Node.js**: This project requires Node.js version 20.0.0 or higher. To check your Node.js version, run `node -v` in your terminal. If you need to update or install Node.js, visit [Node.js Download](https://nodejs.org/en/download/).
 - **Cloud Database Access**: Ensure you have access to a cloud database. This project uses Supabase as the cloud database. Set up an account or log in to your existing Supabase account to connect the application to the database.
 
-### Installation
+## Installation
 
 These instructions will get your copy of the project up and running on your local machine for development and testing purposes.
 
@@ -102,3 +102,61 @@ Owner Account
 **email :** owner@gmail.com
 
 **password :** owner
+
+
+
+
+# Use Cases
+The RPL Prima web application implements the following use cases:
+1. View Class Packages. PIC: Nadira (18221059).
+  !()
+
+2. Register as Student. PIC: Nadira (18221059).
+3. Log In. PIC: Timothy (18221063).
+4. View Dashboard. PIC: Timothy (18221063).
+5. Manage Users. PIC: Nadine (18221081).
+6. Manage Classes. PIC: Carissa (18221093).
+7. Manage Instructors. PIC: Carissa (18221093).
+8. Manage Vehicles. PIC: Jodi (18221147).
+9. Manage Vehicle Status. PIC: Jodi (18221147).
+10. Manage Students. PIC: Nadine (18221081).
+11. Change Password. PIC: Timothy (18221063).
+
+
+# Database
+Here are the details of the database used in the RPL Prima web application.
+1. Class
+   Class manages the different types of classes offered by RPL Prima. The Class
+   - id: int
+   - price: int
+   - duration: int
+   - session: int
+   - transmission: string
+   - vehicle type: string
+2. Instructor
+   Instructor manages the details of the different instructors registered in RPL Prima.
+   - id: int
+   - name: string
+   - nik: string
+   - address: string
+   - phone: string
+3. Student
+   Student manages all the registrants, current students, and past students that have passed the driving course.
+   - id: number
+   - name: string
+   - classId: int
+   - phone: string
+   - address: string
+   - status: string
+4. User
+    User manages the accounts for the admins and owners of RPL Prima.
+   - username: string
+   - password: string
+   - role: string
+5. Vehicle
+    Vehicle manages the details of each vehicle and its status of availability.
+    - plate: string
+    - vehicleType": string
+    - transmission: string
+    - distance: int
+    - lastService: date
