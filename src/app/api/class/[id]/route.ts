@@ -65,13 +65,14 @@ export const PATCH = async (
       return new Response(JSON.stringify(auth), { status: auth.status });
     }
     const body: Class = await request.json();
+    const duration: number = Number(body.session) * 2;
     const updatedClass = await prisma.class.update({
       where: {
         id: Number(params.id),
       },
       data: {
         price: Number(body.price),
-        duration: body.duration,
+        duration: duration,
         session: Number(body.session),
         transmission: body.transmission,
         vehicleType: body.vehicleType,
