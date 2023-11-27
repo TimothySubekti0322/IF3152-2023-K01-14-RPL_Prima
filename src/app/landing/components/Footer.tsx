@@ -5,7 +5,7 @@ export default function Footer() {
 
             <div className=" flex m-auto w-fit mt-auto">
                 <div>
-                    <img src="images/logo_bawah.png" className="w-36 px-0 lg:w-80 lg:px-16"></img>
+                    <img src="/images/logo_bawah.png" className="w-36 px-0 lg:w-80 lg:px-16"></img>
                 </div>
                 <div>
                     <div className=" w-full md:block md:w-auto" id="navbar-default">
