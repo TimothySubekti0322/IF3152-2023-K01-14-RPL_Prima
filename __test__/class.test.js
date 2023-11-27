@@ -10,7 +10,6 @@ describe("Class", () => {
     describe("GET /api/class", () => {
         test("Get Class", async () => {
             const response = await fetch(`${url}/api/class`);
-            const responseJSON = await response.json();
             expect(response.status).toBe(200);
         });
     });
