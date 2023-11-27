@@ -2,15 +2,11 @@
 export default function Unauthorized() {
   return (
     <>
-      <head>
-        <link rel="icon" href="images/favicon.png" />
         <title>Unathorized Access</title>
-      </head>
-
       <body>
         <div className="h-screen w-full bg-[#1C2434] text-[#83CE71] content-center pt-36 md:pt-44 text-center">
           <div className="m-auto justify-center w-fit h-fit">
-            <img src="images/license.png" alt="403 image"></img>
+            <img src="/images/license.png" alt="403 image"></img>
           </div>
           <div>
             <p className="text-2xl font-bold pb-2">403 Forbidden</p>

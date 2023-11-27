@@ -2,7 +2,7 @@ export default function NotFound() {
   return (
     <>
       <head>
-        <link rel="icon" href="images/favicon.png" />
+        <link rel="icon" href="/images/favicon.png" />
         <title>Unathorized Access</title>
       </head>
 
