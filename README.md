@@ -108,19 +108,56 @@ Owner Account
 
 # Use Cases
 The RPL Prima web application implements the following use cases:
-1. View Class Packages. PIC: Nadira (18221059).
-  !()
+1. *View Class Packages* PIC: Nadira (18221059)
+  ![landing page](doc/layout/1.1.jpg)
 
-2. Register as Student. PIC: Nadira (18221059).
-3. Log In. PIC: Timothy (18221063).
-4. View Dashboard. PIC: Timothy (18221063).
-5. Manage Users. PIC: Nadine (18221081).
-6. Manage Classes. PIC: Carissa (18221093).
-7. Manage Instructors. PIC: Carissa (18221093).
-8. Manage Vehicles. PIC: Jodi (18221147).
-9. Manage Vehicle Status. PIC: Jodi (18221147).
-10. Manage Students. PIC: Nadine (18221081).
-11. Change Password. PIC: Timothy (18221063).
+2. *Register as Student* PIC: Nadira (18221059)
+  ![register page](doc/layout/1.2.jpg)
+
+3. *Log In* PIC: Timothy (18221063)
+  ![log in page](doc/layout/2.1.jpg)
+
+4. *View Dashboard* PIC: Timothy (18221063)
+  ![dashboard](doc/layout/2.0.jpg)
+   
+5. *Manage Classes* PIC: Carissa (18221093)
+    ![class](doc/layout/2.2.1.jpg)
+    ![class](doc/layout/2.2.2.jpg)
+    ![class](doc/layout/2.2.3.jpg)
+    ![class](doc/layout/2.2.4.jpg)
+   
+6. *Manage Instructors. PIC: Carissa (18221093)
+    ![instructor](doc/layout/2.3.1.jpg)
+    ![instructor](doc/layout/2.3.2.jpg)
+    ![instructor](doc/layout/2.3.3.jpg)
+    ![instructor](doc/layout/2.3.4.jpg)
+    
+7. *Manage Students* PIC: Nadine (18221081)
+    ![dashboard](doc/layout/2.4.1.jpg)
+    ![dashboard](doc/layout/2.4.2.jpg)
+    ![dashboard](doc/layout/2.4.3.jpg)
+
+5. *Manage Users* PIC: Nadine (18221081)
+   ![user](doc/layout/2.5.1.jpg)
+   ![user](doc/layout/2.5.2.jpg)
+   ![user](doc/layout/2.5.3.jpg)
+   ![user](doc/layout/2.5.4.jpg)
+
+9. *Manage Vehicles* PIC: Jodi (18221147)
+10. *Manage Vehicle Status* PIC: Jodi (18221147)
+    ![vehicle](doc/layout/2.6.1.jpg)
+    ![vehicle](doc/layout/2.6.2.jpg)
+    ![vehicle](doc/layout/2.6.3.jpg)
+    ![vehicle](doc/layout/2.6.4.jpg)
+    
+11. *Change Password* PIC: Timothy (18221063)
+    ![dashboard](doc/layout/2.7.jpg)
+
+12. *Manage Errors* PIC: Nadira (18221059)
+    ![errors](doc/layout/3.1.jpg)
+    ![errors](doc/layout/3.2.jpg)
+
+    
 
 
 # Database
@@ -150,11 +187,15 @@ Here are the details of the database used in the RPL Prima web application.
    - status: string
 4. User
     User manages the accounts for the admins and owners of RPL Prima.
-   - username: string
+   - id: int
+   - email: string
    - password: string
+   - phone: string
+   - location: string
    - role: string
 5. Vehicle
     Vehicle manages the details of each vehicle and its status of availability.
+    - id: int
     - plate: string
     - vehicleType": string
     - transmission: string
