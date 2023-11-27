@@ -144,6 +144,8 @@ The RPL Prima web application implements the following use cases:
    ![user](doc/layout/2.5.4.jpg)
 
 9. *Manage Vehicles* PIC: Jodi (18221147)
+Tampilan layar fungsional ini sama seperti fungsional Manage Vehicle Status
+
 10. *Manage Vehicle Status* PIC: Jodi (18221147)
     ![vehicle](doc/layout/2.6.1.jpg)
     ![vehicle](doc/layout/2.6.2.jpg)
