@@ -11,8 +11,8 @@ export default function NavBar() {
         <nav className="font-4xl z-10 w-screen fixed t-0 m-0 border-t-0 top-0 bg-[#1C2434] border-gray-200 px-10">
             <div className=" flex flex-wrap items-center justify-between mx-auto p-4 md:p-0">
                 <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                    <img src="images/logo_img.png" className="h-8" alt="Flowbite Logo" />
-                    <img src="images/logo_title.png" className="h-8" alt="Flowbite Logo" />
+                    <img src="/images/logo_img.png" className="h-8" alt="Flowbite Logo" />
+                    <img src="/images/logo_title.png" className="h-8" alt="Flowbite Logo" />
                 </a>
                 <button data-collapse-toggle="navbar-default" type="button" onClick={()=>setViewNav(!viewNav)} className="inline-flex items-center p-2 w-10 h-10  text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
                     <span className="sr-only">Open main menu</span>
