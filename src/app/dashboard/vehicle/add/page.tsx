@@ -15,7 +15,7 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import toast, { Toaster } from "react-hot-toast";
 import { format } from "path";
-import formatDate from "../FormatDate";
+import { formatDate } from "../FormatDate";
 
 interface transmission {
   transmission: string;
@@ -160,7 +160,7 @@ export default function AddClass() {
                 value={undefined}
                 description=""
               />
-                
+
               {/*Last Service*/}
               <div className="flex flex-col">
                 <label htmlFor="lastService" className="font-bold text-xl">
