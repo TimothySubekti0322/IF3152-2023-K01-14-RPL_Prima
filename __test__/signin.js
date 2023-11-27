@@ -18,4 +18,20 @@ async function getToken() {
     return responseJSON.token;
 }
 
-module.exports = { getToken };
+async function getTokenAdmin() {
+    const response = await fetch(`${url}/api/auth`, {
+        method: 'POST',
+        body: JSON.stringify({
+            email: 'admin@gmail.com',
+            password: 'nads',
+            rememberMe: true
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const responseJSON = await response.json();
+    return responseJSON.token;
+}
+
+module.exports = { getToken, getTokenAdmin };

@@ -53,7 +53,7 @@ export default function WhyUs() {
                         <div className="grid grid-cols-2 lg:grid-cols-3 auto-auto-rows">
                             {carType.map((item, idx) => (
                                 <div key={`div-${idx}`} className="flexbox text-center w-36 md:w-48 h-36 md:h-44 content-center m-auto ">
-                                    <img key={`img-${idx}`} src={`images/car_${item}.png`} alt={item} className="m-auto" />
+                                    <img key={`img-${idx}`} src={`/images/car_${item}.png`} alt={item} className="m-auto" />
                                     <div key={`subdiv-${idx}`} className="p-2 block">
                                         <p key={`p-${idx}`}>{item}</p>
                                     </div>
@@ -99,10 +99,10 @@ export default function WhyUs() {
                     </div>
                     <div id="locations" className={`${(tab != 3) && 'hidden'}`}>
                     <p className="text-2xl font-bold text-white mb-2">Our Locations</p>
-                        <img src="images/location.png" className="w-6 md:w-10 inline-flex"></img>
+                        <img src="/images/location.png" className="w-6 md:w-10 inline-flex"></img>
                         <a href="#" className="text-base md:p-6 inline-flex text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52] hover:text-white">Dago</a>
                         <br></br>
-                        <img src="images/location.png" className="w-6 md:w-10 inline-flex"></img>
+                        <img src="/images/location.png" className="w-6 md:w-10 inline-flex"></img>
                         <a href="#" className="text-base md:p-6 inline-flex text-white hover:bg-gradient-to-b from-[#C2E799] to-[#4D5D52] hover:text-white">Buah Batu</a>
                     </div>
                 </div>

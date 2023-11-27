@@ -54,13 +54,13 @@ export default function OurPackages() {
                     </p>
                     <div className="w-48 m-auto flex ">
                         <button onClick={()=> {car>0 ? setCar(car-1) : setCar(8)}}>
-                            <img src="images/larrow.png" className="w-16"></img>
+                            <img src="/images/larrow.png" className="w-16"></img>
                         </button>
 
-                        <img src={`images/car_${carType[car]}.png`} className="w-36"></img>
+                        <img src={`/images/car_${carType[car]}.png`} className="w-36"></img>
 
                         <button onClick={() => {car<8 ? setCar(car+1) : setCar(0)}} className="w-16">
-                            <img src="images/rarrow.png" className="w-16"></img>
+                            <img src="/images/rarrow.png" className="w-16"></img>
                         </button>
                     </div>
                     <p className="block w-full text-center text-xl py-4 text-white">

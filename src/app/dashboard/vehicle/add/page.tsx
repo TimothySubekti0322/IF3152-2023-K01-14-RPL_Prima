@@ -15,6 +15,7 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import toast, { Toaster } from "react-hot-toast";
 import { format } from "path";
+import { formatDate } from "../FormatDate";
 
 interface transmission {
   transmission: string;
@@ -159,7 +160,7 @@ export default function AddClass() {
                 value={undefined}
                 description=""
               />
-                
+
               {/*Last Service*/}
               <div className="flex flex-col">
                 <label htmlFor="lastService" className="font-bold text-xl">
@@ -204,15 +205,3 @@ export default function AddClass() {
     </>
   );
 }
-
-const formatDate = (date: Date | null): string => {
-  if (!date) return "";
-
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1; // JavaScript months are 0-based.
-  const day = date.getDate();
-
-  return `${year}-${month.toString().padStart(2, "0")}-${day
-    .toString()
-    .padStart(2, "0")}`;
-};
