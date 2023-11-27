@@ -62,6 +62,7 @@ const ChangePassword = () => {
       event.preventDefault();
       if (form.password !== confirmPassword) {
         toast.error("Password does not match");
+        setLoading(false);
         return;
       }
       const res = await axios.patch(`/api/user/changepassword/${id}`, form, {

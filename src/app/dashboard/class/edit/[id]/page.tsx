@@ -16,7 +16,6 @@ import transmission from "../../../data/transmission";
 
 interface FormDataTypes {
   price: number | undefined;
-  duration: number | string | undefined;
   session: number | undefined;
   transmission: any;
   vehicleType: any;
@@ -28,7 +27,6 @@ const EditClass = () => {
 
   const [form, setForm] = useState<FormDataTypes>({
     price: undefined,
-    duration: undefined,
     session: undefined,
     transmission: "",
     vehicleType: "",
@@ -50,7 +48,6 @@ const EditClass = () => {
         });
         setForm({
           price: res.data.data.price,
-          duration: res.data.data.duration,
           session: res.data.data.session,
           transmission: res.data.data.transmission,
           vehicleType: res.data.data.vehicleType,
@@ -72,38 +69,21 @@ const EditClass = () => {
     setForm({ ...form, [name]: value });
   };
 
-  // Handle Duration Input
-  const [durationError, setDurationError] = useState(false);
-  const handleFloatInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-
-    // Check if the input is a valid float using a regular expression
-    if (/^(\d+\.?\d*|\.\d+)$/.test(value) || value === "") {
-      setDurationError(false);
-      // Update your state or variable here
-      setForm({ ...form, [name]: parseFloat(value) });
-    } else {
-      setDurationError(true);
-    }
-  };
-
   // Submit Handler
   const [submitAvailable, setSubmitAvailable] = useState(false);
 
   useLayoutEffect(() => {
     if (
       form.price !== undefined &&
-      form.duration !== undefined &&
       form.session !== undefined &&
       form.transmission !== "" &&
-      form.vehicleType !== "" &&
-      !durationError
+      form.vehicleType !== ""
     ) {
       setSubmitAvailable(true);
     } else {
       setSubmitAvailable(false);
     }
-  }, [form, durationError]);
+  }, [form]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
@@ -126,7 +106,6 @@ const EditClass = () => {
       setLoading(false);
       setForm({
         price: undefined,
-        duration: undefined,
         session: undefined,
         transmission: "",
         vehicleType: "",
@@ -164,36 +143,6 @@ const EditClass = () => {
                     value={form.price}
                     description="Price in Rupiah"
                   />
-
-                  {/* Durasi */}
-                  <div className="flex flex-col">
-                    <label htmlFor="duration" className="font-bold text-xl">
-                      Duration
-                    </label>
-                    <input
-                      type="text"
-                      name="duration"
-                      id="duration"
-                      className={`w-4/5 rounded-lg border-2  mt-4 ${
-                        durationError
-                          ? "focus:border-[#D91010] border-[#D91010]"
-                          : "border-[#B7B7B7]"
-                      }`}
-                      placeholder="e.g 2.5"
-                      pattern="^\d+\.?\d*|\.\d+$"
-                      onChange={handleFloatInputChange}
-                      defaultValue={form.duration}
-                    />
-                    <i
-                      className={`text-xs mt-2 ${
-                        durationError ? "text-[#D91010]" : ""
-                      }`}
-                    >
-                      {durationError
-                        ? "Duration must be float or number"
-                        : "Duration in hours "}
-                    </i>
-                  </div>
 
                   {/* Jumlah Sesi */}
                   <NumberInput

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { GoTrash } from "react-icons/go";
 import { BiSolidEdit } from "react-icons/bi";
 import DeleteModal from "../../components/DeleteModal";
+import Cookies from "universal-cookie";
 import { use } from "react";
 
 interface dataProps {
@@ -19,6 +20,9 @@ const Table: React.FC<{ column: string[]; data: dataProps[] }> = ({
   column,
   data,
 }) => {
+  const Cookie = new Cookies();
+  const role = Cookie.get("payload").role;
+
   const [deleteID, setDeleteID] = useState<number>(0);
 
   const editHandler = (id: number) => {
@@ -58,27 +62,29 @@ const Table: React.FC<{ column: string[]; data: dataProps[] }> = ({
                 <td className="px-4 py-2 text-center ">{item.phone}</td>
                 <td className="px-4 py-2 text-center ">{item.address}</td>
                 <td className="px-4 py-2 text-center ">{item.status}</td>
-                <td className="px-4 py-2  flex flex-row items-center justify-center">
-                  {/* Edit */}
-                  <button
-                    className="items-center justify-center text-white bg-green-500 rounded-md w-8 h-8 sm:tooltip"
-                    data-tip="Edit"
-                    style={{ display: "flex" }}
-                    onClick={() => editHandler(item.id)}
-                  >
-                    <BiSolidEdit />
-                  </button>
+                {role == "Admin" && (
+                  <td className="px-4 py-2  flex flex-row items-center justify-center">
+                    {/* Edit */}
+                    <button
+                      className="items-center justify-center text-white bg-green-500 rounded-md w-8 h-8 sm:tooltip"
+                      data-tip="Edit"
+                      style={{ display: "flex" }}
+                      onClick={() => editHandler(item.id)}
+                    >
+                      <BiSolidEdit />
+                    </button>
 
-                  {/* Delete Button */}
+                    {/* Delete Button */}
 
-                  <button
-                    className="flex items-center justify-center text-white bg-red-500 rounded-md w-8 h-8 ml-4 sm:tooltip"
-                    style={{ display: "flex" }}
-                    onClick={() => showModalHandler(item.id)}
-                  >
-                    <GoTrash />
-                  </button>
-                </td>
+                    <button
+                      className="flex items-center justify-center text-white bg-red-500 rounded-md w-8 h-8 ml-4 sm:tooltip"
+                      style={{ display: "flex" }}
+                      onClick={() => showModalHandler(item.id)}
+                    >
+                      <GoTrash />
+                    </button>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>

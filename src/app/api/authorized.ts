@@ -52,4 +52,29 @@ async function authorizedOwner(req: Request) {
   }
 }
 
-export { authorized, authorizedOwner };
+async function authorizedAdmin(req: Request) {
+  try {
+    const auth = await authorized(req);
+    if (auth.status !== 200) {
+      return auth;
+    }
+    const authHeader = req.headers.get("Authorization");
+    if (authHeader) {
+      const token = authHeader.split(" ")[1];
+      const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
+      if (decoded && typeof decoded === "object") {
+        const role = decoded.role;
+        if (role === "Admin") {
+          return { message: "You are authorized", status: 200 };
+        }
+      }
+      return { message: "Access denied", status: 403 };
+    } else {
+      return { message: "Decode Failed", status: 500 };
+    }
+  } catch (error) {
+    return { message: "Server Error", status: 500 };
+  }
+}
+
+export { authorized, authorizedOwner, authorizedAdmin };

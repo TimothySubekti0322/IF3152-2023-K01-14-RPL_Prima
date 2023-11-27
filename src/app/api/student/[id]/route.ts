@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import type { Student } from "@prisma/client";
-import { authorized } from "../../authorized";
+import { authorized, authorizedAdmin } from "../../authorized";
 const prisma = new PrismaClient();
 
 export const GET = async (
@@ -33,7 +33,7 @@ export const DELETE = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const auth = await authorized(request);
+    const auth = await authorizedAdmin(request);
     if (auth.status !== 200) {
       return new Response(JSON.stringify(auth), { status: auth.status });
     }
@@ -63,7 +63,7 @@ export const PATCH = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const auth = await authorized(request);
+    const auth = await authorizedAdmin(request);
     if (auth.status !== 200) {
       return new Response(JSON.stringify(auth), { status: auth.status });
     }
