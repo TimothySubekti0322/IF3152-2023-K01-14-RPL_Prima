@@ -16,6 +16,7 @@ import axios from "axios";
 import Cookie from "universal-cookie";
 import carType from "../../../data/carType";
 import transmission from "../../../data/transmission";
+import formatDate from "../../date";
 
 interface FormDataTypes {
   plate: string;
@@ -230,15 +231,3 @@ const EditClass = () => {
 };
 
 export default EditClass;
-
-const formatDate = (date: Date | null): string => {
-  if (!date) return "";
-
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1; // JavaScript months are 0-based.
-  const day = date.getDate();
-
-  return `${year}-${month.toString().padStart(2, "0")}-${day
-    .toString()
-    .padStart(2, "0")}`;
-};

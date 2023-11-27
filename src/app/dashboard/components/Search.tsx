@@ -1,6 +1,7 @@
 "use client";
 
 import React, { FC, useState } from "react";
+import { camelCaseToTitle } from "./Capitalization";
 
 interface SearchProps {
   options: string[];
@@ -140,13 +141,5 @@ const Search: FC<SearchProps> = ({
     </div>
   );
 };
-
-function camelCaseToTitle(str: string): string {
-  // Break the camelCase: insert a space before all caps
-  let result = str.replace(/([A-Z])/g, " $1");
-
-  // Capitalize the first letter of each word
-  return result.replace(/\b\w/g, (char) => char.toUpperCase());
-}
 
 export default Search;

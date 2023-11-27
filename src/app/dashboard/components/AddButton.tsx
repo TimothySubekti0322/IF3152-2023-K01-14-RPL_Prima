@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import Cookies from "universal-cookie";
+import { capitalize } from "./Capitalization";
 
 export default function AddButton() {
   const path = usePathname();
@@ -27,7 +28,3 @@ export default function AddButton() {
   );
 }
 
-const capitalize = (s: string) => {
-  if (typeof s !== "string") return "";
-  return s.charAt(0).toUpperCase() + s.slice(1);
-};
