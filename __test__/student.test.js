@@ -15,7 +15,7 @@ describe("Student", () => {
         });
 
         test("Get Student", async () => {
-            const token = await signin.getToken();
+            const token = await signin.getTokenAdmin();
             const response = await fetch(`${url}/api/student`, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -30,12 +30,12 @@ describe("Student", () => {
     describe("POST /api/student", () => {
 
         test("Add New Student", async () => {
-            const token = await signin.getToken();
+            const token = await signin.getTokenAdmin();
             const response = await fetch(`${url}/api/student`, {
                 method: 'POST',
                 body: JSON.stringify({
-                    name : "TOro",
-                    classId : "2",
+                    name: "TOro",
+                    classId: "2",
                     phone: "081255243133",
                     address: "Jl. Cigadung no 2"
                 }),
@@ -62,7 +62,7 @@ describe("Student", () => {
         });
 
         test("Get Student By Id", async () => {
-            const token = await signin.getToken();
+            const token = await signin.getTokenAdmin();
             const response = await fetch(`${url}/api/student/${idNewStudent}`, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -73,8 +73,8 @@ describe("Student", () => {
             expect(response.status).toBe(200);
             expect(responseJSON.data).toEqual({
                 id: idNewStudent,
-                name : "TOro",
-                classId : 2,
+                name: "TOro",
+                classId: 2,
                 phone: "081255243133",
                 address: "Jl. Cigadung no 2",
                 status: "Registrant"
@@ -102,7 +102,7 @@ describe("Student", () => {
         });
 
         test("Update Student", async () => {
-            const token = await signin.getToken();
+            const token = await signin.getTokenAdmin();
             const response = await fetch(`${url}/api/student/${idNewStudent}`, {
                 method: 'PATCH',
                 body: JSON.stringify({
@@ -136,7 +136,7 @@ describe("Student", () => {
         });
 
         test("Delete Student", async () => {
-            const token = await signin.getToken();
+            const token = await signin.getTokenAdmin();
             const response = await fetch(`${url}/api/student/${idNewStudent}`, {
                 method: 'DELETE',
                 headers: {

@@ -89,11 +89,11 @@ describe("Vehicle", () => {
             expect(response.status).toBe(200);
             expect(responseJSON.data).toEqual({
                 id: idNewVehicle,
-                plate: "D 3488 LPA",
-                vehicleType: "Sport",
-                transmission: "AMT",
-                distance: 9073,
-                lastService: "2022-08-15",
+                plate: "D 1234 ABC",
+                vehicleType: "SUV",
+                transmission: "Manual",
+                distance: 7000,
+                lastService: "21-11-2023",
                 status: "available"
             });
         });
@@ -171,6 +171,7 @@ describe("Vehicle", () => {
                 transmission: "Manual",
                 distance: 7000,
                 lastService: "21-11-2023",
+                status: "available"
             });
 
         });
