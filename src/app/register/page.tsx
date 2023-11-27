@@ -48,15 +48,15 @@ export default function Registration() {
     ) => {
       const {name, value} = event.target;
       setPackageData(packageOptions[(Number([value]))]);
-      setStudent({...student, classId: packageOptions[(Number([value]))].id})
-      console.log(PackageData)
+      handleInputChange(event)
+      // setStudent({...student, classId: packageOptions[(Number([value]))].id})
   };
   
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = event.target;
-    setStudent({ ...student, [name]: value })
+    setStudent({ ...student, [name]: value });    
   };
 
   useLayoutEffect(() => {
@@ -64,7 +64,6 @@ export default function Registration() {
       try {
         const res = await axios.get(`/api/class`, {});
         setPackageOptions(res.data);
-        console.log(res.data);
       } catch (err) {
         toast.error("Error fetching data");
         console.log(err);
@@ -77,19 +76,12 @@ export default function Registration() {
 
   
 
-  // const changePackage = (
-  //   event: PackageDataTypes
-  // ) => {
-  //   setPackageData(event);
-  //   setStudent({ ...student, package: event })
-  // };
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
+    event.preventDefault();
     try {
-      event.preventDefault();
-      const res = await axios.post("/api/students", student, {
-      });
+      const res = await axios.post("/api/student", student);
+      console.log(res.status);
       if (res.status === 201) {
         toast.success("Data added successfully");
       } else if (res.status === 401) {
@@ -99,7 +91,6 @@ export default function Registration() {
       console.log(err);
       setTimeout(toast.error("Something went wrong"), 100);
     } finally {
-      setLoading(false);
       setStudent({
         name: "",
         classId: "",
@@ -107,22 +98,49 @@ export default function Registration() {
         address: "",
         status: "registrant"
       });
+      setPackageData({id: "",
+      price: undefined,
+      duration: undefined,
+      session: undefined,
+      transmission: "",
+      vehicleType: ""});
+
+      setLoading(false);
+      
       setTimeout(() => {
         window.location.href = "/register";
-      }, 1000); // Delayed by 2000 milliseconds (2 seconds)
+      }, 2000); // Delayed by 2000 milliseconds (2 seconds)
     }
   };
 
+  if(packageOptions[0]==undefined){
+    return(
+      <>
+
+        <div className="block">
+          <NavBar/>
+        </div>
+        
+        <div className="pt-52 text-center m-auto">
+            <span className="loading loading-spinner loading-sm md:loading-md "></span>
+            <p className="text-md text-center ">Loading</p>
+        </div>
+        
+        <div className="block pt-60">
+          <Footer/>
+        </div>
+        
+      </>
+    )
+  } else{
 
   return (
     <>
+    <Toaster/>
+        
+      <link rel="icon" href="images/favicon.png" />      
       <title>Register for RPL Prima</title>
-      {/* <head>
-        <link rel="icon" href="images/favicon.png" />
-        <title>Register for RPL Prima</title>
-      </head> */}
 
-      {/* <body> */}
         <div className="h-full w-full bg-[#EEEEEE] text-white">
           <NavBar />
           <div id="register">
@@ -134,23 +152,23 @@ export default function Registration() {
 
             <div className="mb-6 m-auto w-80 md:w-[700px] border-4 border-[#83CE71] rounded-lg bg-[#E6EDDF]">
                 
-                <form  onSubmit={handleSubmit} className="p-6">
+                <form onSubmit={handleSubmit} className="p-6">
                         <div className="pb-2">
                             <label htmlFor="name" className="block mb-2 text-sm md:text-base font-medium text-gray-900">Name</label>
                             <input type="text" id="name" defaultValue={student.name} onChange={handleInputChange}
+                            name="name"
                             className="bg-gray-50 border border-[#83CE71] text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Input name here..." required />
                         </div>
                         <div>
                         <label htmlFor="package" className="block mb-2 text-sm md:text-base font-medium text-gray-900">Package</label>
                           <select id="package"  defaultValue={student.classId} onChange={changePackageData}
+                          name="classId"
                           className="bg-gray-50 border border-[#83CE71] text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Choose your package..." required
                           >
-                              {/* <option placeholder="Choose Your Package">Choose your package...</option> */}
+                              <option hidden value="" placeholder="Choose Your Package...">Choose Your Package...</option>
 
                               {packageOptions.map((item, idx) => (
                                     <option key={`opt-${idx}`} value={idx} >Paket {item.id}</option>
-                                    
-                                  
                               ))}
                               </select>
 
@@ -185,11 +203,13 @@ export default function Registration() {
                         <div>
                             <label htmlFor="phone" className="block mb-2 text-sm md:text-base font-medium text-gray-900">Phone number</label>
                             <input type="tel" id="phone" defaultValue={student.phone} onChange={handleInputChange}
+                            name="phone"
                              className="bg-gray-50 border border-[#83CE71] text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Insert your phone number" pattern="[0-9]{12}" required />
                         </div>
                         <div>
                             <label htmlFor="address" className="block mb-2 text-sm md:text-base font-medium text-gray-900">Address</label>
                             <input type="text" id="address"  defaultValue={student.address} onChange={handleInputChange}
+                            name="address"
                             className="bg-gray-50 border border-[#83CE71] text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Input your home address" required />
                         </div>
                     </div>
@@ -219,4 +239,5 @@ export default function Registration() {
       
     </>
   );
+  }
 }
