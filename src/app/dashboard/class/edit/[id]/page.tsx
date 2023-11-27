@@ -1,130 +1,200 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Title from "../components/Title";
-import Search from "../components/Search";
-import AddButton from "../components/AddButton";
-import Table from "./components/Table";
-import Pagination from "../components/Pagination";
-import Footer from "../components/Footer";
-import Loader from "../components/Loader";
+import React, { useState, ChangeEvent, useLayoutEffect } from "react";
+import Loader from "../../../components/Loader";
+import Footer from "../../../components/Footer";
+import Title from "../../../components/Title";
+import NumberInput from "../../../components/inputComponent/NumberInput";
+import Dropdown from "../../../components/inputComponent/Dropdown";
+import BackButton from "@/app/dashboard/components/BackButton";
+import toast, { Toaster } from "react-hot-toast";
+import { usePathname } from "next/navigation";
 import axios from "axios";
-import Cookies from "universal-cookie";
+import Cookie from "universal-cookie";
+import carType from "../../../data/carType";
+import transmission from "../../../data/transmission";
 
-export default function Class() {
-  // List Column
-  const column: string[] = [
-    "Id",
-    "Price",
-    "Duration",
-    "Session",
-    "Transmission",
-    "Vehicle Type",
-    "Action",
-  ];
+interface FormDataTypes {
+  price: number | undefined;
+  session: number | undefined;
+  transmission: any;
+  vehicleType: any;
+}
 
-  const pageData: string[] = [
-    "id",
-    "price",
-    "duration",
-    "session",
-    "transmission",
-    "vehicleType",
-  ];
-  // Number data in one page
-  const dataPerPage = 10;
+const EditClass = () => {
+  // Loading state
+  const [loading, setLoading] = useState(true);
 
-  const [rawData, setRawData] = useState([]);
-  const [data, setData] = useState<any[]>([]);
-  const [totalPages, setTotalPages] = useState<number>(0);
-  const [page, setPage] = useState<number>(1);
-  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState<FormDataTypes>({
+    price: undefined,
+    session: undefined,
+    transmission: "",
+    vehicleType: "",
+  });
 
-  // Fetch Raw Data
-  useEffect(() => {
-    const fetchData = async (token: string) => {
+  // Fetching Data
+  const path = usePathname();
+  const id = path.split("/")[4];
+
+  useLayoutEffect(() => {
+    const fetchData = async () => {
       try {
-        setLoading(true);
-        const res = await axios.get("/api/class", {
+        const Cookies = new Cookie();
+        const token = Cookies.get("token");
+        const res = await axios.get(`/api/class/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        if (res.status === 401) {
-          window.location.href = "/unauthorized";
-        } else {
-          setRawData(res.data);
-          setData(res.data.slice(0, dataPerPage));
-          setTotalPages(Math.ceil(res.data.length / dataPerPage));
-          setLoading(false);
-        }
+        setForm({
+          price: res.data.data.price,
+          session: res.data.data.session,
+          transmission: res.data.data.transmission,
+          vehicleType: res.data.data.vehicleType,
+        });
       } catch (err) {
+        toast.error("Error fetching data");
         console.log(err);
+      } finally {
+        setLoading(false);
       }
     };
-
-    const Cookie = new Cookies();
-    const role = Cookie.get("payload").role;
-    if (role === "Admin") {
-      window.location.href = "/unauthorized";
-    } else {
-      const token: string = Cookie.get("token");
-      fetchData(token);
-    }
+    fetchData();
   }, []);
 
-  // Handle Data Change
-  useEffect(() => {
-    const start = (page - 1) * dataPerPage;
-    const end = start + dataPerPage;
-    setData(rawData.slice(start, end));
-  }, [page]);
+  const handleInputChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = event.target;
+    setForm({ ...form, [name]: value });
+  };
 
+  // Submit Handler
+  const [submitAvailable, setSubmitAvailable] = useState(false);
+
+  useLayoutEffect(() => {
+    if (
+      form.price !== undefined &&
+      form.session !== undefined &&
+      form.transmission !== "" &&
+      form.vehicleType !== ""
+    ) {
+      setSubmitAvailable(true);
+    } else {
+      setSubmitAvailable(false);
+    }
+  }, [form]);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true);
+    try {
+      event.preventDefault();
+      const Cookies = new Cookie();
+      const token = Cookies.get("token");
+      const res = await axios.patch(`/api/class/${id}`, form, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.status === 200) {
+        toast.success("Data updated successfully");
+      }
+    } catch (err) {
+      console.log(err);
+      setTimeout(toast.error("Something went wrong"), 100);
+    } finally {
+      setLoading(false);
+      setForm({
+        price: undefined,
+        session: undefined,
+        transmission: "",
+        vehicleType: "",
+      });
+      setTimeout(() => {
+        window.location.href = "/dashboard/class";
+      }, 1000); // Delayed by 2000 milliseconds (2 seconds)
+    }
+  };
+
+  const backHandler = () => {
+    window.location.href = "/dashboard/class";
+  };
   return (
     <>
+      <Toaster />
       {loading ? (
         <Loader />
       ) : (
         <>
-          <div className="md:px-12 md:py-8 p-6">
-            <div className="flex flex-row justify-between items-center">
-              <Title />
-              <div className="md:hidden">
-                <AddButton />
-              </div>
-            </div>
+          <div className="md:p-12 p-6">
+            <BackButton backHandler={backHandler} src="/images/left.png" />
+            <Title />
 
-            <div className="flex flex-row items-center justify-between mt-4 md:mt-6 md:gap-x-80">
-              <Search
-                options={pageData}
-                rawData={rawData}
-                setData={setData}
-                setTotalPages={setTotalPages}
-              />
-              <div className="hidden md:w-auto md:block">
-                <AddButton />
-              </div>
-            </div>
+            {/* Form */}
+            <form onSubmit={handleSubmit}>
+              <section className="bg-white mt-4 md:mt-8 rounded-md p-6 md:p-10">
+                <div className="w-full flex flex-col gap-y-8">
+                  {/* Harga */}
+                  <NumberInput
+                    title="Price"
+                    inputID="price"
+                    placeholder="Enter Class Price"
+                    onChange={handleInputChange}
+                    value={form.price}
+                    description="Price in Rupiah"
+                  />
 
-            {/* Table */}
-            <section className="bg-white mt-6 md:mt-8 rounded-md p-4 md:p-10">
-              <Table column={column} data={data} />
-              <div className="w-full flex justify-center">
-                <Pagination
-                  totalPages={totalPages}
-                  page={page}
-                  setPage={setPage}
-                />
-              </div>
-            </section>
+                  {/* Jumlah Sesi */}
+                  <NumberInput
+                    title="Session"
+                    inputID="session"
+                    placeholder="Enter Class Session"
+                    onChange={handleInputChange}
+                    value={form.session}
+                    description=""
+                  />
+
+                  {/* Transmisi kendaraan */}
+                  <Dropdown
+                    title="Vehicle Transmission"
+                    inputID="transmission"
+                    placeholder="Select Vehicle Transmission"
+                    onChange={handleInputChange}
+                    value={form.transmission}
+                    data={transmission}
+                  />
+
+                  {/* Jenis Kendaraan */}
+                  <Dropdown
+                    title="Vehicle Type"
+                    inputID="vehicleType"
+                    placeholder="Select Vehicle type"
+                    onChange={handleInputChange}
+                    value={form.vehicleType}
+                    data={carType}
+                  />
+
+                  {/* Submit */}
+                  <div className="w-full flex justify-center items-center">
+                    <button
+                      type="submit"
+                      className={` ${
+                        !submitAvailable ? "bg-[#B7B7B7]" : "bg-[#3C50E0]"
+                      } text-white font-semibold text-base rounded-lg py-2 px-4 md:text-xl md:py-3 md:px-10`}
+                      disabled={!submitAvailable ? true : false}
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </section>
+            </form>
           </div>
-
-          {/* Footer */}
-          <div className=" mt-4 md:mt-6">
-            <Footer />
-          </div>
+          <Footer />
         </>
       )}
     </>
   );
-}
+};
+
+export default EditClass;
