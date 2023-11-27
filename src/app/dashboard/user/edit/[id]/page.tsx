@@ -243,7 +243,7 @@ const EditClass = () => {
                   {/*Role*/}
                   <div className="flex flex-col">
                     <label htmlFor="admin" className="font-bold text-xl">
-                      Admin
+                      Role
                     </label>
                     <input
                       type="text"

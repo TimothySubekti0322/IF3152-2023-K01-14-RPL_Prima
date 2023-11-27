@@ -40,10 +40,8 @@ const EditClass = () => {
   const id = path.split("/")[4];
 
   useLayoutEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (token: string) => {
       try {
-        const Cookies = new Cookie();
-        const token = Cookies.get("token");
         const res = await axios.get(`/api/student/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -69,7 +67,14 @@ const EditClass = () => {
         setLoading(false);
       }
     };
-    fetchData();
+    const Cookies = new Cookie();
+    const role = Cookies.get("payload").role;
+    if (role === "Owner") {
+      window.location.href = "/unauthorized";
+    } else {
+      const token: string = Cookies.get("token");
+      fetchData(token);
+    }
   }, []);
 
   const handleInputChange = (

@@ -12,16 +12,15 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 
 export default function Student() {
+  // Get cookie
+  const Cookie = new Cookies();
+  const role = Cookie.get("payload").role;
+
   // List Column
-  const column: string[] = [
-    "Id",
-    "Name",
-    "ClassID",
-    "Phone",
-    "Address",
-    "Status",
-    "Action",
-  ];
+  const column: string[] =
+    role == "Admin"
+      ? ["Id", "Name", "ClassID", "Phone", "Address", "Status", "Action"]
+      : ["Id", "Name", "ClassID", "Phone", "Address", "Status"];
 
   const pageData: string[] = [
     "id",
@@ -39,10 +38,6 @@ export default function Student() {
   const [totalPages, setTotalPages] = useState<number>(0);
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState(false);
-
-  // Get cookie
-  const Cookie = new Cookies();
-  const role = Cookie.get("payload").role;
 
   // Fetch Raw Data
   useEffect(() => {
