@@ -23,7 +23,7 @@ async function getTokenAdmin() {
         method: 'POST',
         body: JSON.stringify({
             email: 'admin@gmail.com',
-            password: 'nads',
+            password: 'benjiOP',
             rememberMe: true
         }),
         headers: {
