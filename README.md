@@ -162,42 +162,47 @@ The RPL Prima web application implements the following use cases:
 
 # Database
 Here are the details of the database used in the RPL Prima web application.
-1. Class
-   Class manages the different types of classes offered by RPL Prima. The Class
+1. Class - manages the different types of classes offered by RPL Prima. The Class
+```
    - id: int
    - price: int
    - duration: int
    - session: int
    - transmission: string
    - vehicle type: string
-2. Instructor
-   Instructor manages the details of the different instructors registered in RPL Prima.
+```
+2. Instructor - manages the details of the different instructors registered in RPL Prima.
+```
    - id: int
    - name: string
    - nik: string
    - address: string
    - phone: string
-3. Student
-   Student manages all the registrants, current students, and past students that have passed the driving course.
+```
+3. Student - Student manages all the registrants, current students, and past students that have passed the driving course.
+```
    - id: number
    - name: string
    - classId: int
    - phone: string
    - address: string
    - status: string
-4. User
-    User manages the accounts for the admins and owners of RPL Prima.
+```
+4. User - manages the accounts for the admins and owners of RPL Prima.
+```
    - id: int
    - email: string
    - password: string
    - phone: string
    - location: string
    - role: string
-5. Vehicle
-    Vehicle manages the details of each vehicle and its status of availability.
+```
+5. Vehicle - manages the details of each vehicle and its status of availability.
+```
     - id: int
     - plate: string
     - vehicleType": string
     - transmission: string
     - distance: int
     - lastService: date
+```
