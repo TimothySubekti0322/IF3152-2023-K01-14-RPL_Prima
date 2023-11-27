@@ -21,7 +21,6 @@ describe("Vehicle", () => {
                     'Authorization': `Bearer ${token}`
                 }
             });
-            const responseJSON = await response.json();
             expect(response.status).toBe(200);
         });
     });

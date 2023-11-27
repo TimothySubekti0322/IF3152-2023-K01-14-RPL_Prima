@@ -6,7 +6,7 @@ const url = "http://localhost:3000";
 describe("Student", () => {
 
     var idNewStudent;
-    var newNIK;
+
 
     describe("GET /api/student", () => {
         test("Unauthorized Get Student", async () => {
@@ -22,7 +22,6 @@ describe("Student", () => {
                     'Authorization': `Bearer ${token}`
                 }
             });
-            const responseJSON = await response.json();
             expect(response.status).toBe(200);
         });
     });
