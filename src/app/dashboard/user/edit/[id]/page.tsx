@@ -152,7 +152,7 @@ const EditClass = () => {
       });
       setTimeout(() => {
         window.location.href = "/dashboard/user";
-      }, 1000); // Delayed by 2000 milliseconds (2 seconds)
+      }, 1000); // Delayed by 1000 milliseconds (2 seconds)
     }
   };
 
@@ -199,21 +199,6 @@ const EditClass = () => {
                     >
                       {emailError ? "Please input a valid email address" : ""}
                     </i>
-                  </div>
-
-                  {/*Password*/}
-                  <div className="flex flex-col">
-                    <label htmlFor="password" className="font-bold text-xl">
-                      Password
-                    </label>
-                    <input
-                      type="text"
-                      name="password"
-                      id="password"
-                      className="w-4/5 rounded-lg border-2 border-[#B7B7B7] mt-4 bg-gray-300 text-gray-600"
-                      defaultValue={form.password}
-                      disabled={true}
-                    />
                   </div>
 
                   {/*Phone*/}

@@ -6,7 +6,6 @@ import Footer from "../components/Footer";
 import Title from "../components/Title";
 import { FiEyeOff, FiEye } from "react-icons/fi";
 import toast, { Toaster } from "react-hot-toast";
-import { usePathname } from "next/navigation";
 import axios from "axios";
 import Cookie from "universal-cookie";
 
@@ -15,15 +14,12 @@ interface FormDataTypes {
 }
 
 const ChangePassword = () => {
-  // Loading state
-  const [loading, setLoading] = useState(true);
-
   const [form, setForm] = useState<FormDataTypes>({
     password: "",
   });
 
-  const [currentPassword, setCurrentPassword] = useState<string>("");
-
+  // Loading state
+  const [loading, setLoading] = useState<boolean>(false);
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
   // Password visibility toogle Condition
@@ -34,25 +30,6 @@ const ChangePassword = () => {
   const Cookies = new Cookie();
   const token = Cookies.get("token");
   const id = Cookies.get("payload").id;
-
-  useLayoutEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(`/api/user/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setCurrentPassword(res.data.data.password);
-      } catch (err) {
-        toast.error("Error fetching data");
-        console.log(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
 
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -116,112 +93,92 @@ const ChangePassword = () => {
   };
   return (
     <>
-      <Toaster />
-      {loading ? (
-        <Loader />
-      ) : (
-        <>
-          <div className="md:p-12 p-6">
-            <Title />
+      <Toaster />:
+      <div className="md:p-12 p-6">
+        <Title />
 
-            {/* Form */}
-            <form onSubmit={handleSubmit}>
-              <section className="bg-white mt-4 md:mt-8 rounded-md p-6 md:p-10">
-                <div className="w-full flex flex-col gap-y-8">
-                  {/* Current password*/}
-                  <div className="flex flex-col">
-                    <label
-                      htmlFor="current_password"
-                      className="font-bold text-xl"
-                    >
-                      Current Password
-                    </label>
-                    <input
-                      type="text"
-                      name="current_password"
-                      id="current_password"
-                      className="w-full md:w-4/5 rounded-lg border-2 border-[#B7B7B7] mt-4 bg-gray-300 text-gray-600"
-                      defaultValue={currentPassword}
-                      disabled={true}
-                    />
-                  </div>
-
-                  {/* New Password */}
-                  <div className="flex flex-col">
-                    <label htmlFor="password" className="font-bold text-xl">
-                      New Password
-                    </label>
-                    <div className="w-full md:w-4/5 relative">
-                      <input
-                        type={passwordVisible ? "text" : "password"}
-                        name="password"
-                        id="password"
-                        className=" w-full rounded-lg border-2 border-[#B7B7B7] mt-4"
-                        onChange={handleInputChange}
-                      />
-                      <button
-                        className="absolute right-4 top-6"
-                        onClick={() => setPasswordVisible(!passwordVisible)}
-                        type="button"
-                      >
-                        {passwordVisible ? (
-                          <FiEye style={{ fontSize: "1.5rem" }} />
-                        ) : (
-                          <FiEyeOff style={{ fontSize: "1.5rem" }} />
-                        )}
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Confirm new Password */}
-                  <div className="flex flex-col">
-                    <label
-                      htmlFor="confirm_password"
-                      className="font-bold text-xl"
-                    >
-                      Confirm New Password
-                    </label>
-                    <div className="w-full md:w-4/5 relative">
-                      <input
-                        type={password2Visible ? "text" : "password"}
-                        name="confirm_password"
-                        id="confirm_password"
-                        className="w-full rounded-lg border-2 border-[#B7B7B7] mt-4"
-                        onChange={handleConfirmPasswordChange}
-                      />
-                      <button
-                        className="absolute right-4 top-6"
-                        onClick={() => setPassword2Visible(!password2Visible)}
-                        type="button"
-                      >
-                        {password2Visible ? (
-                          <FiEye style={{ fontSize: "1.5rem" }} />
-                        ) : (
-                          <FiEyeOff style={{ fontSize: "1.5rem" }} />
-                        )}
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Submit */}
-                  <div className="w-full flex justify-center items-center">
-                    <button
-                      type="submit"
-                      className={` ${
-                        !submitAvailable ? "bg-[#B7B7B7]" : "bg-[#3C50E0]"
-                      } text-white font-semibold text-base rounded-lg py-2 px-4 md:text-xl md:py-3 md:px-10`}
-                      disabled={!submitAvailable ? true : false}
-                    >
-                      Submit
-                    </button>
-                  </div>
+        {/* Form */}
+        <form onSubmit={handleSubmit}>
+          <section className="bg-white mt-4 md:mt-8 rounded-md p-6 md:p-10">
+            <div className="w-full flex flex-col gap-y-8">
+              {/* New Password */}
+              <div className="flex flex-col">
+                <label htmlFor="password" className="font-bold text-xl">
+                  New Password
+                </label>
+                <div className="w-full md:w-4/5 relative">
+                  <input
+                    type={passwordVisible ? "text" : "password"}
+                    name="password"
+                    id="password"
+                    className=" w-full rounded-lg border-2 border-[#B7B7B7] mt-4"
+                    onChange={handleInputChange}
+                  />
+                  <button
+                    className="absolute right-4 top-6"
+                    onClick={() => setPasswordVisible(!passwordVisible)}
+                    type="button"
+                  >
+                    {passwordVisible ? (
+                      <FiEye style={{ fontSize: "1.5rem" }} />
+                    ) : (
+                      <FiEyeOff style={{ fontSize: "1.5rem" }} />
+                    )}
+                  </button>
                 </div>
-              </section>
-            </form>
-          </div>
-          {/* <Footer /> */}
-        </>
-      )}
+              </div>
+
+              {/* Confirm new Password */}
+              <div className="flex flex-col">
+                <label htmlFor="confirm_password" className="font-bold text-xl">
+                  Confirm New Password
+                </label>
+                <div className="w-full md:w-4/5 relative">
+                  <input
+                    type={password2Visible ? "text" : "password"}
+                    name="confirm_password"
+                    id="confirm_password"
+                    className="w-full rounded-lg border-2 border-[#B7B7B7] mt-4"
+                    onChange={handleConfirmPasswordChange}
+                  />
+                  <button
+                    className="absolute right-4 top-6"
+                    onClick={() => setPassword2Visible(!password2Visible)}
+                    type="button"
+                  >
+                    {password2Visible ? (
+                      <FiEye style={{ fontSize: "1.5rem" }} />
+                    ) : (
+                      <FiEyeOff style={{ fontSize: "1.5rem" }} />
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {/* Submit */}
+              <div className="w-full flex justify-center items-center">
+                <button
+                  type="submit"
+                  className={` ${
+                    !submitAvailable ? "bg-[#B7B7B7]" : "bg-[#3C50E0]"
+                  } text-white font-semibold text-base rounded-lg py-2 px-4 md:text-xl md:py-3 md:px-10`}
+                  disabled={!submitAvailable ? true : false}
+                >
+                  {loading ? (
+                    <div className="flex items-center gap-x-3">
+                      <span className="loading loading-spinner loading-sm md:loading-md"></span>
+                      <p className="text-md">Loading</p>
+                    </div>
+                  ) : (
+                    "Submit"
+                  )}
+                </button>
+              </div>
+            </div>
+          </section>
+        </form>
+      </div>
+      {/* <Footer /> */}
     </>
   );
 };

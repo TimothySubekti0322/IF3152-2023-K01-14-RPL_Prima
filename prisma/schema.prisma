@@ -23,7 +23,7 @@ model Class {
 model User {
   id           Int    @id @default(autoincrement())
   email        String @unique
-  password     String @default("benjiOP")
+  password     String @default("$2a$10$vr73S3v4Z4xMhhFlLnEJ8uAyHJgRl23HgH1HmueUGOfSJcXCVXkwW")
   phone        String 
   location     String
   role         String @default("Admin")

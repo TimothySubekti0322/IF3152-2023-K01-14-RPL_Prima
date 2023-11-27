@@ -165,21 +165,6 @@ export default function AddClass() {
                 </i>
               </div>
 
-              {/* Password */}
-              <div className="flex flex-col">
-                <label htmlFor="password" className="font-bold text-xl">
-                  Password
-                </label>
-                <input
-                  type="text"
-                  name="password"
-                  id="password"
-                  className="w-4/5 rounded-lg border-2 border-[#B7B7B7] mt-4 bg-gray-300 text-gray-600"
-                  defaultValue="benjiOP"
-                  disabled={true}
-                />
-              </div>
-
               {/*Phone*/}
               <div className="flex flex-col">
                 <label htmlFor="phone" className="font-bold text-xl">

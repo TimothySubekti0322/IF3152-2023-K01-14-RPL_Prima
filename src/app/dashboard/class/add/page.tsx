@@ -119,35 +119,6 @@ export default function AddClass() {
                 description="Price in Rupiah"
               />
 
-              {/* Durasi */}
-              {/* <div className="flex flex-col">
-                <label htmlFor="duration" className="font-bold text-xl">
-                  Duration
-                </label>
-                <input
-                  type="text"
-                  name="duration"
-                  id="duration"
-                  className={`w-4/5 rounded-lg border-2  mt-4 ${
-                    durationError
-                      ? "focus:border-[#D91010] border-[#D91010]"
-                      : "border-[#B7B7B7]"
-                  }`}
-                  placeholder="e.g 2.5"
-                  pattern="^\d+\.?\d*|\.\d+$"
-                  onChange={handleFloatInputChange}
-                />
-                <i
-                  className={`text-xs mt-2 ${
-                    durationError ? "text-[#D91010]" : ""
-                  }`}
-                >
-                  {durationError
-                    ? "Duration must be float or number"
-                    : "Duration in hours "}
-                </i>
-              </div> */}
-
               {/* Jumlah Sesi */}
               <NumberInput
                 title="Session"
