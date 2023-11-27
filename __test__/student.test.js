@@ -15,6 +15,7 @@ describe("Student", () => {
         });
 
         test("Get Student", async () => {
+
             const token = await signin.getTokenAdmin();
             const response = await fetch(`${url}/api/student`, {
                 headers: {
@@ -33,8 +34,8 @@ describe("Student", () => {
             const response = await fetch(`${url}/api/student`, {
                 method: 'POST',
                 body: JSON.stringify({
-                    name: "TOro",
-                    classId: "2",
+                    name: "Toro",
+                    classId: "1",
                     phone: "081255243133",
                     address: "Jl. Cigadung no 2"
                 }),
@@ -72,8 +73,8 @@ describe("Student", () => {
             expect(response.status).toBe(200);
             expect(responseJSON.data).toEqual({
                 id: idNewStudent,
-                name: "TOro",
-                classId: 2,
+                name: "Toro",
+                classId: 1,
                 phone: "081255243133",
                 address: "Jl. Cigadung no 2",
                 status: "Registrant"
@@ -87,7 +88,7 @@ describe("Student", () => {
                 method: 'PATCH',
                 body: JSON.stringify({
                     name: "Bobba",
-                    classId: 6,
+                    classId: 1,
                     phone: "088827364510",
                     address: "Jl. Cikapayung Indah no 7",
                     status: "Registrant"
@@ -106,7 +107,7 @@ describe("Student", () => {
                 method: 'PATCH',
                 body: JSON.stringify({
                     name: "Bobba",
-                    classId: 6,
+                    classId: 1,
                     phone: "088827364510",
                     address: "Jl. Cikapayung Indah no 7",
                     status: "Registrant"
@@ -149,7 +150,7 @@ describe("Student", () => {
             expect(responseJSON.data).toEqual({
                 id: idNewStudent,
                 name: "Bobba",
-                classId: 6,
+                classId: 1,
                 phone: "088827364510",
                 address: "Jl. Cikapayung Indah no 7",
                 status: "Registrant"
