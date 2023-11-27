@@ -15,7 +15,7 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import toast, { Toaster } from "react-hot-toast";
 import { format } from "path";
-import { formatDate } from "../FormatDate";
+import formatDate from "../FormatDate";
 
 interface transmission {
   transmission: string;
