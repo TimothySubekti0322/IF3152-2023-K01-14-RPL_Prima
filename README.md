@@ -6,6 +6,17 @@
 <h1><img width="30" src="doc/icons/overview.png"/>Overview</h1>
 Welcome to the GitHub repository for the RPL PRIMA web application. This project is a comprehensive web solution for RPL PRIMA, a company specializing in providing offline driving training services. Our application offers an intuitive interface for customers to explore the company's services and register for driving classes, and a robust backend for admins and owners to manage company data and activities.
 
+
+### This web application was created by K01_G14. Meet our beloved members!
+
+```
+1. Benyamin Jodi Sitinjak - 18221147
+2. Nadira R A- 18221059
+3. Timothy Subekti - 18221063
+4. Nadine Aliya Putri - 18221081
+5. Carissa Zahrani Putri - 18221093
+```
+
 <br></br>
 
 ## Features
