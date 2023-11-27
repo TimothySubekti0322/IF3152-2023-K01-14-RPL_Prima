@@ -17,21 +17,13 @@ export default function User() {
     //masukin data yang tadi
     "Id",
     "Email",
-    "Password",
     "Phone",
     "Location",
     "Role",
     "Action",
   ];
 
-  const pageData: string[] = [
-    "id",
-    "email",
-    "password",
-    "phone ",
-    "location",
-    "role",
-  ];
+  const pageData: string[] = ["id", "email", "phone ", "location", "role"];
   // Number data in one page
   const dataPerPage = 10;
 

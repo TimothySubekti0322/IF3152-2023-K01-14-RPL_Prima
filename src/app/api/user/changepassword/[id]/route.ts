@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import type { User } from "@prisma/client";
 import { authorized } from "../../../authorized";
+import bcrypt from "bcrypt";
 const prisma = new PrismaClient();
 
 export const PATCH = async (
@@ -13,12 +14,13 @@ export const PATCH = async (
       return new Response(JSON.stringify(auth), { status: auth.status });
     }
     const body: User = await request.json();
+    const encryptedPassword = await bcrypt.hash(body.password, 10);
     const updatedUser = await prisma.user.update({
       where: {
         id: Number(params.id),
       },
       data: {
-        password: body.password,
+        password: encryptedPassword,
       },
     });
 

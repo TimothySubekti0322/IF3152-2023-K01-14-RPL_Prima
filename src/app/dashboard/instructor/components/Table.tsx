@@ -34,7 +34,7 @@ const Table: React.FC<{ column: string[]; data: dataProps[] }> = ({
 
   return (
     <>
-      <div className="w-full md:h-[34rem] h-[38.5rem] mb-10 overflow-x-auto">
+      <div className="w-full md:h-[36rem] h-[38.5rem] mb-10 overflow-x-auto">
         <table className="md:w-full table-auto">
           {/* Table header */}
           <thead>
