@@ -1,4 +1,4 @@
-const formatDate = require("../src/app/dashboard/vehicle/FormatDate") // Update the path as per your file structure
+const { formatDate } = require("../src/app/dashboard/vehicle/FormatDate") // Update the path as per your file structure
 
 describe('formatDate component', () => {
   test('formats date correctly for valid inputs', () => {

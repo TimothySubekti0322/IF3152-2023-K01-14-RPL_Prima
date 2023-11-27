@@ -1,4 +1,4 @@
-const formatDate = (date: Date | null): string => {
+export const formatDate = (date: Date | null): string => {
   if (!date) return "";
 
   const year = date.getFullYear();
@@ -10,4 +10,4 @@ const formatDate = (date: Date | null): string => {
     .padStart(2, "0")}`;
 };
 
-export default formatDate;
+
