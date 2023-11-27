@@ -167,17 +167,19 @@ The RPL Prima web application implements the following use cases:
    ![user](doc/layout/2.5.4.jpg)
 
 9. **Manage Vehicles** PIC: Jodi (18221147)
-10. **Manage Vehicle Status** PIC: Jodi (18221147)
     ![vehicle](doc/layout/2.6.1.jpg)
     ![vehicle](doc/layout/2.6.2.jpg)
     ![vehicle](doc/layout/2.6.3.jpg)
     ![vehicle](doc/layout/2.6.4.jpg)
+    
+10. **Manage Vehicle Status** PIC: Jodi (18221147)
+    Tampilan sama dengan use case "manage vehicle" hanya dengan perbedaan authorization untuk edit bagi owner dan admin.  
 
 ## Additional Screens
 1. **Change Password** PIC: Timothy (18221063)
     ![dashboard](doc/layout/2.7.jpg)
 
-2. *Manage Errors* PIC: Nadira (18221059)
+2. **Manage Errors** PIC: Nadira (18221059)
     ![errors](doc/layout/3.1.jpg)
     ![errors](doc/layout/3.2.jpg)
 
