@@ -31,11 +31,11 @@ describe("Vehicle", () => {
             const response = await fetch(`${url}/api/vehicle`, {
                 method: 'POST',
                 body: JSON.stringify({
-                    plate : "D 1234 ABC",
-                    vehicleType : "SUV",
-                    transmission : "Manual",
-                    distance : 7000,
-                    lastService : "21-11-2023"
+                    plate: "D 1234 ABC",
+                    vehicleType: "SUV",
+                    transmission: "Manual",
+                    distance: 7000,
+                    lastService: "21-11-2023"
                 }),
                 headers: {
                     'Content-Type': 'application/json'
@@ -49,11 +49,11 @@ describe("Vehicle", () => {
             const response = await fetch(`${url}/api/vehicle`, {
                 method: 'POST',
                 body: JSON.stringify({
-                    plate : "D 1234 ABC",
-                    vehicleType : "SUV",
-                    transmission : "Manual",
-                    distance : 7000,
-                    lastService : "21-11-2023"
+                    plate: "D 1234 ABC",
+                    vehicleType: "SUV",
+                    transmission: "Manual",
+                    distance: 7000,
+                    lastService: "21-11-2023"
                 }),
                 headers: {
                     'Content-Type': 'application/json',
@@ -89,12 +89,12 @@ describe("Vehicle", () => {
             expect(response.status).toBe(200);
             expect(responseJSON.data).toEqual({
                 id: idNewVehicle,
-                plate : "D 3488 LPA",
-                vehicleType : "Sport",
-                transmission : "AMT",
-                distance : 9073,
-                lastService : "2022-08-15",
-                status : "available"
+                plate: "D 1234 ABC",
+                vehicleType: "SUV",
+                transmission: "Manual",
+                distance: 7000,
+                lastService: "21-11-2023",
+                status: "available"
             });
         });
     });
@@ -104,11 +104,11 @@ describe("Vehicle", () => {
             const response = await fetch(`${url}/api/vehicle/${idNewVehicle}`, {
                 method: 'PATCH',
                 body: JSON.stringify({
-                    plate : "D 1234 ABD",
-                    vehicleType : "SUV",
-                    transmission : "Manual",
-                    distance : 7000,
-                    lastService : "21-11-2023"
+                    plate: "D 1234 ABD",
+                    vehicleType: "SUV",
+                    transmission: "Manual",
+                    distance: 7000,
+                    lastService: "21-11-2023"
                 }),
                 headers: {
                     'Content-Type': 'application/json'
@@ -123,11 +123,11 @@ describe("Vehicle", () => {
             const response = await fetch(`${url}/api/vehicle/${idNewVehicle}`, {
                 method: 'PATCH',
                 body: JSON.stringify({
-                    plate : "D 1234 ABD",
-                    vehicleType : "SUV",
-                    transmission : "Manual",
-                    distance : 7000,
-                    lastService : "21-11-2023"
+                    plate: "D 1234 ABD",
+                    vehicleType: "SUV",
+                    transmission: "Manual",
+                    distance: 7000,
+                    lastService: "21-11-2023"
                 }),
                 headers: {
                     'Content-Type': 'application/json',
@@ -166,11 +166,12 @@ describe("Vehicle", () => {
             expect(response.status).toBe(200);
             expect(responseJSON.data).toEqual({
                 id: idNewVehicle,
-                plate : "D 1234 ABD",
-                vehicleType : "SUV",
-                transmission : "Manual",
-                distance : 7000,
-                lastService : "21-11-2023",
+                plate: "D 1234 ABD",
+                vehicleType: "SUV",
+                transmission: "Manual",
+                distance: 7000,
+                lastService: "21-11-2023",
+                status: "available"
             });
 
         });

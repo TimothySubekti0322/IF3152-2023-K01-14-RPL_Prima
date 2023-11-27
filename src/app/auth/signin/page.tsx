@@ -50,6 +50,7 @@ const Signin = () => {
     setLoadingSubmit(true);
     try {
       const res = await axios.post("/api/auth/", form);
+      console.log(res.data);
       if (res.data.status === 200) {
         console.log(res.data);
         const cookies = new Cookies();
