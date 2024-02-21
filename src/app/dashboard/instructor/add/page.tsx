@@ -143,7 +143,7 @@ export default function AddClass() {
         <form onSubmit={handleSubmit}>
           <section className="bg-white mt-4 md:mt-8 rounded-md p-6 md:p-10">
             <div className="w-full flex flex-col gap-y-8">
-              {/* {Instructor name} */}
+              {/* Instructor name */}
               <TextInput
                 title="Instructor Name"
                 inputID="name"
