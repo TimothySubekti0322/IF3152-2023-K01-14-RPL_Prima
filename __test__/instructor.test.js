@@ -167,7 +167,6 @@ describe("Instructor", () => {
                 address: "tubagus ismail 2",
                 phone: "087236152412"
             });
-
         });
     });
 })
